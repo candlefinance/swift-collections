@@ -10,13 +10,13 @@
 //===----------------------------------------------------------------------===//
 
 extension SortedSet {
-  @inlinable
+  
   public subscript(position: Index) -> Element {
     position._index.ensureValid(forTree: self._root)
     return self._root[position._index].key
   }
 
-  @inlinable
+  
   public subscript(bounds: Range<Index>) -> SubSequence {
     bounds.lowerBound._index.ensureValid(forTree: self._root)
     bounds.upperBound._index.ensureValid(forTree: self._root)
@@ -35,7 +35,7 @@ extension SortedSet {
   ///     students["A"..<"B"]  // Sequence of students with names beginning with "A"
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   public subscript(range: Range<Element>) -> SubSequence {
     let start = _root.startIndex(forKey: range.lowerBound)
     let end = _root.startIndex(forKey: range.upperBound)

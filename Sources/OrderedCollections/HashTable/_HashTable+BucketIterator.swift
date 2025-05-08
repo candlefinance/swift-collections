@@ -26,16 +26,16 @@ extension _HashTable {
   ///     ownership of its underlying storage buffer. You must not escape
   ///     iterator values outside the closure call that produced the original
   ///     hash table.
-  @usableFromInline
+  
   internal struct BucketIterator {
-    @usableFromInline
+    
     internal typealias Bucket = _HashTable.Bucket
 
     /// The hash table we are iterating over.
     internal let _hashTable: _UnsafeHashTable
 
     /// The current position within the hash table.
-    @usableFromInline
+    
     internal var _currentBucket: Bucket
 
     /// The raw bucket value corresponding to `_currentBucket`.
@@ -51,7 +51,7 @@ extension _HashTable {
 
     /// Create a new iterator starting at the specified bucket.
     @_effects(releasenone)
-    @usableFromInline
+    
     internal init(hashTable: _UnsafeHashTable, startingAt bucket: Bucket) {
       assert(hashTable.scale >= _HashTable.minimumScale)
       assert(bucket.offset >= 0 && bucket.offset < hashTable.bucketCount)
@@ -64,17 +64,17 @@ extension _HashTable {
 }
 
 extension _HashTable.UnsafeHandle {
-  @usableFromInline
+  
   internal typealias BucketIterator = _HashTable.BucketIterator
 
   @_effects(releasenone)
-  @inlinable
+  
   @inline(__always)
   internal func idealBucket(forHashValue hashValue: Int) -> Bucket {
     return Bucket(offset: hashValue & (bucketCount - 1))
   }
 
-  @inlinable
+  
   @inline(__always)
   internal func idealBucket<Element: Hashable>(for element: Element) -> Bucket {
     let hashValue = element._rawHashValue(seed: seed)
@@ -83,7 +83,7 @@ extension _HashTable.UnsafeHandle {
 
   /// Return a bucket iterator for the chain starting at the bucket corresponding
   /// to the specified value.
-  @inlinable
+  
   @inline(__always)
   internal func bucketIterator<Element: Hashable>(for element: Element) -> BucketIterator {
     let bucket = idealBucket(for: element)
@@ -91,13 +91,13 @@ extension _HashTable.UnsafeHandle {
   }
 
   /// Return a bucket iterator for the chain starting at the specified bucket.
-  @inlinable
+  
   @inline(__always)
   internal func bucketIterator(startingAt bucket: Bucket) -> BucketIterator {
     BucketIterator(hashTable: self, startingAt: bucket)
   }
 
-  @usableFromInline
+  
   @_effects(releasenone)
   internal func startFind(
     _ startBucket: Bucket
@@ -107,7 +107,7 @@ extension _HashTable.UnsafeHandle {
   }
 
   @_effects(readonly)
-  @usableFromInline
+  
   internal func _startIterator(
     bucket: Bucket
   ) -> (currentBits: UInt64, nextBits: UInt64, remainingBitCount: Int) {
@@ -150,11 +150,11 @@ extension _HashTable.BucketIterator {
   internal var _scale: Int { _hashTable.scale }
 
   /// The current position within the hash table.
-  @inlinable
+  
   @inline(__always)
   internal var currentBucket: Bucket { _currentBucket }
 
-  @usableFromInline
+  
   internal var isOccupied: Bool {
     @_effects(readonly)
     @inline(__always)
@@ -167,7 +167,7 @@ extension _HashTable.BucketIterator {
   /// Setting this property overwrites the bucket value.
   ///
   /// A nil value indicates an empty bucket.
-  @usableFromInline
+  
   internal var currentValue: Int? {
     @inline(__always)
     @_effects(readonly)
@@ -201,7 +201,7 @@ extension _HashTable.BucketIterator {
   ///
   /// To catch mistakes (and corrupt tables), `advance` traps the second
   /// time it needs to wrap around to the beginning of the table.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func advance() {
     // Advance to next bucket, checking for wraparound condition.
@@ -236,7 +236,7 @@ extension _HashTable.BucketIterator {
     _remainingBitCount = c - (_scale - _remainingBitCount)
   }
 
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func findNext() -> Int? {
     advance()
@@ -245,7 +245,7 @@ extension _HashTable.BucketIterator {
 
   /// Advance this iterator until it points to an occupied bucket with the
   /// specified value, or an unoccupied bucket -- whichever comes first.
-  @inlinable
+  
   @_effects(releasenone)
   internal mutating func advance(until expected: Int) {
     while isOccupied && currentValue != expected {
@@ -255,7 +255,7 @@ extension _HashTable.BucketIterator {
 
   /// Advance this iterator until it points to an unoccupied bucket.
   /// Useful when inserting an element that we know isn't already in the table.
-  @inlinable
+  
   @_effects(releasenone)
   internal mutating func advanceToNextUnoccupiedBucket() {
     while isOccupied {

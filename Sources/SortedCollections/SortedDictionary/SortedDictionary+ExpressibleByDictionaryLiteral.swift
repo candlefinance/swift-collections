@@ -26,7 +26,7 @@ extension SortedDictionary: ExpressibleByDictionaryLiteral {
   ///    dictionary.
   ///
   /// - Complexity: O(`n log n`)
-  @inlinable
+  
   public init(dictionaryLiteral elements: (Key, Value)...) {
     self.init(keysWithValues: elements)
   }

@@ -24,7 +24,7 @@ extension OrderedDictionary: ExpressibleByDictionaryLiteral {
   ///
   /// - Complexity: O(`elements.count`) if `Key` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public init(dictionaryLiteral elements: (Key, Value)...) {
     self.init(uniqueKeysWithValues: elements)
   }

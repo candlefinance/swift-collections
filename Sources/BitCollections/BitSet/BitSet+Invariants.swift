@@ -35,7 +35,7 @@ extension BitSet {
                  "Extraneous tail slot")
   }
 #else
-  @inline(__always) @inlinable
+  @inline(__always) 
   public func _checkInvariants() {}
 #endif // COLLECTIONS_INTERNAL_CHECKS
 }

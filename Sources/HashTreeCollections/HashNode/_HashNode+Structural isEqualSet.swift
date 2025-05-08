@@ -11,7 +11,7 @@
 
 // TODO: `Equatable` needs more test coverage, apart from hash-collision smoke test
 extension _HashNode {
-  @inlinable
+  
   internal func isEqualSet<Value2>(
     to other: _HashNode<Key, Value2>,
     by areEquivalent: (Value, Value2) -> Bool

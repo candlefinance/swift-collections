@@ -14,15 +14,15 @@ import InternalCollectionsUtilities
 #endif
 
 @frozen
-@usableFromInline
+
 internal struct _UnsafeWrappedBuffer<Element> {
-  @usableFromInline
+  
   internal let first: UnsafeBufferPointer<Element>
 
-  @usableFromInline
+  
   internal let second: UnsafeBufferPointer<Element>?
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     _ first: UnsafeBufferPointer<Element>,
@@ -33,7 +33,7 @@ internal struct _UnsafeWrappedBuffer<Element> {
     assert(first.count > 0 || second == nil)
   }
 
-  @inlinable
+  
   internal init(
     start: UnsafePointer<Element>,
     count: Int
@@ -41,7 +41,7 @@ internal struct _UnsafeWrappedBuffer<Element> {
     self.init(UnsafeBufferPointer(start: start, count: count))
   }
 
-  @inlinable
+  
   internal init(
     first start1: UnsafePointer<Element>,
     count count1: Int,
@@ -52,20 +52,20 @@ internal struct _UnsafeWrappedBuffer<Element> {
               UnsafeBufferPointer(start: start2, count: count2))
   }
 
-  @inlinable
+  
   internal var count: Int { first.count + (second?.count ?? 0) }
 }
 
 @frozen
-@usableFromInline
+
 internal struct _UnsafeMutableWrappedBuffer<Element> {
-  @usableFromInline
+  
   internal let first: UnsafeMutableBufferPointer<Element>
 
-  @usableFromInline
+  
   internal let second: UnsafeMutableBufferPointer<Element>?
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     _ first: UnsafeMutableBufferPointer<Element>,
@@ -76,7 +76,7 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
     assert(first.count > 0 || second == nil)
   }
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     _ first: UnsafeMutableBufferPointer<Element>.SubSequence,
@@ -85,7 +85,7 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
     self.init(UnsafeMutableBufferPointer(rebasing: first), second)
   }
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     _ first: UnsafeMutableBufferPointer<Element>,
@@ -94,7 +94,7 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
     self.init(first, UnsafeMutableBufferPointer(rebasing: second))
   }
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     start: UnsafeMutablePointer<Element>,
@@ -103,7 +103,7 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
     self.init(UnsafeMutableBufferPointer(start: start, count: count))
   }
 
-  @inlinable
+  
   @inline(__always)
   internal init(
     first start1: UnsafeMutablePointer<Element>,
@@ -115,7 +115,7 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
               UnsafeMutableBufferPointer(start: start2, count: count2))
   }
 
-  @inlinable
+  
   @inline(__always)
   internal init(mutating buffer: _UnsafeWrappedBuffer<Element>) {
     self.init(.init(mutating: buffer.first),
@@ -124,11 +124,11 @@ internal struct _UnsafeMutableWrappedBuffer<Element> {
 }
 
 extension _UnsafeMutableWrappedBuffer {
-  @inlinable
+  
   @inline(__always)
   internal var count: Int { first.count + (second?.count ?? 0) }
 
-  @inlinable
+  
   internal func prefix(_ n: Int) -> Self {
     assert(n >= 0)
     if n >= self.count {
@@ -140,7 +140,7 @@ extension _UnsafeMutableWrappedBuffer {
     return Self(first, second!.prefix(n - first.count))
   }
 
-  @inlinable
+  
   internal func suffix(_ n: Int) -> Self {
     assert(n >= 0)
     if n >= self.count {
@@ -157,13 +157,13 @@ extension _UnsafeMutableWrappedBuffer {
 }
 
 extension _UnsafeMutableWrappedBuffer {
-  @inlinable
+  
   internal func deinitialize() {
     first.deinitialize()
     second?.deinitialize()
   }
 
-  @inlinable
+  
   @discardableResult
   internal func initialize<I: IteratorProtocol>(
     fromPrefixOf iterator: inout I
@@ -186,7 +186,7 @@ extension _UnsafeMutableWrappedBuffer {
     return wrapped ? first.count + copied : copied
   }
 
-  @inlinable
+  
   internal func initialize<S: Sequence>(
     fromSequencePrefix elements: __owned S
   ) -> (iterator: S.Iterator, count: Int)
@@ -214,7 +214,7 @@ extension _UnsafeMutableWrappedBuffer {
     return (it, copied)
   }
 
-  @inlinable
+  
   internal func initialize<C: Collection>(
     from elements: __owned C
   ) where C.Element == Element {
@@ -228,7 +228,7 @@ extension _UnsafeMutableWrappedBuffer {
     }
   }
 
-  @inlinable
+  
   internal func assign<C: Collection>(
     from elements: C
   ) where C.Element == Element {

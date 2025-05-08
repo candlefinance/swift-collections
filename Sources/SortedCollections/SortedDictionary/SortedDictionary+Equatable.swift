@@ -19,7 +19,7 @@ extension SortedDictionary: Equatable where Value: Equatable {
   ///   - lhs: A value to compare.
   ///   - rhs: Another value to compare.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public static func ==(lhs: SortedDictionary<Key, Value>, rhs: SortedDictionary<Key, Value>) -> Bool {
     // TODO: optimize/benchmarking by comparing node identity/shared subtrees.
     if lhs.count != rhs.count { return false }

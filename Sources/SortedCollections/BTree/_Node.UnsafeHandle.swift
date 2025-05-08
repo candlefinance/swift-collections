@@ -36,21 +36,21 @@ extension _Node {
   /// Additionally, when performing operations on values, a value buffer may not always be allocated.
   /// Check ``_Node.hasValues`` before performing such operations. Note that element-wise
   /// operations of the handle already perform such value checks and this step is not necessary.
-  @usableFromInline
+  
   internal struct UnsafeHandle {
-    @usableFromInline
+    
     internal let header: UnsafeMutablePointer<Header>
     
-    @usableFromInline
+    
     internal let keys: UnsafeMutablePointer<Key>
     
-    @usableFromInline
+    
     internal let values: UnsafeMutablePointer<Value>?
     
-    @usableFromInline
+    
     internal let children: UnsafeMutablePointer<_Node<Key, Value>>?
     
-    @inlinable
+    
     @inline(__always)
     internal init(
       keys: UnsafeMutablePointer<Key>,
@@ -71,11 +71,11 @@ extension _Node {
     
     // MARK: Mutablility Checks
     #if COLLECTIONS_INTERNAL_CHECKS
-    @usableFromInline
+    
     internal let _isMutable: Bool
     #endif
     
-    @inlinable
+    
     @inline(__always)
     internal var isMutable: Bool {
       #if COLLECTIONS_INTERNAL_CHECKS
@@ -90,7 +90,7 @@ extension _Node {
     /// This helps preventing COW violations.
     ///
     /// Note that this is a noop in release builds.
-    @inlinable
+    
     @inline(__always)
     internal func assertMutable() {
       #if COLLECTIONS_INTERNAL_CHECKS
@@ -102,20 +102,20 @@ extension _Node {
     // MARK: Invariant Checks
     #if COLLECTIONS_INTERNAL_CHECKS
     @inline(never)
-    @usableFromInline
+    
     internal func checkInvariants() {
       assert(depth != 0 || self.isLeaf,
              "Cannot have non-leaf of zero depth.")
     }
     #else
-    @inlinable
+    
     @inline(__always)
     internal func checkInvariants() {}
     #endif // COLLECTIONS_INTERNAL_CHECKS
     
     /// Creates a mutable version of this handle
     /// - Warning: Calling this circumvents the CoW checks. 
-    @inlinable
+    
     @inline(__always)
     internal init(mutating handle: UnsafeHandle) {
       self.init(
@@ -128,12 +128,12 @@ extension _Node {
     }
     
     // MARK: Convenience properties
-    @inlinable
+    
     @inline(__always)
     internal var capacity: Int { header.pointee.capacity }
     
     /// The number of elements immediately stored in the node
-    @inlinable
+    
     @inline(__always)
     internal var elementCount: Int {
       get { header.pointee.count }
@@ -141,7 +141,7 @@ extension _Node {
     }
     
     /// The total number of elements that this node directly or indirectly stores
-    @inlinable
+    
     @inline(__always)
     internal var subtreeCount: Int {
       get { header.pointee.subtreeCount }
@@ -151,7 +151,7 @@ extension _Node {
     }
     
     /// The depth of the node represented as the number of nodes below the current one.
-    @inlinable
+    
     @inline(__always)
     internal var depth: Int {
       get { header.pointee.depth }
@@ -162,7 +162,7 @@ extension _Node {
     
     /// The number of children this node directly contains
     /// - Warning: Do not access on a leaf, else will panic.
-    @inlinable
+    
     @inline(__always)
     internal var childCount: Int {
       assert(!isLeaf, "Cannot access the child count on a leaf.")
@@ -173,29 +173,29 @@ extension _Node {
     ///
     /// This is equivalent to whether or not the node contains any keys. For leaf nodes,
     /// calling certain operations which depend on children may trap.
-    @inlinable
+    
     @inline(__always)
     internal var isLeaf: Bool { children == nil }
     
     /// A lower bound on the amount of keys we would want a node to contain.
     ///
     /// Defined as `ceil(capacity/2) - 1`.
-    @inlinable
+    
     @inline(__always)
     internal var minimumElementCount: Int { capacity / 2 }
     
     /// Whether an element can be removed without triggering a rebalance.
-    @inlinable
+    
     @inline(__always)
     internal var isShrinkable: Bool { elementCount > minimumElementCount }
     
     /// Whether the node contains at least the minimum number of keys.
-    @inlinable
+    
     @inline(__always)
     internal var isBalanced: Bool { elementCount >= minimumElementCount }
     
     /// Whether the immediate node does not have space for an additional element
-    @inlinable
+    
     @inline(__always)
     internal var isFull: Bool { elementCount == capacity }
     
@@ -203,7 +203,7 @@ extension _Node {
     /// Checks uniqueness of a child.
     ///
     /// - Warning: Will trap if executed on leaf nodes
-    @inlinable
+    
     @inline(__always)
     internal func isChildUnique(atSlot slot: Int) -> Bool {
       assert(!self.isLeaf, "Cannot access children on leaf.")
@@ -216,7 +216,7 @@ extension _Node {
     ///
     /// It is critical to ensure that there are absolutely no children or element references
     /// still owned by this node, or else it may result in a serious memory leak.
-    @inlinable
+    
     @inline(__always)
     internal func drop() {
       assertMutable()
@@ -229,7 +229,7 @@ extension _Node {
 
 // MARK: Subscript
 extension _Node.UnsafeHandle {
-  @inlinable
+  
   @inline(__always)
   internal subscript(elementAt slot: Int) -> _Node.Element {
     get {
@@ -244,7 +244,7 @@ extension _Node.UnsafeHandle {
   }
   
   
-  @inlinable
+  
   @inline(__always)
   internal func pointerToKey(
     atSlot slot: Int
@@ -254,7 +254,7 @@ extension _Node.UnsafeHandle {
     return self.keys.advanced(by: slot)
   }
   
-  @inlinable
+  
   @inline(__always)
   internal subscript(keyAt slot: Int) -> Key {
     get {
@@ -265,7 +265,7 @@ extension _Node.UnsafeHandle {
   }
   
   
-  @inlinable
+  
   @inline(__always)
   internal func pointerToValue(
     atSlot slot: Int
@@ -276,7 +276,7 @@ extension _Node.UnsafeHandle {
     return values.unsafelyUnwrapped.advanced(by: slot)
   }
   
-  @inlinable
+  
   @inline(__always)
   internal subscript(valueAt slot: Int) -> Value {
     get {
@@ -297,7 +297,7 @@ extension _Node.UnsafeHandle {
     }
   }
   
-  @inlinable
+  
   @inline(__always)
   internal func pointerToChild(
     atSlot slot: Int
@@ -310,7 +310,7 @@ extension _Node.UnsafeHandle {
   
   /// Returns the child at a given slot as a Node object
   /// - Warning: During mutations, re-accessing the same child slot is invalid.
-  @inlinable
+  
   @inline(__always)
   internal subscript(childAt slot: Int) -> _Node {
     get {
@@ -341,7 +341,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter key: The key to search for within the node.
   /// - Returns: Either the slot if the first instance of the key, otherwise
   ///     the valid insertion point for the key.
-  @inlinable
+  
   internal func startSlot(forKey key: Key) -> Int {
     var start: Int = 0
     var end: Int = self.elementCount
@@ -365,7 +365,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter key: The key to search for within the node.
   /// - Returns: Either the slot after the last instance of the key, otherwise
   ///     the valid insertion point for the key.
-  @inlinable
+  
   internal func endSlot(forKey key: Key) -> Int {
     var start: Int = 0
     var end: Int = self.elementCount
@@ -397,7 +397,7 @@ extension _Node.UnsafeHandle {
   ///   - destinationSlot: The offset of the destination handle to write to.
   ///   - count: The count of values to move
   /// - Warning: This does not adjust the buffer counts.
-  @inlinable
+  
   @inline(__always)
   internal func moveInitializeElements(
     count: Int,
@@ -440,7 +440,7 @@ extension _Node.UnsafeHandle {
   ///   - count: The amount of values to move
   /// - Warning: This does not adjust the buffer counts.
   /// - Warning: This will trap if either the source and destination handles are leaves.
-  @inlinable
+  
   @inline(__always)
   internal func moveInitializeChildren(
     count: Int,
@@ -479,7 +479,7 @@ extension _Node.UnsafeHandle {
   ///   - rightChild: The right child of the newly initialized element. Should be `nil` iff
   ///       node is a leaf.
   /// - Warning: This does not adjust the buffer counts.
-  @inlinable
+  
   @inline(__always)
   internal func initializeElement(
     atSlot slot: Int,
@@ -512,7 +512,7 @@ extension _Node.UnsafeHandle {
   ///   - leftChild: The left child of the newly initialized element. Should be `nil` iff
   ///       node is a leaf.
   /// - Warning: This does not adjust the buffer counts.
-  @inlinable
+  
   @inline(__always)
   internal func initializeElement(
     atSlot slot: Int,
@@ -540,7 +540,7 @@ extension _Node.UnsafeHandle {
   ///   - element: The element to insert which the node will take ownership of.
   ///   - slot: An uninitialized slot in the buffer to insert the element into.
   /// - Warning: This does not adjust the buffer counts.
-  @inlinable
+  
   @inline(__always)
   internal func initializeElement(atSlot slot: Int, to element: _Node.Element) {
     assertMutable()
@@ -564,7 +564,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter slot: The in-bounds slot of an element to move out
   /// - Returns: A tuple of the key and value.
   /// - Warning: This does not adjust buffer counts
-  @inlinable
+  
   @inline(__always)
   internal func moveElement(atSlot slot: Int) -> _Node.Element {
     assertMutable()
@@ -587,7 +587,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter slot: The in-bounds slot of an chile to move out
   /// - Returns: The child node object.
   /// - Warning: This does not adjust buffer counts
-  @inlinable
+  
   @inline(__always)
   internal func moveChild(atSlot slot: Int) -> _Node {
     assertMutable()
@@ -599,7 +599,7 @@ extension _Node.UnsafeHandle {
   }
   
   /// Appends a new element.
-  @inlinable
+  
   @inline(__always)
   internal func appendElement(_ element: _Node.Element) {
     assertMutable()
@@ -615,7 +615,7 @@ extension _Node.UnsafeHandle {
   
   
   /// Appends a new element with a provided right child.
-  @inlinable
+  
   @inline(__always)
   internal func appendElement(
     _ element: _Node.Element,
@@ -641,7 +641,7 @@ extension _Node.UnsafeHandle {
   ///   - slot: The initialized slot at which to swap the element
   ///   - newElement: The new element to insert
   /// - Returns: The old element from the slot.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal func exchangeElement(
@@ -662,7 +662,7 @@ extension _Node.UnsafeHandle {
   ///   - slot: The initialized slot at which to swap the child
   ///   - newElement: The new child to insert
   /// - Returns: The old child from the slot.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal func exchangeChild(
@@ -694,7 +694,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter slot: The slot to remove which must be in-bounds.
   /// - Returns: The child that was removed.
   /// - Warning: This performs neither balancing, rotation, or count updates.
-  @inlinable
+  
   @inline(__always)
   internal func removeChild(atSlot slot: Int) -> _Node {
     assertMutable()
@@ -725,7 +725,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter slot: The slot to remove which must be in-bounds.
   /// - Returns: The element that was removed.
   /// - Warning: This does not perform any balancing or rotation.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal func removeElement(atSlot slot: Int) -> _Node.Element {
@@ -760,7 +760,7 @@ extension _Node.UnsafeHandle {
   /// - Parameter slot: The slot to remove which must be in-bounds.
   /// - Returns: The element that was removed.
   /// - Warning: This does not perform any balancing or rotation.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal func removeElementWithoutValue(atSlot slot: Int) -> Key {

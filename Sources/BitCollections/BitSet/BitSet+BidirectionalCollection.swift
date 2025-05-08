@@ -17,7 +17,7 @@ extension BitSet: Sequence {
   /// Returns the exact count of the bit set.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var underestimatedCount: Int {
     return count
@@ -26,7 +26,7 @@ extension BitSet: Sequence {
   /// Returns an iterator over the elements of the bit set.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public func makeIterator() -> Iterator {
     return Iterator(self)
   }
@@ -46,7 +46,7 @@ extension BitSet: Sequence {
     internal var index: Int
     internal var word: _Word
 
-    @usableFromInline
+    
     internal init(_ bitset: BitSet) {
       self.bitset = bitset
       self.index = 0

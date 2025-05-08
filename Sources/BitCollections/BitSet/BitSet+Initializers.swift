@@ -30,7 +30,7 @@ extension BitSet {
     self.init(_rawStorage: [])
   }
 
-  @usableFromInline
+  
   init(_words: [_Word]) {
     self._storage = _words
     _shrink()
@@ -49,7 +49,7 @@ extension BitSet {
   ///     // bits is [0, 2, UInt.bitWidth + 1]
   ///
   /// - Complexity: O(`words.count`)
-  @inlinable
+  
   public init(words: some Sequence<UInt>) {
     self.init(_words: words.map { _Word($0) })
   }
@@ -64,7 +64,7 @@ extension BitSet {
   ///     // bits is [1, 3, 5]
   ///
   /// - Complexity: O(`x.bitWidth`)
-  @inlinable
+  
   public init(bitPattern x: some BinaryInteger) {
     self.init(words: x.words)
   }
@@ -87,7 +87,7 @@ extension BitSet {
   ///   - elements: The sequence of elements to turn into a bit set.
   ///
   /// - Complexity: O(*n*), where *n* is the number of elements in the sequence.
-  @inlinable
+  
   public init(
     _ elements: __owned some Sequence<Int>
   ) {
@@ -114,7 +114,7 @@ extension BitSet {
   ///   - elements: The sequence of elements to turn into a bit set.
   ///
   /// - Complexity: O(*n*), where *n* is the number of elements in the sequence.
-  @inlinable
+  
   internal init(
     _validMembersOf elements: __owned some Sequence<Int>
   ) {
@@ -154,7 +154,7 @@ extension BitSet {
     self.init(_range: range)
   }
 
-  @usableFromInline
+  
   internal init(_range range: Range<UInt>) {
     _storage = []
     let lower = _UnsafeHandle.Index(range.lowerBound)

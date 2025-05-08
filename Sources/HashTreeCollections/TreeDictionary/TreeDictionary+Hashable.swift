@@ -14,7 +14,7 @@ extension TreeDictionary: Hashable where Value: Hashable {
   /// given hasher.
   ///
   /// Complexity: O(`count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     var commutativeHash = 0
     for (key, value) in self {

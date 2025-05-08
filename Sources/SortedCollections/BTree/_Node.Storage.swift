@@ -10,9 +10,9 @@
 //===----------------------------------------------------------------------===//
 
 extension _Node {
-  @usableFromInline
+  
   internal struct Header {
-    @inlinable
+    
     internal init(
       capacity: Int,
       count: Int,
@@ -41,11 +41,11 @@ extension _Node {
     ///       ^^^^^^^       ^^
     ///       count         depth
     ///
-    @usableFromInline
+    
     internal var _internalCounts: UInt64
     
     /// Refers to the amount of keys in the node.
-    @inlinable
+    
     @inline(__always)
     internal var count: Int {
       get { Int((_internalCounts & 0xFFFFFFF000000000) >> 40) }
@@ -58,7 +58,7 @@ extension _Node {
     }
     
     /// The total amount of keys possible to store within the node.
-    @inlinable
+    
     @inline(__always)
     internal var capacity: Int {
       get { Int((_internalCounts & 0x0000000FFFFFFF00) >> 8) }
@@ -71,7 +71,7 @@ extension _Node {
     }
     
     /// The depth of the node represented as the number of nodes below the current one.
-    @inlinable
+    
     @inline(__always)
     internal var depth: Int {
       get { Int(_internalCounts & 0x00000000000000FF) }
@@ -83,15 +83,15 @@ extension _Node {
     }
     
     /// The total amount of elements contained underneath this node
-    @usableFromInline
+    
     internal var subtreeCount: Int
     
     /// Pointer to the buffer containing the corresponding values.
-    @usableFromInline
+    
     internal var values: UnsafeMutablePointer<Value>?
     
     /// Pointer to the buffer containing the elements.
-    @usableFromInline
+    
     internal var children: UnsafeMutablePointer<_Node<Key, Value>>?
   }
   
@@ -112,13 +112,13 @@ extension _Node {
   /// whether a value buffer exists for a given set of generic parameters. Additionally, when a value buffer
   /// does not exist, ``_Node.dummyValue`` can be used to obtain a valid value within the type system
   /// that can be passed to APIs.
-  @usableFromInline
+  
   internal class Storage: ManagedBuffer<_Node.Header, Key> {    
     /// Allows **read-only** access to the underlying data behind the node.
     ///
     /// - Parameter body: A closure with a handle which allows interacting with the node
     /// - Returns: The value the closure body returns, if any.
-    @inlinable
+    
     @inline(__always)
     internal func read<R>(_ body: (UnsafeHandle) throws -> R) rethrows -> R {
       return try self.withUnsafeMutablePointers { header, keys in
@@ -144,7 +144,7 @@ extension _Node {
     /// - Parameter body: A closure with a handle which allows interacting with the node
     /// - Returns: The value the closure body returns, if any.
     /// - Warning: The underlying storage **must** be unique.
-    @inlinable
+    
     @inline(__always)
     internal func updateGuaranteedUnique<R>(
       _ body: (UnsafeHandle) throws -> R
@@ -156,7 +156,7 @@ extension _Node {
     ///
     /// It is generally recommend to use the ``_Node.init(withCapacity:, isLeaf:)``
     /// initializer instead to create a new node.
-    @inlinable
+    
     @inline(__always)
     internal static func create(
       withCapacity capacity: Int,
@@ -182,7 +182,7 @@ extension _Node {
     /// Copies an existing storage to a new storage.
     ///
     /// It is generally recommended to use the ``_Node.init(copyingFrom:)`` initializer.
-    @inlinable
+    
     @inline(__always)
     internal func copy() -> Storage {
       let capacity = self.header.capacity
@@ -220,7 +220,7 @@ extension _Node {
       return newStorage
     }
     
-    @inlinable
+    
     deinit {
       self.withUnsafeMutablePointers { header, elements in
         let count = header.pointee.count

@@ -85,7 +85,7 @@ extension BitSet {
   ///
   /// - Complexity: O(*max*) + *k*, where *max* is the largest item in `self`,
   ///     and *k* is the complexity of iterating over all elements in `other`.
-  @inlinable
+  
   public mutating func formIntersection(
     _ other: __owned some Sequence<Int>
   ) {

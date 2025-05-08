@@ -29,7 +29,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public func symmetricDifference(_ other: __owned Self) -> Self {
     let branch = _root.symmetricDifference(.top, other._root)
     guard let branch = branch else { return self }
@@ -53,7 +53,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public func symmetricDifference<Value>(
     _ other: __owned TreeDictionary<Element, Value>.Keys
   ) -> Self {
@@ -83,7 +83,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public func symmetricDifference(
     _ other: __owned some Sequence<Element>
   ) -> Self {

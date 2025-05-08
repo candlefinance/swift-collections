@@ -24,7 +24,7 @@ extension TreeSet: SetAlgebra {
   /// - Complexity: This operation is expected to perform O(1) hashing and
   ///    comparison operations on average, provided that `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public func contains(_ item: Element) -> Bool {
     _root.containsKey(.top, item, _Hash(item))
   }
@@ -47,7 +47,7 @@ extension TreeSet: SetAlgebra {
   ///    operations on the `Element` type, as long as `Element` properly
   ///    implements hashing.
   @discardableResult
-  @inlinable
+  
   public mutating func insert(
     _ newMember: __owned Element
   ) -> (inserted: Bool, memberAfterInsert: Element) {
@@ -64,7 +64,7 @@ extension TreeSet: SetAlgebra {
   }
 
   @discardableResult
-  @inlinable
+  
   internal mutating func _insert(_ newMember: __owned Element) -> Bool {
     let hash = _Hash(newMember)
     let r = _root.insert(.top, (newMember, ()), hash)
@@ -88,7 +88,7 @@ extension TreeSet: SetAlgebra {
   ///    operations on the `Element` type, as long as `Element` properly
   ///    implements hashing.
   @discardableResult
-  @inlinable
+  
   public mutating func remove(_ member: Element) -> Element? {
     let hash = _Hash(member)
     guard let r = _root.remove(.top, member, hash) else { return nil }
@@ -116,7 +116,7 @@ extension TreeSet: SetAlgebra {
   ///    operations on the `Element` type, as long as `Element` properly
   ///    implements hashing.
   @discardableResult
-  @inlinable
+  
   public mutating func update(with newMember: __owned Element) -> Element? {
     defer { _fixLifetime(self) }
     let hash = _Hash(newMember)

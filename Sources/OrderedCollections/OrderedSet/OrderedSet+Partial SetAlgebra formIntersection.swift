@@ -34,7 +34,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count`) on average, if `Element`
   ///    implements high-quality hashing.
-  @inlinable
+  
   public mutating func formIntersection(_ other: Self) {
     self = self.intersection(other)
   }
@@ -56,7 +56,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count`) on average, if `Element`
   ///    implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public mutating func formIntersection(_ other: UnorderedView) {
     formIntersection(other._base)
@@ -76,7 +76,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(*n*) on average where *n* is the number of
   ///    elements in `other`, if `Element` implements high-quality hashing.
-  @inlinable
+  
   public mutating func formIntersection(
     _ other: some Sequence<Element>
   ) {

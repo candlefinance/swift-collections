@@ -16,11 +16,11 @@
 /// - Warning: Indexing operations on a BTree are unchecked. ``_BTree.Index``
 ///   offers `ensureValid(for:)` methods to validate indices for use in higher-level
 ///   collections.
-@usableFromInline
+
 internal struct _BTree<Key: Comparable, Value> {
   
   /// Recommended node size of a given B-Tree
-  @inlinable
+  
   @inline(__always)
   internal static var defaultInternalCapacity: Int {
     #if DEBUG
@@ -32,7 +32,7 @@ internal struct _BTree<Key: Comparable, Value> {
   }
   
   /// Recommended node size of a given B-Tree
-  @inlinable
+  
   @inline(__always)
   internal static var defaultLeafCapacity: Int {
     #if DEBUG
@@ -44,35 +44,35 @@ internal struct _BTree<Key: Comparable, Value> {
   }
   
   /// The element type of the collection.
-  @usableFromInline
+  
   internal typealias Element = (key: Key, value: Value)
   
   /// The type of each node in the tree
-  @usableFromInline
+  
   internal typealias Node = _Node<Key, Value>
   
   /// A size large enough to represent any slot within a node
-  @usableFromInline
+  
   internal typealias Slot = UInt16
   
   /// The underlying node behind this local BTree
-  @usableFromInline
+  
   internal var root: Node
   
   /// The capacity of each of the internal nodes
-  @usableFromInline
+  
   internal var internalCapacity: Int
   
   /// A metric to uniquely identify a given B-Tree's state. It is not
   /// impossible for two B-Trees to have the same age by pure
   /// coincidence.
-  @usableFromInline
+  
   internal var version: Int
   
   /// Creates a dummy B-Tree with no underlying node storage class.
   ///
   /// It is invalid and a serious error to ever attempt to read or write to such a B-Tree.
-  @inlinable
+  
   @inline(__always)
   internal static var dummy: _BTree {
     _BTree(
@@ -83,7 +83,7 @@ internal struct _BTree<Key: Comparable, Value> {
   }
   
   /// Creates an empty B-Tree with an automatically determined optimal capacity.
-  @inlinable
+  
   @inline(__always)
   internal init() {
     let root = Node(withCapacity: _BTree.defaultLeafCapacity, isLeaf: true)
@@ -92,7 +92,7 @@ internal struct _BTree<Key: Comparable, Value> {
   
   /// Creates an empty B-Tree rooted at a specific node with a specified uniform capacity
   /// - Parameter capacity: The key capacity of all nodes.
-  @inlinable
+  
   @inline(__always)
   internal init(capacity: Int) {
     self.init(
@@ -106,7 +106,7 @@ internal struct _BTree<Key: Comparable, Value> {
   ///   - leafCapacity: The capacity of the leaf nodes. This is the initial buffer used to allocate.
   ///   - internalCapacity: The capacity of the internal nodes. Generally preferred to be less than
   ///       `leafCapacity`.
-  @inlinable
+  
   @inline(__always)
   internal init(leafCapacity: Int, internalCapacity: Int) {
     self.init(
@@ -119,7 +119,7 @@ internal struct _BTree<Key: Comparable, Value> {
   /// - Parameters:
   ///   - root: The root node.
   ///   - internalCapacity: The key capacity of new internal nodes.
-  @inlinable
+  
   @inline(__always)
   internal init(rootedAt root: Node, internalCapacity: Int) {
     self.root = root
@@ -127,7 +127,7 @@ internal struct _BTree<Key: Comparable, Value> {
     self.version = ObjectIdentifier(root.storage).hashValue
   }
   
-  @inlinable
+  
   @inline(__always)
   internal init(
     _rootedAtNode root: Node,
@@ -144,7 +144,7 @@ internal struct _BTree<Key: Comparable, Value> {
 extension _BTree {
   /// Invalidates the issued indices of the dictionary. Ensure this is
   /// called for operations which mutate the SortedDictionary.
-  @inlinable
+  
   @inline(__always)
   internal mutating func invalidateIndices() {
     self.version &+= 1
@@ -162,7 +162,7 @@ extension _BTree {
   ///   - updatingKey: If the key is found, whether it should be updated.
   /// - Returns: If updated, the previous element.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   @discardableResult
   internal mutating func updateAnyValue(
     _ value: Value,
@@ -189,7 +189,7 @@ extension _BTree {
   
   /// Verifies if the tree is balanced post-removal
   /// - Warning: This does not invalidate indices.
-  @inlinable
+  
   @inline(__always)
   internal mutating func _balanceRoot() {
     if self.root.read({ $0.elementCount == 0 && !$0.isLeaf }) {
@@ -212,7 +212,7 @@ extension _BTree {
   ///
   /// - Parameter key: The key to remove in the tree
   /// - Returns: The key-value pair which was removed. `nil` if not removed.
-  @inlinable
+  
   @discardableResult
   internal mutating func removeAnyElement(forKey key: Key) -> Element? {
     invalidateIndices()
@@ -237,7 +237,7 @@ extension _BTree {
   ///
   /// - Parameter offset: the offset which must be in-bounds.
   /// - Returns: The moved element of the tree
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal mutating func remove(atOffset offset: Int) -> Element {
@@ -257,7 +257,7 @@ extension _BTree {
   ///
   /// - Parameter key: The key to search for.
   /// - Returns: Whether or not the key was found.
-  @inlinable
+  
   internal func contains(key: Key) -> Bool {
     // the retain/release calls
     // Retain
@@ -296,7 +296,7 @@ extension _BTree {
   /// - Parameter key: The key to search for
   /// - Returns: `nil` if the key was not found. Otherwise, the previous value.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   internal func findAnyValue(forKey key: Key) -> Value? {
     var node: Unmanaged<Node.Storage>? = .passUnretained(self.root.storage)
     
@@ -331,7 +331,7 @@ extension _BTree {
   ///
   /// - Parameter key: The key to search for within the tree.
   /// - Returns: If found, returns a path to the element. Otherwise, `nil`.
-  @inlinable
+  
   internal func findAnyIndex(forKey key: Key) -> Index? {
     var childSlots = Index.Offsets(repeating: 0)
     var node: Unmanaged? = .passUnretained(self.root.storage)
@@ -378,7 +378,7 @@ extension _BTree {
   ///
   /// - Parameter offset: The absolute offset that must be in-bounds or the last position.
   /// - Returns: An unsafe path to the element, or `nil` if corresponds to the last position.
-  @inlinable
+  
   internal func index(atOffset offset: Int) -> Index {
     assert(offset <= self.count, "Index out of bounds.")
 
@@ -448,7 +448,7 @@ extension _BTree {
   
 
   /// Obtains the start index for a key (or where it would exist).
-  @inlinable
+  
   internal func startIndex(forKey key: Key) -> Index {
     var childSlots = Index.Offsets(repeating: 0)
     var targetSlot: Int = 0
@@ -503,7 +503,7 @@ extension _BTree {
   }
   
   /// Obtains the last index at which a value less than or equal to the key appears.
-  @inlinable
+  
   internal func lastIndex(forKey key: Key) -> Index {
     var childSlots = Index.Offsets(repeating: 0)
     var targetSlot: Int = 0
@@ -562,7 +562,7 @@ extension _BTree {
 
 // MARK: Immutable Operations
 extension _BTree {
-  @inlinable
+  
   @inline(__always)
   public func mapValues<T>(
     _ transform: (Value) throws -> T

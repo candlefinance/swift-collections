@@ -23,18 +23,18 @@ import InternalCollectionsUtilities
 /// structure, treating it as a set of nonnegative integers corresponding to
 /// `true` bits.
 public struct BitArray {
-  @usableFromInline
+  
   internal typealias _BitPosition = _UnsafeBitSet.Index
 
-  @usableFromInline
+  
   internal var _storage: [_Word]
 
   /// The number of bits in the bit array. This may less than the number of bits
   /// in `_storage` if the last word isn't fully filled.
-  @usableFromInline
+  
   internal var _count: UInt
 
-  @usableFromInline
+  
   internal init(_storage: [_Word], count: UInt) {
     assert(count <= _storage.count * _Word.capacity)
     assert(count > (_storage.count - 1) * _Word.capacity)

@@ -22,16 +22,16 @@ extension _RawHashNode {
   /// Handles do not own the storage they access -- it is the client's
   /// responsibility to ensure that handles (and any pointer values generated
   /// by them) do not escape the closure call that received them.
-  @usableFromInline
+  
   @frozen
   internal struct UnsafeHandle {
-    @usableFromInline
+    
     internal let _header: UnsafePointer<_HashNodeHeader>
 
-    @usableFromInline
+    
     internal let _memory: UnsafeRawPointer
 
-    @inlinable
+    
     internal init(
       _ header: UnsafePointer<_HashNodeHeader>,
       _ memory: UnsafeRawPointer
@@ -43,7 +43,7 @@ extension _RawHashNode {
 }
 
 extension _RawHashNode.UnsafeHandle {
-  @inlinable @inline(__always)
+   @inline(__always)
   static func read<R>(
     _ node: _UnmanagedHashNode,
     _ body: (Self) throws -> R

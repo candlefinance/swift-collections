@@ -33,7 +33,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable @inline(__always)
+   @inline(__always)
   public func intersection(_ other: Self) -> Self {
     _intersection(other._root)
   }
@@ -57,14 +57,14 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable @inline(__always)
+   @inline(__always)
   public func intersection<Value>(
     _ other: TreeDictionary<Element, Value>.Keys
   ) -> Self {
     _intersection(other._base._root)
   }
 
-  @inlinable
+  
   internal func _intersection<V>(_ other: _HashNode<Element, V>) -> Self {
     guard let r = _root.intersection(.top, other) else { return self }
     return Self(_new: r)
@@ -84,7 +84,7 @@ extension TreeSet {
   ///
   /// - Parameter other: An arbitrary finite sequence of items,
   ///    possibly containing duplicate values.
-  @inlinable
+  
   public func intersection(
     _ other: some Sequence<Element>
   ) -> Self {

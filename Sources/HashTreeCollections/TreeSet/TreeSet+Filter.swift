@@ -20,7 +20,7 @@ extension TreeSet {
   /// - Returns: A set of the values that `isIncluded` allows.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public func filter(
     _ isIncluded: (Element) throws -> Bool
   ) rethrows -> Self {
@@ -45,7 +45,7 @@ extension TreeSet {
   ///   whether the element should be removed from the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(
     where shouldBeRemoved: (Element) throws -> Bool
   ) rethrows {

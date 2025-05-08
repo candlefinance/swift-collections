@@ -23,23 +23,23 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 
-@usableFromInline
+
 internal func _addressString(for pointer: UnsafeRawPointer) -> String {
   let address = UInt(bitPattern: pointer)
   return "0x\(String(address, radix: 16))"
 }
 
-@usableFromInline
+
 internal func _addressString(for object: AnyObject) -> String {
   _addressString(for: Unmanaged.passUnretained(object).toOpaque())
 }
 
-@usableFromInline
+
 internal func _addressString<T: AnyObject>(for object: Unmanaged<T>) -> String {
   _addressString(for: object.toOpaque())
 }
 
-@inlinable
+
 internal func _arrayDescription<C: Collection>(
   for elements: C
 ) -> String {
@@ -57,7 +57,7 @@ internal func _arrayDescription<C: Collection>(
   return result
 }
 
-@inlinable
+
 internal func _dictionaryDescription<Key, Value, C: Collection>(
   for elements: C
 ) -> String where C.Element == (key: Key, value: Value) {
@@ -79,23 +79,23 @@ internal func _dictionaryDescription<Key, Value, C: Collection>(
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 
-//@usableFromInline
+//
 public func _addressString(for pointer: UnsafeRawPointer) -> String {
   let address = UInt(bitPattern: pointer)
   return "0x\(String(address, radix: 16))"
 }
 
-//@usableFromInline
+//
 public func _addressString(for object: AnyObject) -> String {
   _addressString(for: Unmanaged.passUnretained(object).toOpaque())
 }
 
-//@usableFromInline
+//
 public func _addressString<T: AnyObject>(for object: Unmanaged<T>) -> String {
   _addressString(for: object.toOpaque())
 }
 
-@inlinable
+
 public func _arrayDescription<C: Collection>(
   for elements: C
 ) -> String {
@@ -113,7 +113,7 @@ public func _arrayDescription<C: Collection>(
   return result
 }
 
-@inlinable
+
 public func _dictionaryDescription<Key, Value, C: Collection>(
   for elements: C
 ) -> String where C.Element == (key: Key, value: Value) {

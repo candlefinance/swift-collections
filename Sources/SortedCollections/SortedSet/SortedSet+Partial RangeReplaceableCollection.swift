@@ -14,7 +14,7 @@ extension SortedSet {
   /// predicate.
   /// - Complexity: O(`n log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public func filter(
     _ isIncluded: (Element) throws -> Bool
@@ -32,7 +32,7 @@ extension SortedSet {
   /// - Returns: The first element of the collection if the collection is not empty; otherwise, nil.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public mutating func popFirst() -> Element? {
     self._root.popFirst()?.key
@@ -47,7 +47,7 @@ extension SortedSet {
   /// - Returns: The last element of the collection if the collection is not empty; otherwise, nil.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public mutating func popLast() -> Element? {
     self._root.popLast()?.key
@@ -64,7 +64,7 @@ extension SortedSet {
   /// - Returns: The first element of the collection if the collection is not empty; otherwise, nil.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   public mutating func removeFirst() -> Element {
@@ -82,7 +82,7 @@ extension SortedSet {
   /// - Returns: The last element of the collection if the collection is not empty; otherwise, nil.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   public mutating func removeLast() -> Element {
@@ -99,7 +99,7 @@ extension SortedSet {
   ///     than or equal to zero and must not exceed the number of elements in the collection.
   /// - Complexity: O(`k log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public mutating func removeFirst(_ k: Int) {
     self._root.removeFirst(k)
@@ -115,7 +115,7 @@ extension SortedSet {
   ///     than or equal to zero and must not exceed the number of elements in the collection.
   /// - Complexity: O(`k log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public mutating func removeLast(_ k: Int) {
     self._root.removeLast(k)
@@ -132,7 +132,7 @@ extension SortedSet {
   /// - Returns: The key-value pair that correspond to `index`.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public mutating func remove(at index: Index) -> Element {
     index._index.ensureValid(forTree: self._root)
@@ -146,7 +146,7 @@ extension SortedSet {
   /// - Returns: The key-value pair that correspond to `index`.
   /// - Complexity: O(`m log n`) where `n` is the number of elements in the
   ///   sorted set, and `m` is the size of `bounds`
-  @inlinable
+  
   @inline(__always)
   internal mutating func removeSubrange<R: RangeExpression>(
     _ bounds: R
@@ -165,7 +165,7 @@ extension SortedSet {
   /// Calling this method invalidates all indices with respect to the set.
   ///
   /// - Complexity: O(`n`)
-  @inlinable
+  
   @inline(__always)
   public mutating func removeAll() {
     self._root.removeAll()

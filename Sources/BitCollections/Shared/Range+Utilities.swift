@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension Range where Bound: FixedWidthInteger {
-  @inlinable
+  
   internal func _clampedToUInt() -> Range<UInt> {
     if upperBound <= 0 {
       return Range<UInt>(uncheckedBounds: (0, 0))
@@ -23,7 +23,7 @@ extension Range where Bound: FixedWidthInteger {
     return Range<UInt>(uncheckedBounds: (lower, upper))
   }
 
-  @inlinable
+  
   internal func _toUInt() -> Range<UInt>? {
     guard
       let lower = UInt(exactly: lowerBound),

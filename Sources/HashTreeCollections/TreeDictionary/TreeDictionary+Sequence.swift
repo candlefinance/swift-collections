@@ -21,13 +21,13 @@ extension TreeDictionary: Sequence {
     // The iterator performs a pre-order traversal, with items at a node visited
     // before any items within children.
 
-    @usableFromInline
+    
     internal typealias _UnsafeHandle = _Node.UnsafeHandle
 
-    @usableFromInline
+    
     internal var _it: _HashTreeIterator
 
-    @inlinable
+    
     internal init(_root: _RawHashNode) {
       self._it = _HashTreeIterator(root: _root)
     }
@@ -37,7 +37,7 @@ extension TreeDictionary: Sequence {
   /// calculated nondestructively.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public var underestimatedCount: Int {
     _root.count
   }
@@ -45,7 +45,7 @@ extension TreeDictionary: Sequence {
   /// Returns an iterator over the elements of this collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public __consuming func makeIterator() -> Iterator {
     return Iterator(_root: _root.raw)
   }
@@ -65,7 +65,7 @@ extension TreeDictionary.Iterator: IteratorProtocol {
   /// Once `nil` has been returned, all subsequent calls return `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public mutating func next() -> Element? {
     guard let (node, slot) = _it.next() else { return nil }
     return _UnsafeHandle.read(node) { $0[item: slot] }

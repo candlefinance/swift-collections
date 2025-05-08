@@ -14,7 +14,7 @@ import InternalCollectionsUtilities
 #endif
 
 extension _HashNode {
-  @usableFromInline
+  
   internal func dump(
     iterationOrder: Bool = false,
     limit: Int = Int.max,
@@ -35,7 +35,7 @@ extension _HashNode {
 }
 
 extension _HashNode.Storage {
-  @usableFromInline
+  
   final internal func dump(iterationOrder: Bool = false) {
     UnsafeHandle.read(self) { $0.dump(iterationOrder: iterationOrder) }
   }
@@ -53,7 +53,7 @@ extension _HashNode.UnsafeHandle {
     return _HashNode._itemString(for: item)
   }
 
-  @usableFromInline
+  
   internal func dump(
     iterationOrder: Bool = false,
     limit: Int = .max,

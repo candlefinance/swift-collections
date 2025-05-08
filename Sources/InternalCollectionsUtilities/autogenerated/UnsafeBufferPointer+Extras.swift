@@ -23,7 +23,7 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension UnsafeBufferPointer {
-  @inlinable
+  
   @inline(__always)
   internal func _ptr(at index: Int) -> UnsafePointer<Element> {
     assert(index >= 0 && index < count)
@@ -32,7 +32,7 @@ extension UnsafeBufferPointer {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension UnsafeBufferPointer {
-  @inlinable
+  
   @inline(__always)
   public func _ptr(at index: Int) -> UnsafePointer<Element> {
     assert(index >= 0 && index < count)

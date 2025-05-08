@@ -13,7 +13,7 @@
 import InternalCollectionsUtilities
 #endif
 
-@usableFromInline
+
 internal typealias _UnsafeHashTable = _HashTable.UnsafeHandle
 
 extension _HashTable {
@@ -23,29 +23,29 @@ extension _HashTable {
   /// - Warning: `_UnsafeHashTable` values do not have ownership of their
   ///    underlying storage buffer. You must not escape these handles outside
   ///    the closure call that produced them.
-  @usableFromInline
+  
   @frozen
   internal struct UnsafeHandle {
-    @usableFromInline
+    
     internal typealias Bucket = _HashTable.Bucket
 
     /// A pointer to the table header.
-    @usableFromInline
+    
     internal var _header: UnsafeMutablePointer<Header>
 
     /// A pointer to bucket storage.
-    @usableFromInline
+    
     internal var _buckets: UnsafeMutablePointer<UInt64>
 
     #if DEBUG
     /// True when this handle does not support table mutations.
     /// (This is only checked in debug builds.)
-    @usableFromInline
+    
     internal let _readonly: Bool
     #endif
 
     /// Initialize a new hash table handle for storage at the supplied locations.
-    @inlinable
+    
     @inline(__always)
     internal init(
       header: UnsafeMutablePointer<Header>,
@@ -64,7 +64,7 @@ extension _HashTable {
     /// This helps preventing COW violations.
     ///
     /// Note that this is a noop in release builds.
-    @inlinable
+    
     @inline(__always)
     func assertMutable() {
       #if DEBUG
@@ -77,25 +77,25 @@ extension _HashTable {
 extension _HashTable.UnsafeHandle {
   /// The scale of the hash table. A table of scale *n* holds 2^*n* buckets,
   /// each of which contain an *n*-bit value.
-  @inlinable
+  
   @inline(__always)
   internal var scale: Int { _header.pointee.scale }
 
   /// The scale corresponding to the last call to `reserveCapacity`.
   /// We store this to make sure we don't shrink the table below its reserved size.
-  @inlinable
+  
   @inline(__always)
   internal var reservedScale: Int { _header.pointee.reservedScale }
 
   /// The hasher seed to use within this hash table.
-  @inlinable
+  
   @inline(__always)
   internal var seed: Int { _header.pointee.seed }
 
   /// A bias value that needs to be added to buckets to convert them into offsets
   /// into element storage. (This allows O(1) insertions at the front when the
   /// underlying storage supports it.)
-  @inlinable
+  
   @inline(__always)
   internal var bias: Int {
     get { _header.pointee.bias }
@@ -103,34 +103,34 @@ extension _HashTable.UnsafeHandle {
   }
 
   /// The number of buckets within this hash table. This is always a power of two.
-  @inlinable
+  
   @inline(__always)
   internal var bucketCount: Int { 1 &<< scale }
 
-  @inlinable
+  
   @inline(__always)
   internal var bucketMask: UInt64 { UInt64(truncatingIfNeeded: bucketCount) - 1 }
 
   /// The number of bits used to store all the buckets in this hash table.
   /// Each bucket holds a value that is `scale` bits wide.
-  @inlinable
+  
   @inline(__always)
   internal var bitCount: Int { scale &<< scale }
 
   /// The number of 64-bit words that are available in the storage buffer,
   /// rounded up to the nearest whole number if necessary.
-  @inlinable
+  
   @inline(__always)
   internal var wordCount: Int { (bitCount + UInt64.bitWidth - 1) / UInt64.bitWidth }
 
   /// The maximum number of items that can fit into this table.
-  @inlinable
+  
   @inline(__always)
   internal var capacity: Int { _HashTable.maximumCapacity(forScale: scale) }
 
   /// Return the bucket logically following `bucket` in this hash table.
   /// The buckets form a cycle, so the last bucket is logically followed by the first.
-  @inlinable
+  
   @inline(__always)
   func bucket(after bucket: Bucket) -> Bucket {
     var offset = bucket.offset + 1
@@ -142,7 +142,7 @@ extension _HashTable.UnsafeHandle {
 
   /// Return the bucket logically preceding `bucket` in this hash table.
   /// The buckets form a cycle, so the first bucket is logically preceded by the last.
-  @inlinable
+  
   @inline(__always)
   func bucket(before bucket: Bucket) -> Bucket {
     let offset = (bucket.offset == 0 ? bucketCount : bucket.offset) - 1
@@ -153,7 +153,7 @@ extension _HashTable.UnsafeHandle {
   /// The buckets form a cycle, so the last word is logically followed by the first.
   ///
   /// Note that the last word may be only partially filled if `scale` is less than 6.
-  @inlinable
+  
   @inline(__always)
   func word(after word: Int) -> Int {
     var result = word + 1
@@ -167,7 +167,7 @@ extension _HashTable.UnsafeHandle {
   /// The buckets form a cycle, so the first word is logically preceded by the first.
   ///
   /// Note that the last word may be only partially filled if `scale` is less than 6.
-  @inlinable
+  
   @inline(__always)
   func word(before word: Int) -> Int {
     if word == 0 {
@@ -178,7 +178,7 @@ extension _HashTable.UnsafeHandle {
 
   /// Return the index of the 64-bit storage word that holds the first bit
   /// corresponding to `bucket`, along with its bit position within the word.
-  @inlinable
+  
   internal func position(of bucket: Bucket) -> (word: Int, bit: Int) {
     let start = bucket.offset &* scale
     return (start &>> 6, start & 0x3F)
@@ -195,7 +195,7 @@ extension _HashTable.UnsafeHandle {
   /// (Note that the value `bucketCount - 1` is missing from this range, as its
   /// encoding is used for `nil`. This isn't an issue, because the maximum load
   /// factor guarantees that the hash table will never be completely full.)
-  @inlinable
+  
   func _value(forBucketContents bucketContents: UInt64) -> Int? {
     let mask = bucketMask
     assert(bucketContents <= mask)
@@ -213,7 +213,7 @@ extension _HashTable.UnsafeHandle {
   /// (Note that the value `bucketCount - 1` is missing from this range, as it
   /// its encoding is used for `nil`. This isn't an issue, because the maximum
   /// load factor guarantees that the hash table will never be completely full.)
-  @inlinable
+  
   func _bucketContents(for value: Int?) -> UInt64 {
     guard var value = value else { return 0 }
     let mask = Int(truncatingIfNeeded: bucketMask)
@@ -224,7 +224,7 @@ extension _HashTable.UnsafeHandle {
     return UInt64(truncatingIfNeeded: value ^ mask)
   }
 
-  @inlinable
+  
   subscript(word word: Int) -> UInt64 {
     @inline(__always) get {
       assert(word >= 0 && word < bucketCount)
@@ -237,7 +237,7 @@ extension _HashTable.UnsafeHandle {
     }
   }
 
-  @inlinable
+  
   subscript(raw bucket: Bucket) -> UInt64 {
     get {
       assert(bucket.offset < bucketCount)
@@ -268,7 +268,7 @@ extension _HashTable.UnsafeHandle {
     }
   }
 
-  @inlinable
+  
   @inline(__always)
   func isOccupied(_ bucket: Bucket) -> Bool {
     self[raw: bucket] != 0
@@ -276,7 +276,7 @@ extension _HashTable.UnsafeHandle {
 
   /// Return or update the current value stored in the specified bucket.
   /// A nil value indicates that the bucket is empty.
-  @inlinable
+  
   internal subscript(bucket: Bucket) -> Int? {
     get {
       let contents = self[raw: bucket]
@@ -291,7 +291,7 @@ extension _HashTable.UnsafeHandle {
 }
 
 extension _UnsafeHashTable {
-  @inlinable
+  
   internal func _find<Base: RandomAccessCollection>(
     _ item: Base.Element,
     in elements: Base
@@ -310,7 +310,7 @@ extension _UnsafeHashTable {
 }
 
 extension _UnsafeHashTable {
-  @usableFromInline
+  
   internal func firstOccupiedBucketInChain(with bucket: Bucket) -> Bucket {
     var bucket = bucket
     repeat {
@@ -319,7 +319,7 @@ extension _UnsafeHashTable {
     return self.bucket(after: bucket)
   }
 
-  @inlinable
+  
   internal func delete(
     bucket: Bucket,
     hashValueGenerator: (Int, Int) -> Int // (offset, seed) -> hashValue
@@ -363,7 +363,7 @@ extension _UnsafeHashTable {
 }
 
 extension _UnsafeHashTable {
-  @inlinable
+  
   internal func adjustContents<Base: RandomAccessCollection>(
     preparingForInsertionOfElementAtOffset offset: Int,
     in elements: Base
@@ -412,7 +412,7 @@ extension _UnsafeHashTable {
 }
 
 extension _UnsafeHashTable {
-  @inlinable
+  
   @inline(__always)
   internal func adjustContents<Base: RandomAccessCollection>(
     preparingForRemovalOf index: Base.Index,
@@ -422,7 +422,7 @@ extension _UnsafeHashTable {
     adjustContents(preparingForRemovalOf: index ..< next, in: elements)
   }
 
-  @inlinable
+  
   internal func adjustContents<Base: RandomAccessCollection>(
     preparingForRemovalOf bounds: Range<Base.Index>,
     in elements: Base
@@ -485,7 +485,7 @@ extension _UnsafeHashTable {
 }
 
 extension _UnsafeHashTable {
-  @usableFromInline
+  
   internal func clear() {
     assertMutable()
     _buckets.update(repeating: 0, count: wordCount)
@@ -496,7 +496,7 @@ extension _UnsafeHashTable {
   /// Fill an empty hash table by populating it with data from `elements`.
   ///
   /// - Parameter elements: A random-access collection for which this table is being generated.
-  @inlinable
+  
   internal func fill<C: RandomAccessCollection>(
     uncheckedUniqueElements elements: C
   ) where C.Element: Hashable {
@@ -519,7 +519,7 @@ extension _UnsafeHashTable {
   /// - Parameter elements: A random-access collection for which this table is being generated.
   /// - Parameter stoppingOnFirstDuplicateValue: If true, check for duplicate values and stop inserting items when one is found.
   /// - Returns: `(success, index)` where `success` is a boolean value indicating that every value in `elements` was successfully inserted. A false success indicates that duplicate elements have been found; in this case `index` points to the first duplicate value; otherwise `index` is set to `elements.endIndex`.
-  @inlinable
+  
   internal func fill<C: RandomAccessCollection>(
     untilFirstDuplicateIn elements: C
   ) -> (success: Bool, end: C.Index)

@@ -14,7 +14,7 @@ extension _HashTable {
   ///
   /// Note that we don't store the number of items currently in the table;
   /// that information can be easily retrieved from the element storage.
-  @usableFromInline
+  
   internal struct Header {
     /// We are packing the scale data into the lower bits of the seed & bias
     /// to save a bit of space that would be otherwise taken up by padding.
@@ -29,9 +29,9 @@ extension _HashTable {
     ///    ├──────────────────────────────────────────────┼────────┤
     ///    │                    bias                      │ rsvd   │
     ///    └──────────────────────────────────────────────┴────────┘
-    @usableFromInline
+    
     var _scaleAndSeed: UInt64
-    @usableFromInline
+    
     var _reservedScaleAndBias: UInt64
 
     init(scale: Int, reservedScale: Int, seed: Int) {
@@ -48,13 +48,13 @@ extension _HashTable {
 
     /// The scale of the hash table. A table of scale *n* holds 2^*n* buckets,
     /// each of which contain an *n*-bit value.
-    @inlinable
+    
     @inline(__always)
     var scale: Int { Int(_scaleAndSeed & 0x3F) }
 
     /// The scale corresponding to the last call to `reserveCapacity`.
     /// We remember this here to make sure we don't shrink the table below its reserved size.
-    @inlinable
+    
     var reservedScale: Int {
       @inline(__always)
       get { Int(_reservedScaleAndBias & 0x3F) }
@@ -66,7 +66,7 @@ extension _HashTable {
     }
 
     /// The hasher seed to use within this hash table.
-    @inlinable
+    
     @inline(__always)
     var seed: Int {
       Int(truncatingIfNeeded: _scaleAndSeed)
@@ -75,7 +75,7 @@ extension _HashTable {
     /// A bias value that needs to be added to buckets to convert them into offsets
     /// into element storage. (This allows O(1) insertions at the front when the
     /// underlying storage supports it.)
-    @inlinable
+    
     var bias: Int {
       @inline(__always)
       get { Int(truncatingIfNeeded: _reservedScaleAndBias) &>> 6 }
@@ -92,7 +92,7 @@ extension _HashTable {
     }
 
     /// The maximum number of items that can fit into this table.
-    @inlinable
+    
     @inline(__always)
     var capacity: Int { _HashTable.maximumCapacity(forScale: scale) }
   }

@@ -24,7 +24,7 @@ extension TreeSet {
     _isCollectionsInternalCheckingEnabled
   }
 
-  @inlinable
+  
   public func _invariantCheck() {
     _root._fullInvariantCheck()
   }

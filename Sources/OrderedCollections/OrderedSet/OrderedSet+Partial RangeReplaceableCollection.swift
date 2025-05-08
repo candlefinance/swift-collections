@@ -19,7 +19,7 @@ extension OrderedSet {
   ///   is `false`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
     _elements.removeAll(keepingCapacity: keepCapacity)
     guard keepCapacity else {
@@ -45,7 +45,7 @@ extension OrderedSet {
   /// - Returns: The removed element.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   @discardableResult
   public mutating func remove(at index: Int) -> Self.Element {
     _elements._failEarlyRangeCheck(index, bounds: startIndex ..< endIndex)
@@ -62,7 +62,7 @@ extension OrderedSet {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(_ bounds: Range<Int>) {
     _elements._failEarlyRangeCheck(
       bounds,
@@ -110,7 +110,7 @@ extension OrderedSet {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(_ bounds: some RangeExpression<Int>) {
     removeSubrange(bounds.relative(to: self))
   }
@@ -119,7 +119,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`1`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   @discardableResult
   public mutating func removeLast() -> Element {
     precondition(!isEmpty, "Cannot remove last element of an empty collection")
@@ -155,7 +155,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`n`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public mutating func removeLast(_ n: Int) {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the collection")
@@ -168,7 +168,7 @@ extension OrderedSet {
   /// resulting gap in the storage array.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   @discardableResult
   public mutating func removeFirst() -> Element {
     precondition(!isEmpty, "Cannot remove first element of an empty collection")
@@ -185,7 +185,7 @@ extension OrderedSet {
   ///   number of elements in the set.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   public mutating func removeFirst(_ n: Int) {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the collection")
@@ -209,7 +209,7 @@ extension OrderedSet {
   ///   whether the element should be removed from the set.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(
     where shouldBeRemoved: (Element) throws -> Bool
   ) rethrows {

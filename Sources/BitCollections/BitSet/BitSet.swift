@@ -23,10 +23,10 @@ import InternalCollectionsUtilities
 /// structure, treating it as a mutable random-access collection of `Bool`
 /// values.
 public struct BitSet {
-  @usableFromInline
+  
   internal var _storage: [_Word]
 
-  @usableFromInline
+  
   init(_rawStorage storage: [_Word]) {
     self._storage = storage
     _checkInvariants()
@@ -46,7 +46,7 @@ extension BitSet {
     }
   }
 
-  @usableFromInline
+  
   internal var _capacity: UInt {
     UInt(_storage.count) &* UInt(_Word.capacity)
   }

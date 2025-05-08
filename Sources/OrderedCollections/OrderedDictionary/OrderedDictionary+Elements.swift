@@ -18,10 +18,10 @@ extension OrderedDictionary {
   /// collection.
   @frozen
   public struct Elements {
-    @usableFromInline
+    
     internal var _base: OrderedDictionary
 
-    @inlinable
+    
     @inline(__always)
     internal init(_base: OrderedDictionary) {
       self._base = _base
@@ -36,7 +36,7 @@ extension OrderedDictionary {
   /// A view of the contents of this dictionary as a random-access collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var elements: Elements {
     get {
@@ -56,7 +56,7 @@ extension OrderedDictionary.Elements {
   /// A read-only collection view containing the keys in this collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var keys: OrderedSet<Key> {
     _base._keys
@@ -65,7 +65,7 @@ extension OrderedDictionary.Elements {
   /// A mutable collection view containing the values in this collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var values: OrderedDictionary.Values {
     get {
@@ -101,7 +101,7 @@ extension OrderedDictionary.Elements {
   ///
   /// - Complexity: Expected to be O(1) on average, if `Key` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public func index(forKey key: Key) -> Int? {
     _base.index(forKey: key)
   }
@@ -111,10 +111,10 @@ extension OrderedDictionary.Elements: Sequence {
   /// The element type of the collection.
   public typealias Element = (key: Key, value: Value)
 
-  @inlinable
+  
   public var underestimatedCount: Int { _base.count }
 
-  @inlinable
+  
   public func makeIterator() -> OrderedDictionary<Key, Value>.Iterator {
     _base.makeIterator()
   }
@@ -137,7 +137,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// zero. If the dictionary is empty, `startIndex` is equal to `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var startIndex: Int { 0 }
 
@@ -148,7 +148,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// elements. If the dictionary is empty, `endIndex` is equal to `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var endIndex: Int { _base.count }
 
@@ -162,7 +162,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// - Returns: The index immediately after `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(after i: Int) -> Int { i + 1 }
 
@@ -176,7 +176,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// - Returns: The index immediately before `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(before i: Int) -> Int { i - 1 }
 
@@ -188,7 +188,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func formIndex(after i: inout Int) { i += 1 }
 
@@ -200,7 +200,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func formIndex(before i: inout Int) { i -= 1 }
 
@@ -219,7 +219,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   ///   the result of `abs(distance)` calls to `index(before:)`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(_ i: Int, offsetBy distance: Int) -> Int {
     i + distance
@@ -245,7 +245,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   ///   case, the method returns `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(
     _ i: Int,
@@ -265,7 +265,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// - Returns: The distance between `start` and `end`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func distance(from start: Int, to end: Int) -> Int {
     end - start
@@ -277,7 +277,7 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   ///   greater than or equal to `startIndex` and less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public subscript(position: Int) -> Element {
     (_base._keys[position], _base._values[position])
@@ -303,30 +303,30 @@ extension OrderedDictionary.Elements: RandomAccessCollection {
   /// A Boolean value indicating whether the collection is empty.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var isEmpty: Bool { _base.isEmpty }
 
   /// The number of elements in the dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var count: Int { _base.count }
 
-  @inlinable
+  
   @inline(__always)
   public func _failEarlyRangeCheck(_ index: Int, bounds: Range<Int>) {
     _base._values._failEarlyRangeCheck(index, bounds: bounds)
   }
 
-  @inlinable
+  
   @inline(__always)
   public func _failEarlyRangeCheck(_ index: Int, bounds: ClosedRange<Int>) {
     _base._values._failEarlyRangeCheck(index, bounds: bounds)
   }
 
-  @inlinable
+  
   @inline(__always)
   public func _failEarlyRangeCheck(_ range: Range<Int>, bounds: Range<Int>) {
     _base._values._failEarlyRangeCheck(range, bounds: bounds)
@@ -354,14 +354,14 @@ extension OrderedDictionary.Elements: CustomReflectable {
 }
 
 extension OrderedDictionary.Elements: Equatable where Value: Equatable {
-  @inlinable
+  
   public static func ==(left: Self, right: Self) -> Bool {
     left._base == right._base
   }
 }
 
 extension OrderedDictionary.Elements: Hashable where Value: Hashable {
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     _base.hash(into: &hasher)
   }
@@ -381,7 +381,7 @@ extension OrderedDictionary.Elements {
   ///
   /// - Complexity: O(1) when the dictionary's storage isn't shared with another
   ///    value; O(`count`) otherwise.
-  @inlinable
+  
   @inline(__always)
   public mutating func swapAt(_ i: Int, _ j: Int) {
     _base.swapAt(i, j)
@@ -404,7 +404,7 @@ extension OrderedDictionary.Elements {
   ///   equal to the collection's `endIndex`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   @inline(__always)
   public mutating func partition(
     by belongsInSecondPartition: (Element) throws -> Bool
@@ -450,7 +450,7 @@ extension OrderedDictionary.Elements {
   ///   lost.
   ///
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
-  @inlinable
+  
   @inline(__always)
   public mutating func sort(
     by areInIncreasingOrder: (Element, Element) throws -> Bool
@@ -471,7 +471,7 @@ extension OrderedDictionary.Elements where Key: Comparable {
   /// preserves the relative order of elements that compare as equal.
   ///
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
-  @inlinable
+  
   @inline(__always)
   public mutating func sort() {
     _base.sort()
@@ -488,7 +488,7 @@ extension OrderedDictionary.Elements {
   /// system's default random generator.
   ///
   /// - Complexity: O(*n*), where *n* is the length of the collection.
-  @inlinable
+  
   public mutating func shuffle() {
     _base.shuffle()
   }
@@ -510,7 +510,7 @@ extension OrderedDictionary.Elements {
   ///   same shuffled order each time you run your program, that sequence may
   ///   change when your program is compiled using a different version of
   ///   Swift.
-  @inlinable
+  
   public mutating func shuffle(
     using generator: inout some RandomNumberGenerator
   ) {
@@ -522,7 +522,7 @@ extension OrderedDictionary.Elements {
   /// Reverses the elements of the ordered dictionary in place.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func reverse() {
     _base.reverse()
   }
@@ -538,7 +538,7 @@ extension OrderedDictionary.Elements {
   ///   default is `false`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
     _base.removeAll(keepingCapacity: keepCapacity)
   }
@@ -555,7 +555,7 @@ extension OrderedDictionary.Elements {
   /// - Returns: The removed element.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   @discardableResult
   public mutating func remove(at index: Int) -> Element {
     _base.remove(at: index)
@@ -570,7 +570,7 @@ extension OrderedDictionary.Elements {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(_ bounds: Range<Int>) {
     _base.removeSubrange(bounds)
   }
@@ -584,7 +584,7 @@ extension OrderedDictionary.Elements {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(
     _ bounds: some RangeExpression<Int>
   ) {
@@ -596,7 +596,7 @@ extension OrderedDictionary.Elements {
   ///
   /// - Complexity: Expected to be O(`1`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   @discardableResult
   public mutating func removeLast() -> Element {
     _base.removeLast()
@@ -610,7 +610,7 @@ extension OrderedDictionary.Elements {
   ///
   /// - Complexity: Expected to be O(`n`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public mutating func removeLast(_ n: Int) {
     _base.removeLast(n)
   }
@@ -621,7 +621,7 @@ extension OrderedDictionary.Elements {
   /// the resulting gaps in the storage arrays.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   @discardableResult
   public mutating func removeFirst() -> Element {
     _base.removeFirst()
@@ -637,7 +637,7 @@ extension OrderedDictionary.Elements {
   ///   number of elements in the set.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   public mutating func removeFirst(_ n: Int) {
     _base.removeFirst(n)
   }
@@ -652,7 +652,7 @@ extension OrderedDictionary.Elements {
   ///   whether the element should be removed from the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(
     where shouldBeRemoved: (Self.Element) throws -> Bool
   ) rethrows {

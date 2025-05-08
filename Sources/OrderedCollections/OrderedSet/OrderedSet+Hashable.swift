@@ -14,7 +14,7 @@ extension OrderedSet: Hashable {
   /// given hasher.
   ///
   /// Complexity: O(`count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     hasher.combine(count) // Discriminator
     for item in _elements {

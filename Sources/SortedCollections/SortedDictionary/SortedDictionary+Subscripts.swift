@@ -22,7 +22,7 @@ extension SortedDictionary {
   /// - Parameter key: The key to find in the dictionary.
   /// - Returns: The value associated with key if key is in the dictionary; otherwise, nil.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   @inline(__always)
   public subscript(key: Key) -> Value? {
     get {
@@ -82,7 +82,7 @@ extension SortedDictionary {
   ///   - defaultValue: The default value to use if key doesn’t exist in the dictionary.
   /// - Returns: The value associated with key in the dictionary; otherwise, defaultValue.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   @inline(__always)
   public subscript(
     key: Key,
@@ -150,7 +150,7 @@ extension SortedDictionary {
   /// - Returns: A two-element tuple with the key and value corresponding to
   ///     `position`.
   /// - Complexity: O(1)
-  @inlinable
+  
   public subscript(position: Index) -> Element {
     get {
       position._index.ensureValid(forTree: self._root)
@@ -164,7 +164,7 @@ extension SortedDictionary {
   ///   the range must be valid indices of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public subscript(bounds: Range<Index>) -> SubSequence {
     bounds.lowerBound._index.ensureValid(forTree: _root)
     bounds.upperBound._index.ensureValid(forTree: _root)

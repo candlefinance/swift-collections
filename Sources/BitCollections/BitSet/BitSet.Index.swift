@@ -23,15 +23,15 @@ extension BitSet {
   /// calling `index(after: i)`, and ending up with an invalid index.
   @frozen
   public struct Index {
-    @usableFromInline
+    
     var _value: UInt
 
-    @inlinable
+    
     internal init(_value: UInt) {
       self._value = _value
     }
 
-    @inlinable
+    
     internal init(_position: _UnsafeHandle.Index) {
       self._value = _position.value
     }
@@ -63,7 +63,7 @@ extension BitSet.Index: Equatable {
   /// Returns a Boolean value indicating whether two values are equal.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+   @inline(__always)
   public static func ==(left: Self, right: Self) -> Bool {
     left._value == right._value
   }
@@ -74,7 +74,7 @@ extension BitSet.Index: Comparable {
   /// before the second.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+   @inline(__always)
   public static func < (left: Self, right: Self) -> Bool {
     left._value < right._value
   }
@@ -84,7 +84,7 @@ extension BitSet.Index: Hashable {
   /// Hashes the essential components of this value by feeding them to the given hasher.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+   @inline(__always)
   public func hash(into hasher: inout Hasher) {
     hasher.combine(_value)
   }

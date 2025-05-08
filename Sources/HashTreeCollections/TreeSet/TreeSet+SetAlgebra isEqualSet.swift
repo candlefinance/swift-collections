@@ -27,7 +27,7 @@ extension TreeSet {
   ///    implements hashing. That said, the implementation is careful to take
   ///    every available shortcut to reduce complexity, e.g. by skipping
   ///    comparing elements in shared subtrees.
-  @inlinable
+  
   public func isEqualSet(to other: Self) -> Bool {
     _root.isEqualSet(to: other._root, by: { _, _ in true })
   }
@@ -46,7 +46,7 @@ extension TreeSet {
   ///    implements hashing. That said, the implementation is careful to take
   ///    every available shortcut to reduce complexity, e.g. by skipping
   ///    comparing elements in shared subtrees.
-  @inlinable
+  
   public func isEqualSet<Value>(
     to other: TreeDictionary<Element, Value>.Keys
   ) -> Bool {
@@ -76,7 +76,7 @@ extension TreeSet {
   ///    That said, the implementation is careful to take
   ///    every available shortcut to reduce complexity, e.g. by skipping
   ///    comparing elements in shared subtrees.
-  @inlinable
+  
   public func isEqualSet(to other: some Sequence<Element>) -> Bool {
     if let other = _specialize(other, for: Self.self) {
       return isEqualSet(to: other)

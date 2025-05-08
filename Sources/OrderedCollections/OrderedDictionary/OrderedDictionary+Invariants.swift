@@ -31,7 +31,7 @@ extension OrderedDictionary {
     self._keys._checkInvariants()
   }
   #else
-  @inline(__always) @inlinable
+  @inline(__always) 
   public func _checkInvariants() {}
   #endif // COLLECTIONS_INTERNAL_CHECKS
 }

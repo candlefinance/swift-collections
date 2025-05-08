@@ -20,24 +20,24 @@ extension _HashNode {
   /// A handle can be either read-only or mutable, depending on the method used
   /// to access it. In debug builds, methods that modify data trap at runtime if
   /// they're called on a read-only view.
-  @usableFromInline
+  
   @frozen
   internal struct UnsafeHandle {
-    @usableFromInline
+    
     internal typealias Element = (key: Key, value: Value)
 
-    @usableFromInline
+    
     internal let _header: UnsafeMutablePointer<_HashNodeHeader>
 
-    @usableFromInline
+    
     internal let _memory: UnsafeMutableRawPointer
 
     #if DEBUG
-    @usableFromInline
+    
     internal let _isMutable: Bool
     #endif
 
-    @inlinable
+    
     internal init(
       _ header: UnsafeMutablePointer<_HashNodeHeader>,
       _ memory: UnsafeMutableRawPointer,
@@ -53,7 +53,7 @@ extension _HashNode {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable
+  
   @inline(__always)
   func assertMutable() {
 #if DEBUG
@@ -63,7 +63,7 @@ extension _HashNode.UnsafeHandle {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable @inline(__always)
+   @inline(__always)
   static func read<R>(
     _ node: _UnmanagedHashNode,
     _ body: (Self) throws -> R
@@ -75,7 +75,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   static func read<R>(
     _ storage: _RawHashStorage,
     _ body: (Self) throws -> R
@@ -85,7 +85,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   static func update<R>(
     _ node: _UnmanagedHashNode,
     _ body: (Self) throws -> R
@@ -97,7 +97,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   static func update<R>(
     _ storage: _RawHashStorage,
     _ body: (Self) throws -> R
@@ -109,7 +109,7 @@ extension _HashNode.UnsafeHandle {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var itemMap: _Bitmap {
     get {
       _header.pointee.itemMap
@@ -120,7 +120,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var childMap: _Bitmap {
     get {
       _header.pointee.childMap
@@ -131,12 +131,12 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var byteCapacity: Int {
     _header.pointee.byteCapacity
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var bytesFree: Int {
     get { _header.pointee.bytesFree }
     nonmutating set {
@@ -145,12 +145,12 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var isCollisionNode: Bool {
     _header.pointee.isCollisionNode
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var collisionCount: Int {
     get { _header.pointee.collisionCount }
     nonmutating set {
@@ -159,7 +159,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var collisionHash: _Hash {
     get {
       assert(isCollisionNode)
@@ -172,44 +172,44 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var _childrenStart: UnsafeMutablePointer<_HashNode> {
     _memory.assumingMemoryBound(to: _HashNode.self)
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var hasChildren: Bool {
     _header.pointee.hasChildren
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var childCount: Int {
     _header.pointee.childCount
   }
 
-  @inlinable
+  
   internal func childBucket(at slot: _HashSlot) -> _Bucket {
     guard !isCollisionNode else { return .invalid }
     return childMap.bucket(at: slot)
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var childrenEndSlot: _HashSlot {
     _header.pointee.childrenEndSlot
   }
 
-  @inlinable
+  
   internal var children: UnsafeMutableBufferPointer<_HashNode> {
     UnsafeMutableBufferPointer(start: _childrenStart, count: childCount)
   }
 
-  @inlinable
+  
   internal func childPtr(at slot: _HashSlot) -> UnsafeMutablePointer<_HashNode> {
     assert(slot.value < childCount)
     return _childrenStart + slot.value
   }
 
-  @inlinable
+  
   internal subscript(child slot: _HashSlot) -> _HashNode {
     unsafeAddress {
       UnsafePointer(childPtr(at: slot))
@@ -220,46 +220,46 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable
+  
   internal var _itemsEnd: UnsafeMutablePointer<Element> {
     (_memory + _header.pointee.byteCapacity)
       .assumingMemoryBound(to: Element.self)
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var hasItems: Bool {
     _header.pointee.hasItems
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var itemCount: Int {
     _header.pointee.itemCount
   }
 
-  @inlinable
+  
   internal func itemBucket(at slot: _HashSlot) -> _Bucket {
     guard !isCollisionNode else { return .invalid }
     return itemMap.bucket(at: slot)
   }
 
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var itemsEndSlot: _HashSlot {
     _header.pointee.itemsEndSlot
   }
 
-  @inlinable
+  
   internal var reverseItems: UnsafeMutableBufferPointer<Element> {
     let c = itemCount
     return UnsafeMutableBufferPointer(start: _itemsEnd - c, count: c)
   }
 
-  @inlinable
+  
   internal func itemPtr(at slot: _HashSlot) -> UnsafeMutablePointer<Element> {
     assert(slot.value <= itemCount)
     return _itemsEnd.advanced(by: -1 &- slot.value)
   }
 
-  @inlinable
+  
   internal subscript(item slot: _HashSlot) -> Element {
     unsafeAddress {
       UnsafePointer(itemPtr(at: slot))
@@ -270,7 +270,7 @@ extension _HashNode.UnsafeHandle {
     }
   }
 
-  @inlinable
+  
   internal func clear() {
     assertMutable()
     _header.pointee.clear()
@@ -278,17 +278,17 @@ extension _HashNode.UnsafeHandle {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable
+  
   internal var hasSingletonItem: Bool {
     _header.pointee.hasSingletonItem
   }
 
-  @inlinable
+  
   internal var hasSingletonChild: Bool {
     _header.pointee.hasSingletonChild
   }
 
-  @inlinable
+  
   internal var isAtrophiedNode: Bool {
     hasSingletonChild && self[child: .zero].isCollisionNode
   }

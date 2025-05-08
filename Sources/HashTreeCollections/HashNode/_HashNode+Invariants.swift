@@ -11,7 +11,7 @@
 
 extension _HashNodeHeader {
 #if COLLECTIONS_INTERNAL_CHECKS
-  @usableFromInline @inline(never)
+   @inline(never)
   internal func _invariantCheck() {
     precondition(bytesFree <= byteCapacity)
     if isCollisionNode {
@@ -22,14 +22,14 @@ extension _HashNodeHeader {
     }
   }
 #else
-  @inlinable @inline(__always)
+   @inline(__always)
   internal func _invariantCheck() {}
 #endif
 }
 
 extension _HashNode {
 #if COLLECTIONS_INTERNAL_CHECKS
-  @usableFromInline @inline(never)
+   @inline(never)
   internal func _invariantCheck() {
     raw.storage.header._invariantCheck()
     read {
@@ -52,17 +52,17 @@ extension _HashNode {
     }
   }
 #else
-  @inlinable @inline(__always)
+   @inline(__always)
   internal func _invariantCheck() {}
 #endif
 
-  @inlinable @inline(__always)
+   @inline(__always)
   public func _fullInvariantCheck() {
     self._fullInvariantCheck(.top, .emptyPath)
   }
 
 #if COLLECTIONS_INTERNAL_CHECKS
-  @inlinable @inline(never)
+   @inline(never)
   internal func _fullInvariantCheck(_ level: _HashLevel, _ path: _Hash) {
     _invariantCheck()
     read {
@@ -100,7 +100,7 @@ extension _HashNode {
     }
   }
 #else
-  @inlinable @inline(__always)
+   @inline(__always)
   internal func _fullInvariantCheck(_ level: _HashLevel, _ path: _Hash) {}
 #endif
 }

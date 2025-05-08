@@ -12,10 +12,10 @@
 extension SortedDictionary {
   /// A view of an sorted dictionary's Keys as a standalone collection.
   public struct Keys {
-    @usableFromInline
+    
     internal var _base: SortedDictionary
     
-    @inlinable
+    
     @inline(__always)
     internal init(_base: SortedDictionary) {
       self._base = _base
@@ -34,23 +34,23 @@ extension SortedDictionary.Keys: Sequence {
 
   /// The type that allows iteration over the collection's elements.
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
+    
     internal var _iterator: SortedDictionary.Iterator
     
-    @inlinable
+    
     @inline(__always)
     internal init(_ _iterator: SortedDictionary.Iterator) {
       self._iterator = _iterator
     }
     
-    @inlinable
+    
     @inline(__always)
     public mutating func next() -> Element? {
       _iterator.next()?.key
     }
   }
   
-  @inlinable
+  
   @inline(__always)
   public __consuming func makeIterator() -> Iterator {
     Iterator(_base.makeIterator())
@@ -68,13 +68,13 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   
   /// The number of elements in the collection.
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var count: Int { self._base.count }
   
   /// A Boolean value that indicates whether the collection is empty.
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var isEmpty: Bool { self._base.isEmpty }
   
@@ -83,7 +83,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// If the collection is empty, `startIndex` is equal to `endIndex`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public var startIndex: Index { self._base.startIndex }
   
@@ -93,7 +93,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// If the collection is empty, `endIndex` is equal to `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var endIndex: Index { self._base.endIndex }
   
@@ -107,7 +107,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// - Returns: The distance between `start` and `end`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func distance(from start: Index, to end: Index) -> Int {
     self._base.distance(from: start, to: end)
@@ -121,7 +121,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func formIndex(after index: inout Index) {
     self._base.formIndex(after: &index)
@@ -137,7 +137,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// - Returns: The index immediately after `i`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func index(after index: Index) -> Index {
     self._base.index(after: index)
@@ -151,7 +151,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func formIndex(before index: inout Index) {
     self._base.formIndex(before: &index)
@@ -167,7 +167,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   /// - Returns: The index immediately before `i`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func index(before index: Index) -> Index {
     self._base.index(before: index)
@@ -183,7 +183,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   ///   - distance: The distance to offset `i`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func formIndex(_ i: inout Index, offsetBy distance: Int) {
     self._base.formIndex(&i, offsetBy: distance)
@@ -204,7 +204,7 @@ extension SortedDictionary.Keys: BidirectionalCollection {
   ///   the result of `abs(distance)` calls to `index(before:)`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public func index(_ i: Index, offsetBy distance: Int) -> Index {
     self._base.index(i, offsetBy: distance)
@@ -218,7 +218,7 @@ extension SortedDictionary.Keys {
   ///   greater than or equal to `startIndex` and less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public subscript(position: Index) -> Key {
     self._base[position].key
@@ -235,7 +235,7 @@ extension SortedDictionary.Keys: Equatable {
   ///   - lhs: A value to compare.
   ///   - rhs: Another value to compare.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public static func ==(lhs: Self, rhs: Self) -> Bool {
     if lhs.count != rhs.count { return false }
     for (e1, e2) in zip(lhs, rhs) {
@@ -253,7 +253,7 @@ extension SortedDictionary.Keys: Hashable where Key: Hashable {
   /// - Parameter hasher: The hasher to use when combining
   ///     the components of this instance.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     hasher.combine(self.count)
     for key in self {

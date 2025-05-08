@@ -12,7 +12,7 @@
 extension _HashNode {
   /// Returns true if `self` contains a disjoint set of keys than `other`.
   /// Otherwise, returns false.
-  @inlinable @inline(never)
+   @inline(never)
   internal func isDisjoint<Value2>(
     _ level: _HashLevel,
     with other: _HashNode<Key, Value2>
@@ -70,7 +70,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+   @inline(never)
   internal func _isDisjointCollision<Value2>(
     _ level: _HashLevel,
     with other: _HashNode<Key, Value2>

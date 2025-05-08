@@ -19,7 +19,7 @@ extension Deque: ExpressibleByArrayLiteral {
   /// by the type context.
   ///
   /// - Parameter elements: A variadic list of elements of the new deque.
-  @inlinable
+  
   @inline(__always)
   public init(arrayLiteral elements: Element...) {
     self.init(elements)

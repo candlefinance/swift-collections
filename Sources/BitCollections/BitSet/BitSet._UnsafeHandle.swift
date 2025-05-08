@@ -14,7 +14,7 @@ import InternalCollectionsUtilities
 #endif
 
 extension BitSet {
-  @usableFromInline
+  
   internal typealias _UnsafeHandle = _UnsafeBitSet
 }
 
@@ -36,7 +36,7 @@ extension _UnsafeBitSet {
 }
 
 extension _UnsafeBitSet {
-  @inlinable
+  
   public mutating func combineSharedPrefix(
     with other: Self,
     using function: (inout _Word, _Word) -> Void

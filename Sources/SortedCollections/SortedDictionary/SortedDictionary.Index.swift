@@ -12,7 +12,7 @@
 extension SortedDictionary {
   /// Returns the index for a given key, if it exists
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   public func index(forKey key: Key) -> Index? {
     if let index = self._root.findAnyIndex(forKey: key) {
       return Index(index)
@@ -23,10 +23,10 @@ extension SortedDictionary {
   
   /// The position of an element within a sorted dictionary
   public struct Index {
-    @usableFromInline
+    
     internal var _index: _Tree.Index
     
-    @inlinable
+    
     @inline(__always)
     internal init(_ _index: _Tree.Index) {
       self._index = _index
@@ -41,7 +41,7 @@ where Key: Sendable, Value: Sendable {}
 
 // MARK: Equatable
 extension SortedDictionary.Index: Equatable {
-  @inlinable
+  
   public static func ==(lhs: SortedDictionary.Index, rhs: SortedDictionary.Index) -> Bool {
     lhs._index.ensureValid(with: rhs._index)
     return lhs._index == rhs._index
@@ -50,7 +50,7 @@ extension SortedDictionary.Index: Equatable {
 
 // MARK: Comparable
 extension SortedDictionary.Index: Comparable {
-  @inlinable
+  
   public static func <(lhs: SortedDictionary.Index, rhs: SortedDictionary.Index) -> Bool {
     lhs._index.ensureValid(with: rhs._index)
     return lhs._index < rhs._index

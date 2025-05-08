@@ -32,7 +32,7 @@ extension TreeSet {
   ///    implements high-quality hashing. The implementation is careful to make
   ///    the best use of hash tree structure to minimize work when possible,
   ///    e.g. by skipping over parts of the input trees.
-  @inlinable
+  
   public func isSuperset(of other: Self) -> Bool {
     other._root.isSubset(.top, of: self._root)
   }
@@ -55,7 +55,7 @@ extension TreeSet {
   ///    implements high-quality hashing. The implementation is careful to make
   ///    the best use of hash tree structure to minimize work when possible,
   ///    e.g. by skipping over parts of the input trees.
-  @inlinable
+  
   public func isSuperset<Value>(
     of other: TreeDictionary<Element, Value>.Keys
   ) -> Bool {
@@ -79,7 +79,7 @@ extension TreeSet {
   ///
   /// - Complexity: O(*n*) calls to `self.contains`, where *n* is the number
   ///    of elements in `other`.
-  @inlinable
+  
   public func isSuperset(of other: some Sequence<Element>) -> Bool {
     if let other = _specialize(other, for: Self.self) {
       return isSuperset(of: other)

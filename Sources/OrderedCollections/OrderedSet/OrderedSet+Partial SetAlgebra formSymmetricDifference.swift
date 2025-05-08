@@ -34,7 +34,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   public mutating func formSymmetricDifference(_ other: __owned Self) {
     self = self.symmetricDifference(other)
   }
@@ -56,7 +56,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public mutating func formSymmetricDifference(_ other: __owned UnorderedView) {
     formSymmetricDifference(other._base)
@@ -78,7 +78,7 @@ extension OrderedSet {
   /// - Complexity: Expected to be O(`self.count` + *n*) on average where *n* is
   ///    the number of elements in `other`, if `Element` implements high-quality
   ///    hashing.
-  @inlinable
+  
   public mutating func formSymmetricDifference(
     _ other: __owned some Sequence<Element>
   ) {

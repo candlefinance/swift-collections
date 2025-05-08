@@ -16,7 +16,7 @@ extension SortedSet: SetAlgebra {
   /// Returns a Boolean value that indicates whether the given element exists in the set.
   /// - Complexity: O(`log n`) where `n` is the number of members in the
   ///   sorted set.
-  @inlinable
+  
   @inline(__always)
   public func contains(_ member: Element) -> Bool {
     self._root.contains(key: member)
@@ -34,7 +34,7 @@ extension SortedSet: SetAlgebra {
   ///     that was equal to `newMember`. In some cases, `oldMember` may be
   ///     distinguishable from `newMember` by identity comparison or some other means.
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   public mutating func insert(
@@ -54,7 +54,7 @@ extension SortedSet: SetAlgebra {
   ///     member; otherwise, `nil`. In some cases, the returned element may be distinguishable
   ///     from `newMember` by identity comparison or some other means.
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   public mutating func update(with newMember: Element) -> Element? {
@@ -71,7 +71,7 @@ extension SortedSet: SetAlgebra {
   ///    means.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   public mutating func remove(_ member: Element) -> Element? {
@@ -86,7 +86,7 @@ extension SortedSet: SetAlgebra {
   /// - Note: if this set and `other` contain elements that are equal but
   ///   distinguishable (e.g. via `===`), the element from the second set is inserted.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public func union(_ other: __owned Self) -> Self {
     var builder = _Tree.Builder(deduplicating: true)
      
@@ -126,7 +126,7 @@ extension SortedSet: SetAlgebra {
   /// - Note: if this set and `other` contain elements that are equal but
   ///   distinguishable (e.g. via `===`), the element from the second set is inserted.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public mutating func formUnion(_ other: __owned Self) {
     self = union(other)
   }
@@ -140,7 +140,7 @@ extension SortedSet: SetAlgebra {
   ///   distinguishable (e.g. via `===`), which of these elements is present
   ///   in the result is unspecified.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public func intersection(_ other: Self) -> Self {
     // We'll run this such that 'self' is the smallest array
     // TODO: might want to consider uniqueness to minimize CoW copies.
@@ -176,7 +176,7 @@ extension SortedSet: SetAlgebra {
   ///   distinguishable (e.g. via `===`), which of these elements is present
   ///   in the result is unspecified.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public mutating func formIntersection(_ other: Self) {
     self = intersection(other)
   }
@@ -187,7 +187,7 @@ extension SortedSet: SetAlgebra {
   /// - Parameter other: A set of the same type as the current set.
   /// - Returns: A new set.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public func symmetricDifference(_ other: Self) -> Self {
     var builder = _Tree.Builder(deduplicating: true)
     
@@ -230,7 +230,7 @@ extension SortedSet: SetAlgebra {
   ///
   /// - Parameter other: A set of the same type.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public mutating func formSymmetricDifference(_ other: Self) {
     self = self.symmetricDifference(other)
   }
@@ -241,7 +241,7 @@ extension SortedSet: SetAlgebra {
   /// - Parameter other: A set of the same type as the current set.
   /// - Returns: A new set.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public func subtracting(_ other: Self) -> Self {
     var builder = _Tree.Builder(deduplicating: true)
     
@@ -277,7 +277,7 @@ extension SortedSet: SetAlgebra {
   ///
   /// - Parameter other: A set of the same type as the current set.
   /// - Complexity: O(`self.count` + `other.count`)
-  @inlinable
+  
   public mutating func subtract(_ other: SortedSet<Element>) {
     self = self.subtracting(other)
   }
@@ -290,7 +290,7 @@ extension SortedSet: SetAlgebra {
   /// - Parameter other: A set of the same type as the current set.
   /// - Returns: `true` if the set is a subset of other; otherwise, `false`.
   /// - Complexity: O(max(`self.count`, `other.count`))
-  @inlinable
+  
   public func isSubset(of other: SortedSet<Element>) -> Bool {
     // TODO: could be worthwhile to evaluate recursive approach
     // TODO: in some cases, it could be faster to search from the root each time
@@ -332,7 +332,7 @@ extension SortedSet: SetAlgebra {
   /// - Returns: `true` if the set is a strict subset of `other`; otherwise,
   ///   `false`.
   /// - Complexity: O(`self.count` + `other.count`).
-  @inlinable
+  
   public func isStrictSubset(of other: SortedSet<Element>) -> Bool {
     if self.count >= other.count { return false }
     return self.isSubset(of: other)
@@ -345,7 +345,7 @@ extension SortedSet: SetAlgebra {
   /// - Returns: `true` if the set has no elements in common with `other`;
   ///   otherwise, `false`.
   /// - Complexity: O(`self.count` + `other.count`).
-  @inlinable
+  
   public func isDisjoint(with other: SortedSet<Element>) -> Bool {
     var it1 = self.makeIterator()
     var it2 = other.makeIterator()

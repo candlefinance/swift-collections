@@ -30,7 +30,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public mutating func subtract(_ other: Self) {
     self = subtracting(other)
@@ -49,7 +49,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public mutating func subtract(_ other: UnorderedView) {
     subtract(other._base)
@@ -66,7 +66,7 @@ extension OrderedSet {
   /// - Complexity: Expected to be O(`self.count` + *n*) on average, where *n*
   ///    is the number of elements in `other`, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public mutating func subtract(_ other: some Sequence<Element>) {
     self = _subtracting(other)

@@ -17,13 +17,13 @@ extension OrderedDictionary: Sequence {
   /// The type that allows iteration over an ordered dictionary's elements.
   @frozen
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
+    
     internal let _base: OrderedDictionary
 
-    @usableFromInline
+    
     internal var _position: Int
 
-    @inlinable
+    
     @inline(__always)
     internal init(_base: OrderedDictionary) {
       self._base = _base
@@ -34,7 +34,7 @@ extension OrderedDictionary: Sequence {
     /// element exists.
     ///
     /// - Complexity: O(1)
-    @inlinable
+    
     public mutating func next() -> Element? {
       guard _position < _base._values.count else { return nil }
       let result = (_base._keys[_position], _base._values[_position])
@@ -46,7 +46,7 @@ extension OrderedDictionary: Sequence {
   /// The number of elements in the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var underestimatedCount: Int {
     count
@@ -55,7 +55,7 @@ extension OrderedDictionary: Sequence {
   /// Returns an iterator over the elements of this collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func makeIterator() -> Iterator {
     Iterator(_base: self)

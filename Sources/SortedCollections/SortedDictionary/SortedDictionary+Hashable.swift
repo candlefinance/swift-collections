@@ -15,7 +15,7 @@ extension SortedDictionary: Hashable where Key: Hashable, Value: Hashable {
   /// - Parameter hasher: The hasher to use when combining
   ///     the components of this instance.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     hasher.combine(self.count)
     for (key, value) in self {

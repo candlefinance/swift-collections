@@ -28,7 +28,7 @@
 /// Documented performance promises are null and void when this property
 /// returns true -- for example, operations that are documented to take
 /// O(1) time might take O(*n*) time, or worse.
-@inlinable @inline(__always)
+ @inline(__always)
 internal var _isCollectionsInternalCheckingEnabled: Bool {
 #if COLLECTIONS_INTERNAL_CHECKS
   return true
@@ -43,7 +43,7 @@ internal var _isCollectionsInternalCheckingEnabled: Bool {
 /// Documented performance promises are null and void when this property
 /// returns true -- for example, operations that are documented to take
 /// O(1) time might take O(*n*) time, or worse.
-@inlinable @inline(__always)
+ @inline(__always)
 public var _isCollectionsInternalCheckingEnabled: Bool {
 #if COLLECTIONS_INTERNAL_CHECKS
   return true

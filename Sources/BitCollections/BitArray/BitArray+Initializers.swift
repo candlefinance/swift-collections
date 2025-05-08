@@ -64,7 +64,7 @@ extension BitArray {
 }
 
 extension BinaryInteger {
-  @inlinable
+  
   internal static func _convert(
     _ source: BitArray
   ) -> (value: Self, isNegative: Bool) {
@@ -115,7 +115,7 @@ extension BinaryInteger {
   ///     Int8(truncatingIfNeeded: "000011111111" as BitArray) // -1
   ///     Int8(truncatingIfNeeded: "111100000000" as BitArray) // 0
   ///     Int8(truncatingIfNeeded: "111100000001" as BitArray) // 1
-  @inlinable
+  
   public init(truncatingIfNeeded source: BitArray) {
     self = Self._convert(source).value
   }
@@ -164,7 +164,7 @@ extension BinaryInteger {
   ///     Int8(exactly: "11101111111" as BitArray) // nil
   ///     Int8(exactly: "11110000000" as BitArray) // -128
   ///     Int8(exactly: "11111111111" as BitArray) // -1
-  @inlinable
+  
   public init?(exactly source: BitArray) {
     let (value, isNegative) = Self._convert(source)
     guard isNegative == (value < 0) else { return nil }
@@ -228,7 +228,7 @@ extension BinaryInteger {
   ///     Int8("11101111111" as BitArray) // ERROR
   ///     Int8("11110000000" as BitArray) // -128
   ///     Int8("11111111111" as BitArray) // -1
-  @inlinable
+  
   public init(_ source: BitArray) {
     guard let value = Self(exactly: source) else {
       fatalError("""
@@ -241,7 +241,7 @@ extension BinaryInteger {
 }
 
 extension BitArray {
-  @usableFromInline
+  
   internal func _foreachTwosComplementWordDownward(
     isSigned: Bool,
     body: (Int, UInt) -> Bool

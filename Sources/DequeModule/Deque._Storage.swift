@@ -11,15 +11,15 @@
 
 extension Deque {
   @frozen
-  @usableFromInline
+  
   struct _Storage {
-    @usableFromInline
+    
     internal typealias _Buffer = ManagedBufferPointer<_DequeBufferHeader, Element>
 
-    @usableFromInline
+    
     internal var _buffer: _Buffer
 
-    @inlinable
+    
     @inline(__always)
     internal init(_buffer: _Buffer) {
       self._buffer = _buffer
@@ -28,24 +28,24 @@ extension Deque {
 }
 
 extension Deque._Storage: CustomStringConvertible {
-  @usableFromInline
+  
   internal var description: String {
     "Deque<\(Element.self)>._Storage\(_buffer.header)"
   }
 }
 
 extension Deque._Storage {
-  @inlinable
+  
   internal init() {
     self.init(_buffer: _Buffer(unsafeBufferObject: _emptyDequeStorage))
   }
 
-  @inlinable
+  
   internal init(_ object: _DequeBuffer<Element>) {
     self.init(_buffer: _Buffer(unsafeBufferObject: object))
   }
 
-  @inlinable
+  
   internal init(minimumCapacity: Int) {
     let object = _DequeBuffer<Element>.create(
       minimumCapacity: minimumCapacity,
@@ -63,35 +63,35 @@ extension Deque._Storage {
 
 extension Deque._Storage {
   #if COLLECTIONS_INTERNAL_CHECKS
-  @usableFromInline @inline(never) @_effects(releasenone)
+   @inline(never) @_effects(releasenone)
   internal func _checkInvariants() {
     _buffer.withUnsafeMutablePointerToHeader { $0.pointee._checkInvariants() }
   }
   #else
-  @inlinable @inline(__always)
+   @inline(__always)
   internal func _checkInvariants() {}
   #endif // COLLECTIONS_INTERNAL_CHECKS
 }
 
 extension Deque._Storage {
-  @inlinable
+  
   @inline(__always)
   internal var identity: AnyObject { _buffer.buffer }
 
 
-  @inlinable
+  
   @inline(__always)
   internal var capacity: Int {
     _buffer.withUnsafeMutablePointerToHeader { $0.pointee.capacity }
   }
 
-  @inlinable
+  
   @inline(__always)
   internal var count: Int {
     _buffer.withUnsafeMutablePointerToHeader { $0.pointee.count }
   }
 
-  @inlinable
+  
   @inline(__always)
   internal var startSlot: _DequeSlot {
     _buffer.withUnsafeMutablePointerToHeader { $0.pointee.startSlot
@@ -100,13 +100,13 @@ extension Deque._Storage {
 }
 
 extension Deque._Storage {
-  @usableFromInline
+  
   internal typealias Index = Int
 
-  @usableFromInline
+  
   internal typealias _UnsafeHandle = Deque._UnsafeHandle
 
-  @inlinable
+  
   @inline(__always)
   internal func read<R>(_ body: (_UnsafeHandle) throws -> R) rethrows -> R {
     try _buffer.withUnsafeMutablePointers { header, elements in
@@ -117,7 +117,7 @@ extension Deque._Storage {
     }
   }
 
-  @inlinable
+  
   @inline(__always)
   internal func update<R>(_ body: (_UnsafeHandle) throws -> R) rethrows -> R {
     try _buffer.withUnsafeMutablePointers { header, elements in
@@ -133,7 +133,7 @@ extension Deque._Storage {
   /// Return a boolean indicating whether this storage instance is known to have
   /// a single unique reference. If this method returns true, then it is safe to
   /// perform in-place mutations on the deque.
-  @inlinable
+  
   @inline(__always)
   internal mutating func isUnique() -> Bool {
     _buffer.isUniqueReference()
@@ -141,14 +141,14 @@ extension Deque._Storage {
 
   /// Ensure that this storage refers to a uniquely held buffer by copying
   /// elements if necessary.
-  @inlinable
+  
   @inline(__always)
   internal mutating func ensureUnique() {
     if isUnique() { return }
     self._makeUniqueCopy()
   }
 
-  @inlinable
+  
   @inline(never)
   internal mutating func _makeUniqueCopy() {
     self = self.read { $0.copyElements() }
@@ -156,11 +156,11 @@ extension Deque._Storage {
 
   /// The growth factor to use to increase storage size to make place for an
   /// insertion.
-  @inlinable
+  
   @inline(__always)
   internal static var growthFactor: Double { 1.5 }
 
-  @usableFromInline
+  
   internal func _growCapacity(
     to minimumCapacity: Int,
     linearly: Bool
@@ -179,7 +179,7 @@ extension Deque._Storage {
   /// - Parameter linearGrowth: If true, then don't use an exponential growth
   ///    factor when reallocating the buffer -- just allocate space for the
   ///    requested number of elements
-  @inlinable
+  
   @inline(__always)
   internal mutating func ensureUnique(
     minimumCapacity: Int,
@@ -191,7 +191,7 @@ extension Deque._Storage {
     }
   }
 
-  @inlinable
+  
   @inline(never)
   internal mutating func _ensureUnique(
     isUnique: Bool,
@@ -218,7 +218,7 @@ extension Deque._Storage {
 }
 
 extension Deque._Storage {
-  @inlinable
+  
   @inline(__always)
   internal func isIdentical(to other: Self) -> Bool {
     self._buffer.buffer === other._buffer.buffer

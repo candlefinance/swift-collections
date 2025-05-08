@@ -21,7 +21,7 @@ extension OrderedSet: Equatable {
   ///    `isStrictSuperset(of:)` etc.
   ///
   /// - Complexity: O(`min(left.count, right.count)`)
-  @inlinable
+  
   public static func ==(left: Self, right: Self) -> Bool {
     left._elements == right._elements
   }

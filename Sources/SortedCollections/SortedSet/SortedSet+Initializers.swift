@@ -15,7 +15,7 @@ extension SortedSet {
   /// - Parameter elements: The elements to use as members of the new set.
   /// - Complexity: O(`n log n`) where `n` is the number of elements
   ///   in the sequence.
-  @inlinable
+  
   public init<S: Sequence>(_ elements: S) where S.Element == Element {
     self.init()
     
@@ -34,7 +34,7 @@ extension SortedSet {
   ///     new set.
   /// - Complexity: O(`n`) where `n` is the number of elements in the
   ///     sequence.
-  @inlinable
+  
   public init<S: Sequence>(
     sortedElements elements: S
   ) where S.Element == Element {

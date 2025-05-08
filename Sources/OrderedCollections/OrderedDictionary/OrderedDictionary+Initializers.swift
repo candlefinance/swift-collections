@@ -20,7 +20,7 @@ extension OrderedDictionary {
   /// literal.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public init() {
     self._keys = OrderedSet()
@@ -51,7 +51,7 @@ extension OrderedDictionary {
   ///   to shrink storage below any previously reserved capacity.
   ///
   /// - Complexity: O(`minimumCapacity`)
-  @inlinable
+  
   @inline(__always)
   public init(minimumCapacity: Int, persistent: Bool = false) {
     self._keys = OrderedSet(minimumCapacity: minimumCapacity, persistent: persistent)
@@ -80,7 +80,7 @@ extension OrderedDictionary {
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
+  
   public init(
     uniqueKeysWithValues keysAndValues: some Sequence<(key: Key, value: Value)>
   ) {
@@ -118,7 +118,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
-  @inlinable
+  
   public init(
     uniqueKeysWithValues keysAndValues: some Sequence<(Key, Value)>
   ) {
@@ -153,7 +153,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
-  @inlinable
+  
   public init(
     uniqueKeys keys: some Sequence<Key>,
     values: some Sequence<Value>
@@ -203,7 +203,7 @@ extension OrderedDictionary {
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    key-value pairs, if `Key` implements high-quality hashing.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
+  
   @inline(__always)
   public init(
     _ keysAndValues: some Sequence<(key: Key, value: Value)>,
@@ -245,7 +245,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    key-value pairs, if `Key` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public init(
     _ keysAndValues: some Sequence<(Key, Value)>,
@@ -282,7 +282,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    values, if `Key` implements high-quality hashing.
-  @inlinable
+  
   public init<S: Sequence>(
     grouping values: S,
     by keyForValue: (S.Element) throws -> Key
@@ -315,7 +315,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    values, if `Key` implements high-quality hashing.
-  @inlinable
+  
   public init<S: Sequence>(
     grouping values: S,
     by keyForValue: (S.Element) throws -> Key
@@ -326,7 +326,7 @@ extension OrderedDictionary {
     try self.init(_grouping: values, by: keyForValue)
   }
 
-  @inlinable
+  
   internal init<S: Sequence>(
     _grouping values: S,
     by keyForValue: (S.Element) throws -> Key
@@ -342,7 +342,7 @@ extension OrderedDictionary {
 }
 
 extension OrderedDictionary {
-  @inlinable
+  
   internal init(
     _uncheckedUniqueKeysWithValues keysAndValues: 
     some Sequence<(key: Key, value: Value)>
@@ -378,7 +378,7 @@ extension OrderedDictionary {
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
+  
   public init(
     uncheckedUniqueKeysWithValues keysAndValues:
     some Sequence<(key: Key, value: Value)>
@@ -411,7 +411,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
-  @inlinable
+  
   public init(
     uncheckedUniqueKeysWithValues keysAndValues: some Sequence<(Key, Value)>
   ) {
@@ -445,7 +445,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public init(
     uncheckedUniqueKeys keys: some Sequence<Key>,

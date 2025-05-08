@@ -12,12 +12,12 @@
 // These are primarily for debugging.
 
 extension _HashTable.Header: CustomStringConvertible {
-  @usableFromInline
+  
   internal var _description: String {
     "(scale: \(scale), reservedScale: \(reservedScale), bias: \(bias), seed: \(String(seed, radix: 16)))"
   }
 
-  @usableFromInline
+  
   internal var description: String {
     "_HashTable.Header\(_description)"
   }
@@ -39,21 +39,21 @@ extension _HashTable.UnsafeHandle: CustomStringConvertible {
     return d
   }
 
-  @usableFromInline
+  
   internal var description: String {
     _description(type: "_HashTable.UnsafeHandle")
   }
 }
 
 extension _HashTable: CustomStringConvertible {
-  @usableFromInline
+  
   internal var description: String {
     read { $0._description(type: "_HashTable") }
   }
 }
 
 extension _HashTable.Storage: CustomStringConvertible {
-  @usableFromInline
+  
   internal var description: String {
     _HashTable(self).read { $0._description(type: "_HashTable.Storage") }
   }

@@ -19,23 +19,23 @@ public struct SortedDictionary<Key: Comparable, Value> {
   /// An element of the sorted dictionary. A key-value tuple.
   public typealias Element = (key: Key, value: Value)
   
-  @usableFromInline
+  
   internal typealias _Tree = _BTree<Key, Value>
   
-  @usableFromInline
+  
   internal var _root: _Tree
   
   /// Creates an empty dictionary.
   /// 
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public init() {
     self._root = _Tree()
   }
   
   /// Creates a dictionary rooted at a given BTree.
-  @inlinable
+  
   internal init(_rootedAt tree: _Tree) {
     self._root = tree
   }
@@ -47,14 +47,14 @@ extension SortedDictionary {
   /// an `SortedSet`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var keys: Keys { Keys(_base: self) }
   
   /// A mutable collection view containing the values in this dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var values: Values {
     get {
@@ -102,7 +102,7 @@ extension SortedDictionary {
   /// - Returns: The return value of `body`.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   public mutating func modifyValue<R>(
     forKey key: Key,
     default defaultValue: @autoclosure () -> Value,
@@ -145,7 +145,7 @@ extension SortedDictionary {
   ///     pair was added.
   /// - Complexity: O(`log n`) where `n` is the number of key-value pairs in the
   ///   dictionary.
-  @inlinable
+  
   @discardableResult
   public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
     self._root.updateAnyValue(value, forKey: key)?.value
@@ -163,7 +163,7 @@ extension SortedDictionary {
   ///     in the dictionary.
   /// - Complexity: O(`log n`) where `n` is the number of key-value pairs in the
   ///   dictionary.
-  @inlinable
+  
   @inline(__always)
   public mutating func removeValue(forKey key: Key) -> Value? {
     return self._root.removeAnyElement(forKey: key)?.value
@@ -181,7 +181,7 @@ extension SortedDictionary {
   /// - Returns: A sorted dictionary containing the keys and transformed values of
   ///     this dictionary.
   /// - Complexity: O(`n`)
-  @inlinable
+  
   @inline(__always)
   public func mapValues<T>(
     _ transform: (Value) throws -> T

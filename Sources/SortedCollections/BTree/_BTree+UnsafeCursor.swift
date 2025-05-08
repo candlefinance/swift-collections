@@ -23,14 +23,14 @@ extension _BTree {
   /// - Warning: It is invalid to operate on a tree while a cursor to it exists.
   /// - Warning: the tree root must remain alive for the entire lifetime of a cursor otherwise bad things
   ///     may occur.
-  @usableFromInline
+  
   internal struct UnsafeCursor {
-    @usableFromInline
+    
     internal typealias Path = _FixedSizeArray<Unmanaged<Node.Storage>>
     
     /// This property is what takes ownership of the tree during the lifetime of the cursor. Once the cursor
     /// is consumed, it is set to nil and it is invalid to use the cursor.
-    @usableFromInline
+    
     internal var _root: Node.Storage?
     
     
@@ -46,11 +46,11 @@ extension _BTree {
     ///     ┌─┼─┐ ┌─┼─┐
     ///     │1│3│ │7│9│
     ///     └─┴─┘ └─┴─┘
-    @usableFromInline
+    
     internal var slots: _FixedSizeArray<_BTree.Slot>
     
     /// This stores a list of the nodes from top-to-bottom.
-    @usableFromInline
+    
     internal var path: Path
     
     /// Bottom most node that the index point to.
@@ -72,10 +72,10 @@ extension _BTree {
     ///
     /// This is notable for CoW as all values below it would need to be duplicated. Updating this to be as
     /// high as accurately possible ensures there are no unnecessary copies made.
-    @usableFromInline
+    
     internal var lastUniqueDepth: Int
     
-    @inlinable
+    
     @inline(__always)
     internal init(
       root: Node.Storage,
@@ -99,7 +99,7 @@ extension _BTree {
     /// Every member that operates on the element of the cursor must start by calling this function.
     ///
     /// Note that this is a noop in release builds.
-    @inlinable
+    
     @inline(__always)
     internal func assertValid() {
       #if COLLECTIONS_INTERNAL_CHECKS
@@ -110,7 +110,7 @@ extension _BTree {
     
     // MARK: Core Cursor Operations
     /// Finishes operating on a cursor and restores a tree
-    @inlinable
+    
     @inline(__always)
     internal mutating func apply(to tree: inout _BTree) {
       assertValid()
@@ -120,7 +120,7 @@ extension _BTree {
     }
     
     /// Declares that the cursor is completely unique
-    @inlinable
+    
     @inline(__always)
     internal mutating func _declareUnique() {
       self.lastUniqueDepth = Int(path.depth)
@@ -128,7 +128,7 @@ extension _BTree {
     
     /// Operators on a handle of the node
     /// - Warning: Ensure this is never called on an endIndex.
-    @inlinable
+    
     @inline(__always)
     internal mutating func readCurrentNode<R>(
       _ body: (Node.UnsafeHandle, Int) throws -> R
@@ -143,7 +143,7 @@ extension _BTree {
     
     /// Updates the node at a given depth.
     /// - Warning: this does not perform CoW checks
-    @inlinable
+    
     @inline(__always)
     internal mutating func updateNode<R>(
       atDepth depth: Int8,
@@ -178,7 +178,7 @@ extension _BTree {
     ///     cursor's target.
     /// - Returns: The body's return value
     /// - Complexity: O(`log n`) if non-unique. O(`1`) if unique.
-    @inlinable
+    
     @inline(__always)
     internal mutating func updateCurrentNode<R>(
       _ body: (Node.UnsafeHandle, Int) throws -> R
@@ -229,7 +229,7 @@ extension _BTree {
     }
     
     /// Moves the value from the cursor's position
-    @inlinable
+    
     @inline(__always)
     internal mutating func moveValue() -> Value {
       guard Node.hasValues else { return Node.dummyValue }
@@ -240,7 +240,7 @@ extension _BTree {
     }
     
     /// Initializes a value for a cursor that points to an element that has a hole for its value.
-    @inlinable
+    
     @inline(__always)
     internal mutating func initializeValue(to value: Value) {
       guard Node.hasValues else { return }
@@ -260,7 +260,7 @@ extension _BTree {
     /// - Returns: The new root object which may equal in identity to the previous one.
     /// - Warning: Does not check sortedness invariant
     /// - Complexity: O(`log n`). Ascends the tree once
-    @inlinable
+    
     internal mutating func insertElement(
       _ element: Node.Element,
       capacity: Int
@@ -301,7 +301,7 @@ extension _BTree {
     ///
     /// - Parameter hasValueHole: Whether the value has been moved out of the node.
     /// - Complexity: O(`log n`). Ascends the tree once.
-    @inlinable
+    
     internal mutating func removeElement(hasValueHole: Bool = false) {
       assertValid()
       defer { self._declareUnique() }
@@ -371,7 +371,7 @@ extension _BTree {
   /// - Parameter key: The key to search for
   /// - Returns: A cursor to the key or where the key should be inserted.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   internal mutating func takeCursor(at index: Index) -> UnsafeCursor {
     var slots = index.childSlots
     slots.append(UInt16(index.slot))
@@ -430,7 +430,7 @@ extension _BTree {
   /// - Returns: A `cursor` to the key or where the key should be inserted, and a `found`
   ///     parameter indicating whether or not the key exists within the tree.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   internal mutating func takeCursor(
     forKey key: Key
   ) -> (cursor: UnsafeCursor, found: Bool) {

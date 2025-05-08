@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
+  
   internal func compactMapValues<T>(
     _ level: _HashLevel,
     _ transform: (Value) throws -> T?

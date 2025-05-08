@@ -29,7 +29,7 @@ extension OrderedDictionary {
   ///   dictionary should be able to store without reallocating its storage.
   ///
   /// - Complexity: O(`max(count, minimumCapacity)`)
-  @inlinable
+  
   public mutating func reserveCapacity(_ minimumCapacity: Int) {
     self._keys.reserveCapacity(minimumCapacity)
     self._values.reserveCapacity(minimumCapacity)
@@ -42,7 +42,7 @@ extension OrderedDictionary {
   ///   default is `false`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
     _keys.removeAll(keepingCapacity: keepCapacity)
     _values.removeAll(keepingCapacity: keepCapacity)
@@ -60,7 +60,7 @@ extension OrderedDictionary {
   /// - Returns: The removed element.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   @discardableResult
   public mutating func remove(at index: Int) -> Element {
     let key = _keys.remove(at: index)
@@ -77,7 +77,7 @@ extension OrderedDictionary {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(_ bounds: Range<Int>) {
     _keys.removeSubrange(bounds)
     _values.removeSubrange(bounds)
@@ -92,7 +92,7 @@ extension OrderedDictionary {
   ///   of the range must be valid indices of the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeSubrange(
     _ bounds: some RangeExpression<Int>
   ) {
@@ -104,7 +104,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected to be O(`1`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   @discardableResult
   public mutating func removeLast() -> Element {
     precondition(!isEmpty, "Cannot remove last element of an empty collection")
@@ -119,7 +119,7 @@ extension OrderedDictionary {
   ///
   /// - Complexity: Expected to be O(`n`) on average, if `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public mutating func removeLast(_ n: Int) {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the collection")
@@ -133,7 +133,7 @@ extension OrderedDictionary {
   /// the resulting gaps in the storage arrays.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   @discardableResult
   public mutating func removeFirst() -> Element {
     precondition(!isEmpty, "Cannot remove first element of an empty collection")
@@ -150,7 +150,7 @@ extension OrderedDictionary {
   ///   number of elements in the set.
   ///
   /// - Complexity: O(`count`).
-  @inlinable
+  
   public mutating func removeFirst(_ n: Int) {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the collection")
@@ -168,7 +168,7 @@ extension OrderedDictionary {
   ///   whether the element should be removed from the collection.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func removeAll(
     where shouldBeRemoved: (Self.Element) throws -> Bool
   ) rethrows {

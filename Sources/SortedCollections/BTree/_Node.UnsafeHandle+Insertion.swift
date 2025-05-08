@@ -11,14 +11,14 @@
 
 // MARK: Tree Insertions
 extension _Node.UnsafeHandle {
-  @usableFromInline
+  
   @frozen
   internal enum UpdateResult {
     case updated(previousElement: _Node.Element)
     case splintered(_Node.Splinter)
     case inserted
 
-    @inlinable
+    
     @inline(__always)
     internal init(from splinter: _Node.Splinter?) {
       if let splinter = splinter {
@@ -44,7 +44,7 @@ extension _Node.UnsafeHandle {
   ///   - key: The key to equate.
   ///   - updatingKey: If the key is found, whether it should be updated.
   /// - Returns: A representation of the possible results of the update/insertion.
-  @inlinable
+  
   @inline(__always)
   internal func updateAnyValue(
     _ value: Value,
@@ -121,7 +121,7 @@ extension _Node.UnsafeHandle {
   /// - Returns: A splinter object if node splintered during the insert, otherwise `nil`
   /// - Warning: Ensure you insert the node in a valid order as to not break the node's
   ///     sorted invariant.
-  @inlinable
+  
   internal func insertElement(
     _ element: _Node.Element,
     withRightChild rightChild: _Node?,
@@ -303,7 +303,7 @@ extension _Node.UnsafeHandle {
   ///   - splinter: The splinter object from a child
   ///   - insertionSlot: The slot of the child which produced the splinter
   /// - Returns: Another splinter which may need to be propagated upward
-  @inlinable
+  
   @inline(__always)
   internal func insertSplinter(
     _ splinter: _Node.Splinter,
@@ -325,7 +325,7 @@ extension _Node.UnsafeHandle {
   /// already accurate.
   ///
   /// - Parameter rightHandle: A handle to the right-half of the split.
-  @inlinable
+  
   @inline(__always)
   internal func _adjustSubtreeCount(
     afterSplittingTo rightHandle: _Node.UnsafeHandle
@@ -364,7 +364,7 @@ extension _Node.UnsafeHandle {
   ///   - rightNode: A consumed node with keys greater than or equal to the separator.
   ///   - separatedBy: A separator greater than or equal to all keys in the current node.
   /// - Returns: A splinter if the node could not contain both elements.
-  @inlinable
+  
   internal func concatenateWith(
     node rightNode: inout _Node,
     separatedBy separator: __owned _Node.Element

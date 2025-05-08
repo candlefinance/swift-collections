@@ -64,28 +64,28 @@
 /// them.
 @frozen // Not really -- this package is not at all ABI stable
 public struct TreeDictionary<Key: Hashable, Value> {
-  @usableFromInline
+  
   internal typealias _Node = _HashNode<Key, Value>
 
-  @usableFromInline
+  
   internal typealias _UnsafeHandle = _Node.UnsafeHandle
 
-  @usableFromInline
+  
   var _root: _Node
 
   /// The version number of this instance, used for quick index validation.
   /// This is initialized to a (very weakly) random value and it gets
   /// incremented on every mutation that needs to invalidate indices.
-  @usableFromInline
+  
   var _version: UInt
 
-  @inlinable
+  
   internal init(_root: _Node, version: UInt) {
     self._root = _root
     self._version = version
   }
 
-  @inlinable
+  
   internal init(_new: _Node) {
     self.init(_root: _new, version: _new.initialVersionNumber)
   }
@@ -154,7 +154,7 @@ extension TreeDictionary {
   ///
   ///    Updating the dictionary through this subscript is expected to copy at
   ///    most O(log(`count`)) existing members.
-  @inlinable
+  
   public subscript(key: Key) -> Value? {
     get {
       _root.get(.top, key, _Hash(key))
@@ -246,7 +246,7 @@ extension TreeDictionary {
   ///
   ///    Updating the dictionary through this subscript is expected to copy at
   ///    most O(log(`count`)) existing members.
-  @inlinable
+  
   public subscript(
     key: Key,
     default defaultValue: @autoclosure () -> Value
@@ -284,7 +284,7 @@ extension TreeDictionary {
   /// - Complexity: This operation is expected to perform O(1) hashing and
   ///    comparison operations on average, provided that `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public func index(forKey key: Key) -> Index? {
     guard let path = _root.path(to: key, _Hash(key))
     else { return nil }
@@ -340,7 +340,7 @@ extension TreeDictionary {
   ///    existing members and to perform at most O(1) hashing/comparison
   ///    operations on the `Element` type, as long as `Element` properly
   ///    implements hashing.
-  @inlinable
+  
   @discardableResult
   public mutating func updateValue(
     _ value: __owned Value, forKey key: Key
@@ -360,7 +360,7 @@ extension TreeDictionary {
     }
   }
 
-  @inlinable
+  
   @discardableResult
   internal mutating func _updateValue(
     _ value: __owned Value, forKey key: Key
@@ -419,7 +419,7 @@ extension TreeDictionary {
   ///    to copy at most O(log(`count`)) existing members and to perform at
   ///    most O(1) hashing/comparison operations on the `Element` type, as long
   ///    as `Element` properly implements hashing.
-  @inlinable @inline(__always)
+   @inline(__always)
   public mutating func updateValue<R>(
     forKey key: Key,
     with body: (inout Value?) throws -> R
@@ -466,7 +466,7 @@ extension TreeDictionary {
   ///    to copy at most O(log(`count`)) existing members and to perform at
   ///    most O(1) hashing/comparison operations on the `Element` type, as long
   ///    as `Element` properly implements hashing.
-  @inlinable
+  
   public mutating func updateValue<R>(
     forKey key: Key,
     default defaultValue: @autoclosure () -> Value,
@@ -516,7 +516,7 @@ extension TreeDictionary {
   ///    to copy at most O(log(`count`)) existing members and to perform at
   ///    most O(1) hashing/comparison operations on the `Element` type, as long
   ///    as `Element` properly implements hashing.
-  @inlinable
+  
   @discardableResult
   public mutating func removeValue(forKey key: Key) -> Value? {
     guard let r = _root.remove(.top, key, _Hash(key)) else { return nil }
@@ -539,7 +539,7 @@ extension TreeDictionary {
   ///    existing members and to perform at most O(1) hashing/comparison
   ///    operations on the `Element` type, as long as `Element` properly
   ///    implements hashing.
-  @inlinable
+  
   public mutating func remove(at index: Index) -> Element {
     precondition(_isValid(index), "Invalid index")
     precondition(index._path._isItem, "Can't remove item at end index")

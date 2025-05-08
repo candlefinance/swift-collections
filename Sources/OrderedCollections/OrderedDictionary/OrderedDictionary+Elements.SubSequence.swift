@@ -20,12 +20,12 @@ extension OrderedDictionary.Elements {
   /// support efficient key-based lookups.
   @frozen
   public struct SubSequence {
-    @usableFromInline
+    
     internal var _base: OrderedDictionary
-    @usableFromInline
+    
     internal var _bounds: Range<Int>
 
-    @inlinable
+    
     @inline(__always)
     internal init(_base: OrderedDictionary, bounds: Range<Int>) {
       self._base = _base
@@ -55,7 +55,7 @@ extension OrderedDictionary.Elements.SubSequence {
   /// A read-only collection view containing the keys in this slice.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var keys: OrderedSet<Key>.SubSequence {
     _base._keys[_bounds]
@@ -64,7 +64,7 @@ extension OrderedDictionary.Elements.SubSequence {
   /// A read-only collection view containing the values in this slice.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var values: OrderedDictionary.Values.SubSequence {
     _base.values[_bounds]
@@ -92,7 +92,7 @@ extension OrderedDictionary.Elements.SubSequence {
   ///
   /// - Complexity: Expected to be O(1) on average, if `Key` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public func index(forKey key: Key) -> Int? {
     guard let index = _base.index(forKey: key) else { return nil }
     guard _bounds.contains(index) else { return nil }
@@ -107,16 +107,16 @@ extension OrderedDictionary.Elements.SubSequence: Sequence {
   /// The type that allows iteration over the collection's elements.
   @frozen
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
+    
     internal var _base: OrderedDictionary
 
-    @usableFromInline
+    
     internal var _end: Int
 
-    @usableFromInline
+    
     internal var _index: Int
 
-    @inlinable
+    
     @inline(__always)
     internal init(_base: OrderedDictionary.Elements.SubSequence) {
       self._base = _base._base
@@ -128,7 +128,7 @@ extension OrderedDictionary.Elements.SubSequence: Sequence {
     /// element exists.
     ///
     /// - Complexity: O(1)
-    @inlinable
+    
     public mutating func next() -> Element? {
       guard _index < _end else { return nil }
       defer { _index += 1 }
@@ -137,7 +137,7 @@ extension OrderedDictionary.Elements.SubSequence: Sequence {
   }
 
   /// Returns an iterator over the elements of this dictionary slice.
-  @inlinable
+  
   @inline(__always)
   public func makeIterator() -> Iterator {
     Iterator(_base: self)
@@ -167,7 +167,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// don't have a `startIndex` with an offset of zero.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var startIndex: Int { _bounds.lowerBound }
 
@@ -175,7 +175,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// than the last valid subscript argument.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var endIndex: Int { _bounds.upperBound }
 
@@ -183,7 +183,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// in ascending order.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var indices: Range<Int> { _bounds }
 
@@ -197,7 +197,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Returns: The index immediately after `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(after i: Int) -> Int { i + 1 }
 
@@ -211,7 +211,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Returns: The index immediately before `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(before i: Int) -> Int { i - 1 }
 
@@ -223,7 +223,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func formIndex(after i: inout Int) { i += 1 }
 
@@ -235,7 +235,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func formIndex(before i: inout Int) { i -= 1 }
 
@@ -254,7 +254,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   ///   the result of `abs(distance)` calls to `index(before:)`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(_ i: Int, offsetBy distance: Int) -> Int {
     i + distance
@@ -280,7 +280,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   ///   case, the method returns `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func index(
     _ i: Int,
@@ -300,7 +300,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Returns: The distance between `start` and `end`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func distance(from start: Int, to end: Int) -> Int {
     end - start
@@ -312,7 +312,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   ///   greater than or equal to `startIndex` and less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public subscript(position: Int) -> Element {
     precondition(_bounds.contains(position), "Index out of range")
     return (_base._keys[position], _base._values[position])
@@ -330,7 +330,7 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// - Parameter bounds: A range of valid indices in the dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public subscript(bounds: Range<Int>) -> SubSequence {
     precondition(
       bounds.lowerBound >= _bounds.lowerBound
@@ -342,14 +342,14 @@ extension OrderedDictionary.Elements.SubSequence: RandomAccessCollection {
   /// A Boolean value indicating whether the collection is empty.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var isEmpty: Bool { _bounds.isEmpty }
 
   /// The number of elements in the dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var count: Int { _bounds.count }
 }

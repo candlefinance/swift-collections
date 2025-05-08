@@ -12,7 +12,7 @@
 extension SortedSet {
   /// Returns the index for a given element, if it exists
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   public func index(of element: Element) -> Index? {
     if let index = self._root.findAnyIndex(forKey: element) {
       return Index(index)
@@ -23,10 +23,10 @@ extension SortedSet {
   
   /// The position of an element within a sorted set
   public struct Index {
-    @usableFromInline
+    
     internal var _index: _Tree.Index
     
-    @inlinable
+    
     @inline(__always)
     internal init(_ _index: _Tree.Index) {
       self._index = _index
@@ -41,7 +41,7 @@ where Element: Sendable {}
 
 // MARK: Equatable
 extension SortedSet.Index: Equatable {
-  @inlinable
+  
   public static func ==(lhs: SortedSet.Index, rhs: SortedSet.Index) -> Bool {
     lhs._index.ensureValid(with: rhs._index)
     return lhs._index == rhs._index
@@ -50,7 +50,7 @@ extension SortedSet.Index: Equatable {
 
 // MARK: Comparable
 extension SortedSet.Index: Comparable {
-  @inlinable
+  
   public static func <(lhs: SortedSet.Index, rhs: SortedSet.Index) -> Bool {
     lhs._index.ensureValid(with: rhs._index)
     return lhs._index < rhs._index

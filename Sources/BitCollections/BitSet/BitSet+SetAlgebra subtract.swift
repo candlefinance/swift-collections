@@ -64,7 +64,7 @@ extension BitSet {
     _subtract(other._clampedToUInt())
   }
 
-  @usableFromInline
+  
   internal mutating func _subtract(_ other: Range<UInt>) {
     guard !other.isEmpty else { return }
     _updateThenShrink { handle, shrink in
@@ -83,7 +83,7 @@ extension BitSet {
   ///
   /// - Complexity: O(*max*) + *k*, where *max* is the largest item in `self`,
   ///    and *k* is the complexity of iterating over all elements in `other`.
-  @inlinable
+  
   public mutating func subtract(_ other: some Sequence<Int>) {
     if let other = _specialize(other, for: BitSet.self) {
       self.subtract(other)
@@ -108,7 +108,7 @@ extension BitSet {
     }
   }
 
-  @usableFromInline
+  
   internal mutating func _subtract(_ next: () -> UInt?) {
     _updateThenShrink { handle, shrink in
       while let value = next() {

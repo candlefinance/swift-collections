@@ -19,7 +19,7 @@ extension SortedDictionary {
   ///     for the new dictionary.
   /// - Complexity: O(`n` * log(`n`)) where `n` is the number of elements in
   ///     the sequence.
-  @inlinable
+  
   @inline(__always)
   public init<S>(
     keysWithValues keysAndValues: S
@@ -40,7 +40,7 @@ extension SortedDictionary {
   ///     for the new dictionary.
   /// - Complexity: O(`n` * log(`n`)) where `n` is the number of elements in
   ///     the sequence.
-  @inlinable
+  
   @inline(__always)
   public init<S>(
     keysWithValues keysAndValues: S
@@ -62,7 +62,7 @@ extension SortedDictionary {
   ///     comparison order for the new dictionary.
   /// - Complexity: O(`n`) where `n` is the number of elements in the
   ///     sequence.
-  @inlinable
+  
   @inline(__always)
   public init<S>(
     sortedKeysWithValues keysAndValues: S
@@ -90,7 +90,7 @@ extension SortedDictionary {
   ///     comparison order for the new dictionary.
   /// - Complexity: O(`n`) where `n` is the number of elements in the
   ///     sequence.
-  @inlinable
+  
   @inline(__always)
   public init<S>(
     sortedKeysWithValues keysAndValues: S
@@ -128,7 +128,7 @@ extension SortedDictionary {
   /// - Parameters:
   ///   - values: A sequence of values to group into a dictionary.
   ///   - keyForValue: A closure that returns a key for each element in values.
-  @inlinable
+  
   public init<S>(
     grouping values: S,
     by keyForValue: (S.Element) throws -> Key

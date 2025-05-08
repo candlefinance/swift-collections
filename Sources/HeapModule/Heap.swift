@@ -59,11 +59,11 @@
 /// contents, and it helps avoid relying on any particular order.
 @frozen
 public struct Heap<Element: Comparable> {
-  @usableFromInline
+  
   internal var _storage: ContiguousArray<Element>
 
   /// Creates an empty heap.
-  @inlinable
+  
   public init() {
     _storage = []
   }
@@ -75,7 +75,7 @@ extension Heap {
   /// A Boolean value indicating whether or not the heap is empty.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+   @inline(__always)
   public var isEmpty: Bool {
     _storage.isEmpty
   }
@@ -83,7 +83,7 @@ extension Heap {
   /// The number of elements in the heap.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+   @inline(__always)
   public var count: Int {
     _storage.count
   }
@@ -95,7 +95,7 @@ extension Heap {
   /// or that this won't change in future versions of the library.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public var unordered: [Element] {
     Array(_storage)
   }
@@ -111,7 +111,7 @@ extension Heap {
   ///   created heap should be able to store without reallocating its storage.
   ///
   /// - Complexity: O(1) allocations
-  @inlinable
+  
   public init(minimumCapacity: Int) {
     self.init()
     self.reserveCapacity(minimumCapacity)
@@ -131,7 +131,7 @@ extension Heap {
   ///   resulting heap should be able to store without reallocating its storage.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public mutating func reserveCapacity(_ minimumCapacity: Int) {
     _storage.reserveCapacity(minimumCapacity)
   }
@@ -139,7 +139,7 @@ extension Heap {
   /// Inserts the given element into the heap.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   public mutating func insert(_ element: Element) {
     _storage.append(element)
 
@@ -152,7 +152,7 @@ extension Heap {
   /// Returns the element with the lowest priority, if available.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public var min: Element? {
     _storage.first
   }
@@ -160,7 +160,7 @@ extension Heap {
   /// Returns the element with the highest priority, if available.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public var max: Element? {
     _storage.withUnsafeBufferPointer { buffer in
       guard buffer.count > 2 else {
@@ -179,7 +179,7 @@ extension Heap {
   /// Removes and returns the element with the lowest priority, if available.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   public mutating func popMin() -> Element? {
     guard _storage.count > 0 else { return nil }
 
@@ -200,7 +200,7 @@ extension Heap {
   /// Removes and returns the element with the highest priority, if available.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   public mutating func popMax() -> Element? {
     guard _storage.count > 2 else { return _storage.popLast() }
 
@@ -227,7 +227,7 @@ extension Heap {
   /// The heap *must not* be empty.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   @discardableResult
   public mutating func removeMin() -> Element {
     return popMin()!
@@ -238,7 +238,7 @@ extension Heap {
   /// The heap *must not* be empty.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   @discardableResult
   public mutating func removeMax() -> Element {
     return popMax()!
@@ -254,7 +254,7 @@ extension Heap {
   /// - Returns: The original minimum value before the replacement.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   @discardableResult
   public mutating func replaceMin(with replacement: Element) -> Element {
     precondition(!isEmpty, "No element to replace")
@@ -279,7 +279,7 @@ extension Heap {
   /// - Returns: The original maximum value before the replacement.
   ///
   /// - Complexity: O(log(`count`)) element comparisons
-  @inlinable
+  
   @discardableResult
   public mutating func replaceMax(with replacement: Element) -> Element {
     precondition(!isEmpty, "No element to replace")
@@ -310,7 +310,7 @@ extension Heap {
   /// Initializes a heap from a sequence.
   ///
   /// - Complexity: O(*n*), where *n* is the number of items in `elements`.
-  @inlinable
+  
   public init(_ elements: some Sequence<Element>) {
     _storage = ContiguousArray(elements)
     guard _storage.count > 1 else { return }
@@ -326,7 +326,7 @@ extension Heap {
   /// - Parameter newElements: The new elements to insert into the heap.
   ///
   /// - Complexity: O(`count` + *k*), where *k* is the length of `newElements`.
-  @inlinable
+  
   public mutating func insert(
     contentsOf newElements: some Sequence<Element>
   ) {

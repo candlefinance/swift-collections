@@ -17,19 +17,19 @@
 extension _BTree: BidirectionalCollection {
   /// The total number of elements contained within the BTree
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   internal var count: Int { self.root.storage.header.subtreeCount }
   
   /// A Boolean value that indicates whether the BTree is empty.
-  @inlinable
+  
   @inline(__always)
   internal var isEmpty: Bool { self.count == 0 }
   
   // TODO: further consider O(1) implementation
   /// Locates the first element and returns a proper path to it, or nil if the BTree is empty.
   /// - Complexity: O(`log n`)
-  @inlinable
+  
   internal var startIndex: Index {
     if count == 0 { return endIndex }
     var depth: Int8 = 0
@@ -61,7 +61,7 @@ extension _BTree: BidirectionalCollection {
   
   /// Returns a sentinel value for the last element
   /// - Complexity: O(1)
-  @inlinable
+  
   internal var endIndex: Index {
     Index(
       node: .passUnretained(self.root.storage),
@@ -79,7 +79,7 @@ extension _BTree: BidirectionalCollection {
   /// - Returns: The distance between start and end. The result can be negative only if the collection
   ///     conforms to the BidirectionalCollection protocol.
   /// - Complexity: O(1)
-  @inlinable
+  
   internal func distance(from start: Index, to end: Index) -> Int {
     return end.offset - start.offset
   }
@@ -87,7 +87,7 @@ extension _BTree: BidirectionalCollection {
   /// Replaces the given index with its successor.
   /// - Parameter index: A valid index of the collection. i must be less than endIndex.
   /// - Complexity: O(`log n`) in the worst-case.
-  @inlinable
+  
   internal func formIndex(after index: inout Index) {
     precondition(index.offset < self.count,
                  "Attempt to advance out of collection bounds.")
@@ -111,7 +111,7 @@ extension _BTree: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection. i must be less than endIndex.
   /// - Returns: The index value immediately after i.
   /// - Complexity: O(`log n`) in the worst-case.
-  @inlinable
+  
   internal func index(after i: Index) -> Index {
     var newIndex = i
     self.formIndex(after: &newIndex)
@@ -121,7 +121,7 @@ extension _BTree: BidirectionalCollection {
   /// Replaces the given index with its predecessor.
   /// - Parameter index: A valid index of the collection. i must be greater than startIndex.
   /// - Complexity: O(`log n`) in the worst-case.
-  @inlinable
+  
   internal func formIndex(before index: inout Index) {
     precondition(!self.isEmpty && index.offset != 0,
                  "Attempt to advance out of collection bounds.")
@@ -132,7 +132,7 @@ extension _BTree: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection. i must be greater than startIndex.
   /// - Returns: The index value immediately before i.
   /// - Complexity: O(`log n`) in the worst-case.
-  @inlinable
+  
   internal func index(before i: Index) -> Index {
     var newIndex = i
     self.formIndex(before: &newIndex)
@@ -147,7 +147,7 @@ extension _BTree: BidirectionalCollection {
   ///   - i: A valid index of the collection.
   ///   - distance: The distance to offset `i`.
   /// - Complexity: O(`log n`) in the worst-case.
-  @inlinable
+  
   internal func formIndex(_ i: inout Index, offsetBy distance: Int) {
     let newIndex = i.offset + distance
     precondition(0 <= newIndex && newIndex <= self.count,
@@ -182,14 +182,14 @@ extension _BTree: BidirectionalCollection {
   ///     is positive, this is the same value as the result of `distance` calls to
   ///     `index(after:)`. If `distance` is negative, this is the same value as the
   ///     result of `abs(distance)` calls to `index(before:)`.
-  @inlinable
+  
   internal func index(_ i: Index, offsetBy distance: Int) -> Index {
     var newIndex = i
     self.formIndex(&newIndex, offsetBy: distance)
     return newIndex
   }
   
-  @inlinable
+  
   @inline(__always)
   internal subscript(index: Index) -> Element {
     // Ensure we don't attempt to dereference the endIndex
@@ -197,7 +197,7 @@ extension _BTree: BidirectionalCollection {
     return index.element
   }
   
-  @inlinable
+  
   @inline(__always)
   internal subscript(bounds: Range<Index>) -> SubSequence {
     return SubSequence(base: self, bounds: bounds)

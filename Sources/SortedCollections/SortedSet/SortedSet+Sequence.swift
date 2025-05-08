@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension SortedSet: Sequence {
-  @inlinable
+  
   @inline(__always)
   public func forEach(_ body: (Element) throws -> Void) rethrows {
     try self._root.forEach({ try body($0.key) })
@@ -19,10 +19,10 @@ extension SortedSet: Sequence {
   /// An iterator over the elements of the sorted set
   @frozen
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
+    
     internal var _iterator: _Tree.Iterator
     
-    @inlinable
+    
     @inline(__always)
     internal init(_base: SortedSet) {
       self._iterator = _base._root.makeIterator()
@@ -33,7 +33,7 @@ extension SortedSet: Sequence {
     /// - Returns: The next element in the underlying sequence, if a next element exists;
     ///     otherwise, `nil`.
     /// - Complexity: O(1) amortized over the entire sequence.
-    @inlinable
+    
     @inline(__always)
     public mutating func next() -> Element? {
       return self._iterator.next()?.key
@@ -43,7 +43,7 @@ extension SortedSet: Sequence {
   /// Returns an iterator over the elements of the sorted set.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public __consuming func makeIterator() -> Iterator {
     return Iterator(_base: self)

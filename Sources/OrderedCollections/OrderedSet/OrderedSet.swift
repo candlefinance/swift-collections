@@ -277,16 +277,16 @@ import InternalCollectionsUtilities
 @frozen
 public struct OrderedSet<Element> where Element: Hashable
 {
-  @usableFromInline
+  
   internal typealias _Bucket = _HashTable.Bucket
 
-  @usableFromInline
+  
   internal var __storage: _HashTable.Storage?
 
-  @usableFromInline
+  
   internal var _elements: ContiguousArray<Element>
 
-  @inlinable
+  
   internal init(
     _uniqueElements: ContiguousArray<Element>,
     _ table: _HashTable?
@@ -295,7 +295,7 @@ public struct OrderedSet<Element> where Element: Hashable
     self._elements = _uniqueElements
   }
 
-  @inlinable
+  
   @inline(__always)
   internal var _table: _HashTable? {
     get { __storage.map { _HashTable($0) } }
@@ -320,7 +320,7 @@ extension OrderedSet {
   ///
   /// - Complexity: O(1) for the getter. Mutating this property has an expected
   ///    complexity of O(`count`), if `Element` implements high-quality hashing.
-  @inlinable
+  
   public var elements: [Element] {
     get {
       Array(_elements)
@@ -341,35 +341,35 @@ extension OrderedSet {
 extension OrderedSet {
   /// The maximum number of elements this instance can store before it needs
   /// to resize its hash table.
-  @inlinable
+  
   internal var _capacity: Int {
     _table?.capacity ?? _HashTable.maximumUnhashedCount
   }
 
-  @inlinable
+  
   internal var _minimumCapacity: Int {
     if _scale == _reservedScale { return 0 }
     return _HashTable.minimumCapacity(forScale: _scale)
   }
 
-  @inlinable
+  
   internal var _scale: Int {
     _table?.scale ?? 0
   }
 
-  @inlinable
+  
   internal var _reservedScale: Int {
     _table?.reservedScale ?? 0
   }
 
-  @inlinable
+  
   internal var _bias: Int {
     _table?.bias ?? 0
   }
 }
 
 extension OrderedSet {
-  @inlinable
+  
   internal mutating func _regenerateHashTable(scale: Int, reservedScale: Int) {
     assert(_HashTable.maximumCapacity(forScale: scale) >= _elements.count)
     assert(reservedScale == 0 || reservedScale >= _HashTable.minimumScale)
@@ -379,7 +379,7 @@ extension OrderedSet {
       reservedScale: reservedScale)
   }
 
-  @inlinable
+  
   internal mutating func _regenerateHashTable() {
     let reservedScale = _reservedScale
     guard
@@ -393,7 +393,7 @@ extension OrderedSet {
     _regenerateHashTable(scale: scale, reservedScale: reservedScale)
   }
 
-  @inlinable
+  
   internal mutating func _regenerateExistingHashTable() {
     assert(_capacity >= _elements.count)
     guard _table != nil else {
@@ -408,13 +408,13 @@ extension OrderedSet {
 }
 
 extension OrderedSet {
-  @inlinable
+  
   @inline(__always)
   internal mutating func _isUnique() -> Bool {
     isKnownUniquelyReferenced(&__storage)
   }
 
-  @inlinable
+  
   internal mutating func _ensureUnique() {
     if __storage == nil { return }
     if isKnownUniquelyReferenced(&__storage) { return }
@@ -423,12 +423,12 @@ extension OrderedSet {
 }
 
 extension OrderedSet {
-  @inlinable
+  
   internal func _find(_ item: Element) -> (index: Int?, bucket: _Bucket) {
     _find_inlined(item)
   }
 
-  @inlinable
+  
   @inline(__always)
   internal func _find_inlined(_ item: Element) -> (index: Int?, bucket: _Bucket) {
     _elements.withUnsafeBufferPointer { elements in
@@ -441,7 +441,7 @@ extension OrderedSet {
     }
   }
 
-  @inlinable
+  
   internal func _bucket(for index: Int) -> _Bucket {
     guard let table = _table else { return _Bucket(offset: 0) }
     return table.read { hashTable in
@@ -460,7 +460,7 @@ extension OrderedSet {
   ///
   /// - Complexity: This operation is expected to perform O(1) comparisons on
   ///    average, provided that `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public func firstIndex(of element: Element) -> Int? {
     _find(element).index
@@ -474,7 +474,7 @@ extension OrderedSet {
   ///
   /// - Complexity: This operation is expected to perform O(1) comparisons on
   ///    average, provided that `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public func lastIndex(of element: Element) -> Int? {
     _find(element).index
@@ -482,7 +482,7 @@ extension OrderedSet {
 }
 
 extension OrderedSet {
-  @inlinable
+  
   @inline(never)
   internal __consuming func _extractSubset(
     using bitset: _UnsafeBitSet,
@@ -511,7 +511,7 @@ extension OrderedSet {
 }
 
 extension OrderedSet {
-  @inlinable
+  
   @discardableResult
   internal mutating func _removeExistingMember(
     at index: Int,
@@ -552,7 +552,7 @@ extension OrderedSet {
   /// - Returns: An ordered set of the values that `isIncluded` allows.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public func filter(
     _ isIncluded: (Element) throws -> Bool
   ) rethrows -> Self {

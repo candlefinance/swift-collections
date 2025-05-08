@@ -13,7 +13,7 @@
 import InternalCollectionsUtilities
 #endif
 
-@usableFromInline
+
 internal typealias _Word = _UnsafeBitSet._Word
 
 extension Array where Element == _Word {

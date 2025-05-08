@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension SortedDictionary: CustomStringConvertible, CustomDebugStringConvertible {
-  @inlinable
+  
   public var description: String {
     if isEmpty { return "[:]" }
     var result = "["
@@ -27,7 +27,7 @@ extension SortedDictionary: CustomStringConvertible, CustomDebugStringConvertibl
     return result
   }
   
-  @inlinable
+  
   public var debugDescription: String {
     var result = "SortedDictionary<\(Key.self), \(Value.self)>("
     if isEmpty {

@@ -33,25 +33,25 @@
 /// node down. (Paths could also store references to every node alongside them
 /// in a fixed-size array; this would speed up walking over the tree, but it
 /// would considerably embiggen the size of the path construct.)
-@usableFromInline
+
 @frozen
 internal struct _UnsafePath {
-  @usableFromInline
+  
   internal var ancestors: _AncestorHashSlots
 
-  @usableFromInline
+  
   internal var node: _UnmanagedHashNode
 
-  @usableFromInline
+  
   internal var nodeSlot: _HashSlot
 
-  @usableFromInline
+  
   internal var level: _HashLevel
 
-  @usableFromInline
+  
   internal var _isItem: Bool
 
-  @inlinable
+  
   internal init(root: __shared _RawHashNode) {
     self.level = .top
     self.ancestors = .empty
@@ -76,7 +76,7 @@ extension _UnsafePath {
     self._isItem = false
   }
 
-  @inlinable
+  
   internal init(
     _ level: _HashLevel,
     _ ancestors: _AncestorHashSlots,
@@ -93,7 +93,7 @@ extension _UnsafePath {
 }
 
 extension _UnsafePath: Equatable {
-  @usableFromInline
+  
   @_effects(releasenone)
   internal static func ==(left: Self, right: Self) -> Bool {
     // Note: we don't compare nodes (node equality should follow from the rest)
@@ -105,7 +105,7 @@ extension _UnsafePath: Equatable {
 }
 
 extension _UnsafePath: Hashable {
-  @usableFromInline
+  
   @_effects(releasenone)
   internal func hash(into hasher: inout Hasher) {
     // Note: we don't hash nodes, as they aren't compared by ==, either.
@@ -117,7 +117,7 @@ extension _UnsafePath: Hashable {
 }
 
 extension _UnsafePath: Comparable {
-  @usableFromInline
+  
   @_effects(releasenone)
   internal static func <(left: Self, right: Self) -> Bool {
     // This implements a total ordering across paths based on the slot
@@ -153,7 +153,7 @@ extension _UnsafePath: Comparable {
 }
 
 extension _UnsafePath: CustomStringConvertible {
-  @usableFromInline
+  
   internal var description: String {
     var d = "@"
     var l: _HashLevel = .top
@@ -180,7 +180,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var isOnItem: Bool {
     // Note: this may be true even if nodeSlot == itemCount (insertion paths).
     _isItem
@@ -193,7 +193,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal var isPlaceholder: Bool {
     _isItem && nodeSlot.value == node.itemCount
   }
@@ -203,7 +203,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal var isOnChild: Bool {
     !_isItem && nodeSlot.value < node.childCount
   }
@@ -213,7 +213,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal var isOnNodeEnd: Bool {
     !_isItem && nodeSlot.value == node.childCount
   }
@@ -225,7 +225,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal var currentChild: _UnmanagedHashNode {
     assert(isOnChild)
     return node.unmanagedChild(at: nodeSlot)
@@ -235,7 +235,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal func childSlot(at level: _HashLevel) -> _HashSlot {
     assert(level < self.level)
     return ancestors[level]
@@ -244,7 +244,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable @inline(__always)
+   @inline(__always)
   internal var currentItemSlot: _HashSlot {
     assert(isOnItem)
     return nodeSlot
@@ -257,7 +257,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal mutating func selectItem(at slot: _HashSlot) {
     // As a special exception, this allows slot to equal the item count.
     // This can happen for paths that address the position a new item might be
@@ -272,7 +272,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal mutating func selectChild(at slot: _HashSlot) {
     // As a special exception, this allows slot to equal the child count.
     // This is equivalent to a call to `selectEnd()`.
@@ -285,7 +285,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func selectEnd() {
     nodeSlot = node.childrenEndSlot
@@ -299,7 +299,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal mutating func descend() {
     self.node = currentChild
     self.ancestors[level] = nodeSlot
@@ -315,7 +315,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @inlinable
+  
   internal mutating func descendToChild(
     _ child: _UnmanagedHashNode, at slot: _HashSlot
   ) {
@@ -411,7 +411,7 @@ extension _UnsafePath {
   ///
   /// - Note: It is undefined behavior to call this on a path that is no longer
   ///    valid.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func descendToLeftMostItem() {
     while isOnChild {
@@ -442,7 +442,7 @@ extension _UnsafePath {
   /// Find the next item in a preorder walk in the tree following the currently
   /// addressed item, and return true. Return false and do nothing if the
   /// path does not currently address an item.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func findSuccessorItem(under root: _RawHashNode) -> Bool {
     guard isOnItem else { return false }
@@ -469,7 +469,7 @@ extension _UnsafePath {
   /// Find the previous item in a preorder walk in the tree preceding the
   /// currently addressed position, and return true.
   /// Return false if there is no previous item.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal mutating func findPredecessorItem(under root: _RawHashNode) -> Bool {
     switch (isOnItem, nodeSlot > .zero) {
@@ -581,7 +581,7 @@ extension _RawHashNode {
   /// tree. The two paths must not address a child node.
   ///
   /// This method must only be called on the root node.
-  @usableFromInline
+  
   @_effects(releasenone)
   internal func distance(
     _ level: _HashLevel, from start: _UnsafePath, to end: _UnsafePath
@@ -671,7 +671,7 @@ extension _UnmanagedHashNode {
 extension _HashNode {
   /// Return the path to the given key in this tree if it exists; otherwise
   /// return nil.
-  @inlinable
+  
   internal func path(
     to key: Key, _ hash: _Hash
   ) -> _UnsafePath? {
@@ -693,7 +693,7 @@ extension _HashNode {
 }
 
 extension _RawHashNode {
-  @usableFromInline
+  
   @_effects(releasenone)
   internal func seek(
     _ level: _HashLevel,
@@ -717,7 +717,7 @@ extension _RawHashNode {
     return (found, true)
   }
 
-  @usableFromInline
+  
   @_effects(releasenone)
   internal func seek(
     _ level: _HashLevel,

@@ -24,7 +24,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public mutating func subtract(_ other: Self) {
     // FIXME: Implement in-place reductions
     self = subtracting(other)
@@ -45,7 +45,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public mutating func subtract<Value>(
     _ other: TreeDictionary<Element, Value>.Keys
   ) {
@@ -64,7 +64,7 @@ extension TreeSet {
   ///
   /// - Complexity: O(*n*) where *n* is the number of elements in `other`,
   ///    as long as `Element` properly implements hashing.
-  @inlinable
+  
   public mutating func subtract(_ other: some Sequence<Element>) {
     self = subtracting(other)
   }

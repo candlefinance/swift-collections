@@ -14,7 +14,7 @@ extension TreeSet: Hashable {
   /// given hasher.
   ///
   /// Complexity: O(`count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     let copy = hasher
     let seed = copy.finalize()

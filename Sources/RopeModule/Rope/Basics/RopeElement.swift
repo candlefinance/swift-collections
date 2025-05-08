@@ -67,7 +67,7 @@ public protocol RopeElement {
 }
 
 extension RopeElement {
-  @inlinable
+  
   public mutating func rebalance(prevNeighbor left: inout Self) -> Bool {
     guard left.rebalance(nextNeighbor: &self) else { return false }
     swap(&self, &left)

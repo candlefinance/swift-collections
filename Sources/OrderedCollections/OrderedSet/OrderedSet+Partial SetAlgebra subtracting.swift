@@ -38,7 +38,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public __consuming func subtracting(_ other: Self) -> Self {
     _subtracting(other)
@@ -61,7 +61,7 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public __consuming func subtracting(_ other: UnorderedView) -> Self {
     subtracting(other._base)
@@ -81,13 +81,13 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
+  
   @inline(__always)
   public __consuming func subtracting(_ other: some Sequence<Element>) -> Self {
     _subtracting(other)
   }
 
-  @inlinable
+  
   __consuming func _subtracting(_ other: some Sequence<Element>) -> Self {
     guard count > 0 else { return Self() }
     return _UnsafeBitSet.withTemporaryBitSet(capacity: count) { difference in

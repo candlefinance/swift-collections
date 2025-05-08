@@ -16,22 +16,22 @@ import InternalCollectionsUtilities
 extension BitArray {
   /// An unsafe-unowned bitarray view over `UInt` storage, providing bit array
   /// primitives.
-  @usableFromInline
+  
   @frozen
   internal struct _UnsafeHandle {
-    @usableFromInline
+    
     internal typealias _BitPosition = _UnsafeBitSet.Index
 
-    @usableFromInline
+    
     internal let _words: UnsafeBufferPointer<_Word>
 
-    @usableFromInline
+    
     internal var _count: UInt
 
 #if DEBUG
     /// True when this handle does not support table mutations.
     /// (This is only checked in debug builds.)
-    @usableFromInline
+    
     internal let _mutable: Bool
 #endif
 
@@ -47,7 +47,7 @@ extension BitArray {
       return UnsafeMutableBufferPointer(mutating: _words)
     }
 
-    @inlinable
+    
     @inline(__always)
     internal init(
       words: UnsafeBufferPointer<_Word>,
@@ -63,7 +63,7 @@ extension BitArray {
 #endif
     }
 
-    @inlinable
+    
     @inline(__always)
     internal init(
       words: UnsafeMutableBufferPointer<_Word>,

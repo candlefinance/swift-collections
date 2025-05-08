@@ -26,7 +26,7 @@ extension SortedDictionary: Encodable where Key: Codable, Value: Codable {
   ///    JSON's "object" construct is explicitly unordered.)
   ///
   /// - Parameter encoder: The encoder to write data to.
-  @inlinable
+  
   public func encode(to encoder: Encoder) throws {
     // Encode contents as an array of alternating key-value pairs.
     var container = encoder.unkeyedContainer()
@@ -38,7 +38,7 @@ extension SortedDictionary: Encodable where Key: Codable, Value: Codable {
 }
 
 extension SortedDictionary: Decodable where Key: Decodable, Value: Decodable {
-  @inlinable
+  
   public init(from decoder: Decoder) throws {
     // We expect to be encoded as an array of alternating key-value pairs.
     var container = try decoder.unkeyedContainer()

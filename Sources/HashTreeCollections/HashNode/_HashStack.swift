@@ -11,16 +11,16 @@
 
 /// A fixed-size array of just enough size to hold an ancestor path in a
 /// `TreeDictionary`.
-@usableFromInline
+
 @frozen
 internal struct _HashStack<Element> {
 #if arch(x86_64) || arch(arm64)
-  @inlinable
+  
   @inline(__always)
   internal static var capacity: Int { 13 }
 
   // xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxx
-  @usableFromInline
+  
   internal var _contents: (
     Element, Element, Element, Element,
     Element, Element, Element, Element,
@@ -28,22 +28,22 @@ internal struct _HashStack<Element> {
     Element
   )
 #else
-  @inlinable
+  
   @inline(__always)
   internal static var capacity: Int { 7 }
 
   // xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xx
-  @usableFromInline
+  
   internal var _contents: (
     Element, Element, Element, Element,
     Element, Element, Element
   )
 #endif
 
-  @usableFromInline
+  
   internal var _count: UInt8
 
-  @inlinable
+  
   internal init(filledWith value: Element) {
     assert(Self.capacity == _HashLevel.limit)
 #if arch(x86_64) || arch(arm64)
@@ -62,19 +62,19 @@ internal struct _HashStack<Element> {
     self._count = 0
   }
 
-  @inlinable
+  
   @inline(__always)
   internal var capacity: Int { Self.capacity }
 
-  @inlinable
+  
   @inline(__always)
   internal var count: Int { Int(truncatingIfNeeded: _count) }
 
-  @inlinable
+  
   @inline(__always)
   internal var isEmpty: Bool { _count == 0 }
 
-  @inlinable
+  
   subscript(level: UInt8) -> Element {
     mutating get {
       assert(level < _count)
@@ -94,21 +94,21 @@ internal struct _HashStack<Element> {
     }
   }
 
-  @inlinable
+  
   mutating func push(_ item: Element) {
     assert(_count < capacity)
     self[_count] = item
     _count &+= 1
   }
 
-  @inlinable
+  
   mutating func pop() -> Element {
     assert(_count > 0)
     defer { _count &-= 1 }
     return self[_count &- 1]
   }
 
-  @inlinable
+  
   mutating func peek() -> Element {
     assert(count > 0)
     return self[_count &- 1]

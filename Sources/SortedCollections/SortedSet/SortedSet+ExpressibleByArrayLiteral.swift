@@ -25,7 +25,7 @@ extension SortedSet: ExpressibleByArrayLiteral {
   ///
   /// - Complexity: O(`n log n`) where `n` is the number of elements
   ///   in `elements`.
-  @inlinable
+  
   public init(arrayLiteral elements: Element...) {
     self.init(elements)
   }

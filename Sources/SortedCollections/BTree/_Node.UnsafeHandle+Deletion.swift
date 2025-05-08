@@ -19,7 +19,7 @@ extension _Node.UnsafeHandle {
   ///
   /// - Parameter key: The key to remove in the tree
   /// - Returns: The key-value pair which was removed. `nil` if not removed.
-  @inlinable
+  
   @inline(__always)
   @discardableResult
   internal func removeAnyElement(forKey key: Key) -> _Node.Element? {
@@ -88,7 +88,7 @@ extension _Node.UnsafeHandle {
   ///
   /// - Parameter offset: the offset which must be in-bounds.
   /// - Returns: The moved element of the tree
-  @inlinable
+  
   @inline(__always)
   internal func remove(at offset: Int) -> _Node.Element {
     assertMutable()
@@ -138,7 +138,7 @@ extension _Node.UnsafeHandle {
   /// ensure the tree above this is balanced. This does adjust child counts
   ///
   /// - Returns: The moved first element of the tree.
-  @inlinable
+  
   @inline(__always)
   internal func popFirstElement() -> _Node.Element {
     assertMutable()
@@ -164,7 +164,7 @@ extension _Node.UnsafeHandle {
   /// ensure the tree above this is balanced. This does adjust child counts
   ///
   /// - Returns: The moved last element of the tree.
-  @inlinable
+  
   @inline(__always)
   internal func popLastElement() -> _Node.Element {
     assertMutable()
@@ -199,7 +199,7 @@ extension _Node.UnsafeHandle {
   /// If no balancing needs to occur, then this method leaves the tree unchanged.
   ///
   /// - Parameter slot: The slot containing the child to balance.
-  @inlinable
+  
   internal func balance(atSlot slot: Int) {
     assertMutable()
     assert(0 <= slot && slot < self.childCount,
@@ -232,7 +232,7 @@ extension _Node.UnsafeHandle {
   /// does not perform any checks to ensure underflow does not occur.
   ///
   /// - Parameter slot: The slot containing the child to balance.
-  @inlinable
+  
   @inline(__always)
   internal func rotateRight(atSlot slot: Int) {
     assertMutable()
@@ -304,7 +304,7 @@ extension _Node.UnsafeHandle {
   /// does not perform any checks to ensure underflow does not occur.
   ///
   /// - Parameter slot: The slot containing the child to balance.
-  @inlinable
+  
   @inline(__always)
   internal func rotateLeft(atSlot slot: Int) {
     assertMutable()
@@ -381,7 +381,7 @@ extension _Node.UnsafeHandle {
   /// - Note: This method is only valid on a non-leaf nodes.
   /// - Warning: Calling this may result in empty nodes and a state which breaks the
   ///     B-Tree invariants, ensure the tree is further balanced after this.`
-  @inlinable
+  
   internal func collapse(atSlot slot: Int) {
     assertMutable()
     assert(0 <= slot && slot < self.elementCount,

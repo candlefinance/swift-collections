@@ -11,9 +11,9 @@
 
 extension _Node {
   /// Represents the result of a overfilled node's split.
-  @usableFromInline
+  
   internal struct Splinter {
-    @inlinable
+    
     @inline(__always)
     internal init(element: Element, rightChild: _Node<Key, Value>) {
       self.element = element
@@ -21,11 +21,11 @@ extension _Node {
     }
     
     /// The former median element which should be propagated upward.
-    @usableFromInline
+    
     internal let element: Element
     
     /// The right product of the node split.
-    @usableFromInline
+    
     internal var rightChild: _Node<Key, Value>
     
     /// Converts the splinter object to a node.
@@ -34,7 +34,7 @@ extension _Node {
     ///     node's left child.
     ///   - capacity: The desired capacity of the new node.
     /// - Returns: A new node of `capacity` with a single element.
-    @inlinable
+    
     @inline(__always)
     internal __consuming func toNode(
       leftChild: _Node<Key, Value>,

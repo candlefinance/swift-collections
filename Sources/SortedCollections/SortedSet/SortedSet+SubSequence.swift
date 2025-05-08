@@ -11,20 +11,20 @@
 
 extension SortedSet {
   public struct SubSequence {
-    @usableFromInline
+    
     internal typealias _TreeSubSequence = _Tree.SubSequence
     
-    @usableFromInline
+    
     internal let _subSequence: _TreeSubSequence
     
-    @inlinable
+    
     @inline(__always)
     internal init(_ _subSequence: _TreeSubSequence) {
       self._subSequence = _subSequence
     }
     
     /// The underlying collection of the subsequence.
-    @inlinable
+    
     @inline(__always)
     internal var base: SortedSet { SortedSet(_rootedAt: _subSequence.base) }
   }
@@ -40,10 +40,10 @@ extension SortedSet.SubSequence: Sequence {
   
   
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
+    
     internal var _iterator: _TreeSubSequence.Iterator
     
-    @inlinable
+    
     @inline(__always)
     internal init(_ _iterator: _TreeSubSequence.Iterator) {
       self._iterator = _iterator
@@ -54,7 +54,7 @@ extension SortedSet.SubSequence: Sequence {
     /// - Returns: The next element in the underlying sequence, if a next element exists;
     ///     otherwise, `nil`.
     /// - Complexity: O(1) amortized over the entire sequence.
-    @inlinable
+    
     @inline(__always)
     public mutating func next() -> Element? {
       _iterator.next()?.key
@@ -64,7 +64,7 @@ extension SortedSet.SubSequence: Sequence {
   /// Returns an iterator over the elements of the subsequence.
   ///
   /// - Complexity: O(log(`self.count`))
-  @inlinable
+  
   @inline(__always)
   public __consuming func makeIterator() -> Iterator {
     Iterator(_subSequence.makeIterator())
@@ -85,7 +85,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   /// If the collection is empty, `startIndex` is equal to `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var startIndex: Index { Index(_subSequence.startIndex) }
   
@@ -95,14 +95,14 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   /// If the collection is empty, `endIndex` is equal to `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var endIndex: Index { Index(_subSequence.endIndex) }
   
   /// The number of elements in the subsequence.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public var count: Int { _subSequence.count }
   
@@ -113,7 +113,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///   - end: Another valid index of the collection. If end is equal to start, the result is zero.
   /// - Returns: The distance between start and end. The result can be negative.
   /// - Complexity: O(1)
-  @inlinable
+  
   @inline(__always)
   public func distance(from start: Index, to end: Index) -> Int {
     start._index.ensureValid(forTree: _subSequence.base)
@@ -127,7 +127,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection. `i` must be less than `endIndex`.
   /// - Returns: The index value immediately after `i`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func index(after i: Index) -> Index {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -138,7 +138,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///
   /// - Parameter i: A valid index of the collection. `i` must be less than `endIndex`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func formIndex(after i: inout Index) {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -152,7 +152,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///     than `startIndex`.
   /// - Returns: The index value immediately before `i`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func index(before i: Index) -> Index {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -164,7 +164,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   /// - Parameter i: A valid index of the collection. `i` must be greater
   ///     than `startIndex`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func formIndex(before i: inout Index) {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -182,7 +182,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///     `index(after:)`. If `distance` is negative, this is the same value as the
   ///     result of `abs(distance)` calls to `index(before:)`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func index(_ i: Index, offsetBy distance: Int) -> Index {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -197,7 +197,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///   - i: A valid index of the collection.
   ///   - distance: The distance to offset `i`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   internal func formIndex(_ i: inout Index, offsetBy distance: Int) {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -217,7 +217,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   /// - Returns: An index offset by `distance` from the index `i`, unless that index would be
   ///     beyond `limit` in the direction of movement. In that case, the method returns `nil`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   public func index(_ i: Index, offsetBy distance: Int, limitedBy limit: Index) -> Index? {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -242,7 +242,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
   ///     `limit`; otherwise, `false`. When the return value is `false`, the value of `i` is
   ///     equal to `limit`.
   /// - Complexity: O(log(`self.count`)) in the worst-case.
-  @inlinable
+  
   @inline(__always)
   internal func formIndex(_ i: inout Index, offsetBy distance: Int, limitedBy limit: Self.Index) -> Bool {
     i._index.ensureValid(forTree: _subSequence.base)
@@ -250,14 +250,14 @@ extension SortedSet.SubSequence: BidirectionalCollection {
     return _subSequence.formIndex(&i._index, offsetBy: distance, limitedBy: limit._index)
   }
   
-  @inlinable
+  
   @inline(__always)
   public subscript(position: Index) -> Element {
     position._index.ensureValid(forTree: _subSequence.base)
     return _subSequence[position._index].key
   }
   
-  @inlinable
+  
   public subscript(bounds: Range<Index>) -> SubSequence {
     bounds.lowerBound._index.ensureValid(forTree: _subSequence.base)
     bounds.upperBound._index.ensureValid(forTree: _subSequence.base)
@@ -267,7 +267,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
     return SubSequence(_subSequence[bound])
   }
   
-  @inlinable
+  
   @inline(__always)
   public func _failEarlyRangeCheck(_ index: Index, bounds: Range<Index>) {
     _subSequence._failEarlyRangeCheck(
@@ -276,7 +276,7 @@ extension SortedSet.SubSequence: BidirectionalCollection {
     )
   }
 
-  @inlinable
+  
   @inline(__always)
   public func _failEarlyRangeCheck(_ range: Range<Index>, bounds: Range<Index>) {
     _subSequence._failEarlyRangeCheck(
@@ -296,7 +296,7 @@ extension SortedSet.SubSequence: Equatable {
   ///   - lhs: A value to compare.
   ///   - rhs: Another value to compare.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public static func ==(lhs: Self, rhs: Self) -> Bool {
     if lhs.count != rhs.count { return false }
     for (k1, k2) in zip(lhs, rhs) {
@@ -314,7 +314,7 @@ extension SortedSet.SubSequence: Hashable where Element: Hashable {
   /// - Parameter hasher: The hasher to use when combining
   ///     the components of this instance.
   /// - Complexity: O(`self.count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     hasher.combine(self.count)
     for element in self {

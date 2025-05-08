@@ -20,7 +20,7 @@ extension TreeDictionary {
   ///   this dictionary.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public func mapValues<T>(
     _ transform: (Value) throws -> T
   ) rethrows -> TreeDictionary<Key, T> {
@@ -56,7 +56,7 @@ extension TreeDictionary {
   ///   values of this dictionary.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
+  
   public func compactMapValues<T>(
     _ transform: (Value) throws -> T?
   ) rethrows -> TreeDictionary<Key, T> {

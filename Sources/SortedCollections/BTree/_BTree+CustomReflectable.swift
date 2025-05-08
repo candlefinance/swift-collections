@@ -11,7 +11,7 @@
 
 extension _BTree: CustomReflectable {
   /// The custom mirror for this instance.
-  @inlinable
+  
   internal var customMirror: Mirror {
     Mirror(self, unlabeledChildren: self, displayStyle: .dictionary)
   }

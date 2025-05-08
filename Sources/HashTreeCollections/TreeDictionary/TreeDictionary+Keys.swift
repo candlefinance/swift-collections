@@ -17,13 +17,13 @@ extension TreeDictionary {
   /// A view of a persistent dictionary’s keys, as a standalone collection.
   @frozen
   public struct Keys {
-    @usableFromInline
+    
     internal typealias _Node = _HashNode<Key, Value>
 
-    @usableFromInline
+    
     internal var _base: TreeDictionary
 
-    @inlinable
+    
     internal init(_base: TreeDictionary) {
       self._base = _base
     }
@@ -32,7 +32,7 @@ extension TreeDictionary {
   /// A collection containing just the keys of the dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public var keys: Keys {
     Keys(_base: self)
   }
@@ -67,26 +67,26 @@ extension TreeDictionary.Keys: Sequence {
   public struct Iterator: IteratorProtocol {
     public typealias Element = Key
 
-    @usableFromInline
+    
     internal var _base: TreeDictionary.Iterator
 
-    @inlinable
+    
     internal init(_base: TreeDictionary.Iterator) {
       self._base = _base
     }
 
-    @inlinable
+    
     public mutating func next() -> Element? {
       _base.next()?.key
     }
   }
 
-  @inlinable
+  
   public func makeIterator() -> Iterator {
     Iterator(_base: _base.makeIterator())
   }
 
-  @inlinable
+  
   public func _customContainsEquatableElement(
     _ element: Element
   ) -> Bool? {
@@ -103,7 +103,7 @@ extension TreeDictionary.Keys: Sequence {
   /// - Complexity: This operation is expected to perform O(1) hashing and
   ///    comparison operations on average, provided that `Element` implements
   ///    high-quality hashing.
-  @inlinable
+  
   public func contains(_ element: Element) -> Bool {
     _base._root.containsKey(.top, element, _Hash(element))
   }
@@ -115,46 +115,46 @@ where Key: Sendable, Value: Sendable {}
 extension TreeDictionary.Keys: Collection {
   public typealias Index = TreeDictionary.Index
 
-  @inlinable
+  
   public var isEmpty: Bool { _base.isEmpty }
 
-  @inlinable
+  
   public var count: Int { _base.count }
 
-  @inlinable
+  
   public var startIndex: Index { _base.startIndex }
 
-  @inlinable
+  
   public var endIndex: Index { _base.endIndex }
 
-  @inlinable
+  
   public subscript(index: Index) -> Element {
     _base[index].key
   }
 
-  @inlinable
+  
   public func formIndex(after i: inout Index) {
     _base.formIndex(after: &i)
   }
 
-  @inlinable
+  
   public func index(after i: Index) -> Index {
     _base.index(after: i)
   }
 
-  @inlinable
+  
   public func index(_ i: Index, offsetBy distance: Int) -> Index {
     _base.index(i, offsetBy: distance)
   }
 
-  @inlinable
+  
   public func index(
     _ i: Index, offsetBy distance: Int, limitedBy limit: Index
   ) -> Index? {
     _base.index(i, offsetBy: distance, limitedBy: limit)
   }
 
-  @inlinable
+  
   public func distance(from start: Index, to end: Index) -> Int {
     _base.distance(from: start, to: end)
   }
@@ -165,12 +165,12 @@ extension TreeDictionary.Keys: BidirectionalCollection {
   // Note: Let's not do this. `BidirectionalCollection` would imply that
   // the ordering of elements would be meaningful, which isn't true for
   // `TreeDictionary.Keys`.
-  @inlinable
+  
   public func formIndex(before i: inout Index) {
     _base.formIndex(before: &i)
   }
 
-  @inlinable
+  
   public func index(before i: Index) -> Index {
     _base.index(before: i)
   }
@@ -302,7 +302,7 @@ extension TreeDictionary.Keys: Equatable {
   ///    implements hashing. That said, the implementation is careful to take
   ///    every available shortcut to reduce complexity, e.g. by skipping
   ///    comparing elements in shared subtrees.
-  @inlinable
+  
   public static func == (left: Self, right: Self) -> Bool {
     left._base._root.isEqualSet(to: right._base._root, by: { _, _ in true })
   }
@@ -313,7 +313,7 @@ extension TreeDictionary.Keys: Hashable {
   /// given hasher.
   ///
   /// Complexity: O(`count`)
-  @inlinable
+  
   public func hash(into hasher: inout Hasher) {
     let copy = hasher
     let seed = copy.finalize()

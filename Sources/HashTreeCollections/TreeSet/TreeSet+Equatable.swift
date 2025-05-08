@@ -24,7 +24,7 @@ extension TreeSet: Equatable {
   /// persistent sets with additional types.
   ///
   /// - Complexity: O(`min(left.count, right.count)`)
-  @inlinable @inline(__always)
+   @inline(__always)
   public static func == (left: Self, right: Self) -> Bool {
     left.isEqualSet(to: right)
   }

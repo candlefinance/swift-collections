@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
+  
   internal func filter(
     _ level: _HashLevel,
     _ isIncluded: (Element) throws -> Bool
@@ -55,7 +55,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+   @inline(never)
   internal func _filter_slow(
     _ level: _HashLevel,
     _ isIncluded: (Element) throws -> Bool

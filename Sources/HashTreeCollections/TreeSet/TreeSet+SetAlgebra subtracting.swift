@@ -29,7 +29,7 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public __consuming func subtracting(_ other: Self) -> Self {
     _subtracting(other._root)
   }
@@ -49,14 +49,14 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
+  
   public __consuming func subtracting<V>(
     _ other: TreeDictionary<Element, V>.Keys
   ) -> Self {
     _subtracting(other._base._root)
   }
 
-  @inlinable
+  
   internal __consuming func _subtracting<V>(
     _ other: _HashNode<Element, V>
   ) -> Self {
@@ -76,7 +76,7 @@ extension TreeSet {
   ///
   /// - Complexity: O(*n*) where *n* is the number of elements in `other`,
   ///    as long as `Element` properly implements hashing.
-  @inlinable
+  
   public __consuming func subtracting(_ other: some Sequence<Element>) -> Self {
     if let other = _specialize(other, for: Self.self) {
       return subtracting(other)

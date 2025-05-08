@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
+  
   public mutating func removeSubrange(
     _ bounds: Range<Int>,
     in metric: some RopeMetric<Element>
@@ -25,7 +25,7 @@ extension Rope {
     self = builder.finalize()
   }
 
-  @inlinable
+  
   public mutating func replaceSubrange(
     _ bounds: Range<Int>,
     in metric: some RopeMetric<Element>,
@@ -40,7 +40,7 @@ extension Rope {
     self = builder.finalize()
   }
 
-  @inlinable
+  
   public mutating func builder(
     removing bounds: Range<Int>,
     in metric: some RopeMetric<Element>
@@ -97,7 +97,7 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
+  
   internal __consuming func _removeSubrange(
     from start: (slot: Int, remaining: Int),
     to end: (slot: Int, remaining: Int),
@@ -132,7 +132,7 @@ extension Rope._Node {
     builder._insertAfterTip(upper.split(at: i2))
   }
 
-  @inlinable
+  
   internal __consuming func removeSuffix(
     from position: Int,
     in metric: some RopeMetric<Element>,
@@ -161,7 +161,7 @@ extension Rope._Node {
     builder._insertBeforeTip(item)
   }
 
-  @inlinable
+  
   internal __consuming func removePrefix(
     upTo position: Int,
     in metric: some RopeMetric<Element>,
@@ -188,7 +188,7 @@ extension Rope._Node {
     builder._insertAfterTip(item.split(at: i))
   }
 
-  @inlinable
+  
   internal mutating func _innerRemoveSuffix(
     descending slot: Int,
     into builder: inout Rope.Builder
@@ -221,7 +221,7 @@ extension Rope._Node {
     builder._insertBeforeTip(n)
   }
 
-  @inlinable
+  
   internal __consuming func _leafRemoveSuffix(
     returning slot: Int,
     into builder: inout Rope.Builder
@@ -252,7 +252,7 @@ extension Rope._Node {
     return item
   }
 
-  @inlinable
+  
   internal mutating func _innerRemovePrefix(
     descending slot: Int,
     into builder: inout Rope.Builder
@@ -286,7 +286,7 @@ extension Rope._Node {
     builder._insertAfterTip(n)
   }
 
-  @inlinable
+  
   internal __consuming func _leafRemovePrefix(
     returning slot: Int,
     into builder: inout Rope.Builder

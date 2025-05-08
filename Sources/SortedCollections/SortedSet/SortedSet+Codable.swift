@@ -13,7 +13,7 @@ extension SortedSet: Encodable where Element: Encodable {
   /// Encodes the elements of this ordered set into the given encoder.
   ///
   /// - Parameter encoder: The encoder to write data to.
-  @inlinable
+  
   public func encode(to encoder: Encoder) throws {
     var container = encoder.unkeyedContainer()
     try self.forEach { element in
@@ -29,7 +29,7 @@ extension SortedSet: Decodable where Element: Decodable {
   /// if the decoded contents contain duplicate values.
   ///
   /// - Parameter decoder: The decoder to read data from.
-  @inlinable
+  
   public init(from decoder: Decoder) throws {
     var container = try decoder.unkeyedContainer()
     var builder = _Tree.Builder(deduplicating: true)

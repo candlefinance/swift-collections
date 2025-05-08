@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
+  
   internal mutating func replaceItem(
     at bucket: _Bucket, _ slot: _HashSlot, with item: __owned Element
   ) {
@@ -22,7 +22,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable
+  
   internal mutating func replaceChild(
     at bucket: _Bucket, with child: __owned _HashNode
   ) -> Int {
@@ -30,7 +30,7 @@ extension _HashNode {
     return replaceChild(at: bucket, slot, with: child)
   }
 
-  @inlinable
+  
   internal mutating func replaceChild(
     at bucket: _Bucket, _ slot: _HashSlot, with child: __owned _HashNode
   ) -> Int {
@@ -47,7 +47,7 @@ extension _HashNode {
     return delta
   }
 
-  @inlinable
+  
   internal func replacingChild(
     _ level: _HashLevel,
     at bucket: _Bucket,

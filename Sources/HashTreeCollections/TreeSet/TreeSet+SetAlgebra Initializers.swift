@@ -20,7 +20,7 @@ extension TreeSet {
   /// literal.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public init() {
     self.init(_new: ._emptyNode())
   }
@@ -35,7 +35,7 @@ extension TreeSet {
   ///    hashing and equality comparisons on average (where *n*
   ///    is the number of elements in the sequence), provided that
   ///    `Element` properly implements hashing.
-  @inlinable
+  
   public init(_ items: __owned some Sequence<Element>) {
     if let items = _specialize(items, for: Self.self) {
       self = items
@@ -53,7 +53,7 @@ extension TreeSet {
   /// - Parameter items: The elements to use as members of the new set.
   ///
   /// - Complexity: O(1)
-  @inlinable
+  
   public init(_ items: __owned Self) {
     self = items
   }
@@ -64,7 +64,7 @@ extension TreeSet {
   /// - Parameter items: The elements to use as members of the new set.
   ///
   /// - Complexity: O(*items.count*)
-  @inlinable
+  
   public init<Value>(
     _ item: __owned TreeDictionary<Element, Value>.Keys
   ) {

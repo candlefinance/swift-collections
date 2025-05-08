@@ -10,9 +10,9 @@
 //===----------------------------------------------------------------------===//
 
 @_fixed_layout
-@usableFromInline
+
 internal final class _DequeBuffer<Element>: ManagedBuffer<_DequeBufferHeader, Element> {
-  @inlinable
+  
   deinit {
     self.withUnsafeMutablePointers { header, elements in
       header.pointee._checkInvariants()
@@ -33,14 +33,14 @@ internal final class _DequeBuffer<Element>: ManagedBuffer<_DequeBufferHeader, El
 }
 
 extension _DequeBuffer: CustomStringConvertible {
-  @usableFromInline
+  
   internal var description: String {
     withUnsafeMutablePointerToHeader { "_DequeStorage<\(Element.self)>\($0.pointee)" }
   }
 }
 
 /// The type-punned empty singleton storage instance.
-@usableFromInline
+
 internal let _emptyDequeStorage = _DequeBuffer<Void>.create(
   minimumCapacity: 0,
   makingHeaderWith: { _ in

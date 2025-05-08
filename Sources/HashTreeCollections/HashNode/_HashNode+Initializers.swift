@@ -14,12 +14,12 @@ import InternalCollectionsUtilities
 #endif
 
 extension _HashNode {
-  @inlinable @inline(__always)
+   @inline(__always)
   internal static func _emptyNode() -> _HashNode {
     _HashNode(storage: _emptySingleton, count: 0)
   }
 
-  @inlinable
+  
   internal static func _collisionNode(
     _ hash: _Hash,
     _ item1: __owned Element,
@@ -33,7 +33,7 @@ extension _HashNode {
     return node
   }
 
-  @inlinable
+  
   internal static func _collisionNode(
     _ hash: _Hash,
     _ item1: __owned Element,
@@ -47,7 +47,7 @@ extension _HashNode {
     return node
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ item: __owned Element,
     _ bucket: _Bucket
@@ -64,7 +64,7 @@ extension _HashNode {
     return r.node
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ item1: __owned Element,
     _ bucket1: _Bucket,
@@ -76,7 +76,7 @@ extension _HashNode {
       { $0.initialize(to: item2) }, bucket2).node
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ item1: __owned Element,
     _ bucket1: _Bucket,
@@ -100,7 +100,7 @@ extension _HashNode {
     return (r.node, r.result.0, r.result.1)
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ child: __owned _HashNode,
     _ bucket: _Bucket
@@ -117,7 +117,7 @@ extension _HashNode {
     return r.node
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ item: __owned Element,
     _ itemBucket: _Bucket,
@@ -129,7 +129,7 @@ extension _HashNode {
       child, childBucket)
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ inserter: (UnsafeMutablePointer<Element>) -> Void,
     _ itemBucket: _Bucket,
@@ -150,7 +150,7 @@ extension _HashNode {
     return r.node
   }
 
-  @inlinable
+  
   internal static func _regularNode(
     _ child1: __owned _HashNode,
     _ child1Bucket: _Bucket,
@@ -173,7 +173,7 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
+  
   internal static func build(
     level: _HashLevel,
     item1: __owned Element,
@@ -191,7 +191,7 @@ extension _HashNode {
     return (r.top, r.leaf, r.slot1, r.slot2)
   }
 
-  @inlinable
+  
   internal static func _build(
     level: _HashLevel,
     item1: __owned Element,
@@ -213,7 +213,7 @@ extension _HashNode {
     return (_regularNode(r.top, b1), r.leaf, r.slot1, r.slot2)
   }
 
-  @inlinable
+  
   internal static func build(
     level: _HashLevel,
     item1 inserter1: (UnsafeMutablePointer<Element>) -> Void,
@@ -236,7 +236,7 @@ extension _HashNode {
     return (node, node.unmanaged, .zero, .zero)
   }
 
-  @inlinable
+  
   internal static func build(
     level: _HashLevel,
     child1: __owned _HashNode,
