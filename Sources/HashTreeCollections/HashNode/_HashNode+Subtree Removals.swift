@@ -17,7 +17,6 @@ extension _HashNode {
   /// This function may leave `self` containing a singleton item.
   /// It is up to the caller to detect this situation & correct it when needed,
   /// by inlining the remaining item into the parent node.
-  @inlinable
   internal mutating func remove(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (removed: Element, remainder: Element?)? {
@@ -47,7 +46,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func removing(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (removed: Element, replacement: Builder)? {
@@ -65,7 +63,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func remove(
     _ level: _HashLevel, at path: _UnsafePath
   ) -> (removed: Element, remainder: Element?) {
@@ -91,8 +88,6 @@ extension _HashNode {
       remainder: r.remainder)
     return (r.removed, remainder)
   }
-
-  @inlinable
   internal func removing(
     _ level: _HashLevel, at path: _UnsafePath
   ) -> (removed: Element, replacement: Builder) {
@@ -113,7 +108,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func _removeItemFromUniqueLeafNode<R>(
     _ level: _HashLevel,
     at bucket: _Bucket,
@@ -137,8 +131,6 @@ extension _HashNode {
     }
     return (result, nil)
   }
-
-  @inlinable
   internal func _removingItemFromLeaf(
     _ level: _HashLevel, at bucket: _Bucket, _ slot: _HashSlot
   )  -> (removed: Element, replacement: Builder) {
@@ -197,7 +189,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func _removingChild(
     _ level: _HashLevel, at bucket: _Bucket, _ slot: _HashSlot
   ) -> Builder {
@@ -230,7 +221,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func _fixupUniqueAncestorAfterItemRemoval(
     _ level: _HashLevel,
     at bucket: (UnsafeHandle) -> _Bucket,
@@ -262,7 +252,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func _convertToRegularNode() {
     assert(isCollisionNode && hasSingletonItem)
     assert(isUnique())

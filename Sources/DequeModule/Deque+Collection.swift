@@ -22,23 +22,14 @@ extension Deque: Sequence {
   /// An iterator over the members of a deque.
   @frozen
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
     internal var _storage: Deque._Storage
-
-    @usableFromInline
     internal var _nextSlot: _Slot
-
-    @usableFromInline
     internal var _endSlot: _Slot
-
-    @inlinable
     internal init(_storage: Deque._Storage, start: _Slot, end: _Slot) {
       self._storage = _storage
       self._nextSlot = start
       self._endSlot = end
     }
-
-    @inlinable
     internal init(_base: Deque) {
       self = _base._storage.read { handle in
         let start = handle.startSlot
@@ -46,8 +37,6 @@ extension Deque: Sequence {
         return Self(_storage: _base._storage, start: start, end: end)
       }
     }
-
-    @inlinable
     internal init(_base: Deque, from index: Int) {
       self = _base._storage.read { handle in
         assert(index >= 0 && index <= handle.count)
@@ -60,8 +49,6 @@ extension Deque: Sequence {
         return Self(_storage: _base._storage, start: start, end: end)
       }
     }
-
-    @inlinable
     @inline(never)
     internal mutating func _swapSegment() -> Bool {
       assert(_nextSlot == _endSlot)
@@ -80,7 +67,6 @@ extension Deque: Sequence {
     /// exists.
     ///
     /// Once `nil` has been returned, all subsequent calls return `nil`.
-    @inlinable
     public mutating func next() -> Element? {
       if _nextSlot == _endSlot {
         guard _swapSegment() else { return nil }
@@ -97,12 +83,9 @@ extension Deque: Sequence {
   /// Returns an iterator over the elements of the deque.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func makeIterator() -> Iterator {
     Iterator(_base: self)
   }
-
-  @inlinable
   public __consuming func _copyToContiguousArray() -> ContiguousArray<Element> {
     ContiguousArray(unsafeUninitializedCapacity: _storage.count) { target, count in
       _storage.read { source in
@@ -118,8 +101,6 @@ extension Deque: Sequence {
       }
     }
   }
-
-  @inlinable
   public __consuming func _copyContents(
     initializing target: UnsafeMutableBufferPointer<Element>
   ) -> (Iterator, UnsafeMutableBufferPointer<Element>.Index) {
@@ -152,7 +133,6 @@ extension Deque: Sequence {
   ///
   /// - Complexity: O(1) when this instance has a unique reference to its
   ///    underlying storage; O(`count`) otherwise.
-  @inlinable
   public func withContiguousStorageIfAvailable<R>(
     _ body: (UnsafeBufferPointer<Element>) throws -> R
   ) rethrows -> R? {
@@ -174,7 +154,6 @@ extension Deque: RandomAccessCollection {
   /// The number of elements in the deque.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var count: Int { _storage.count }
 
@@ -184,7 +163,6 @@ extension Deque: RandomAccessCollection {
   /// empty, `startIndex` is equal to `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var startIndex: Int { 0 }
 
@@ -195,14 +173,12 @@ extension Deque: RandomAccessCollection {
   /// the deque is empty, `endIndex` is equal to `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var endIndex: Int { count }
 
   /// The indices that are valid for subscripting this deque, in ascending order.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var indices: Range<Int> { 0 ..< count }
 
@@ -214,7 +190,6 @@ extension Deque: RandomAccessCollection {
   /// - Returns: The next valid index immediately after `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(after i: Int) -> Int {
     // Note: Like `Array`, index manipulation methods on deques don't trap on
@@ -228,7 +203,6 @@ extension Deque: RandomAccessCollection {
   ///    `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func formIndex(after i: inout Int) {
     // Note: Like `Array`, index manipulation methods on deques
@@ -245,7 +219,6 @@ extension Deque: RandomAccessCollection {
   /// - Returns: The preceding valid index immediately before `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(before i: Int) -> Int {
     // Note: Like `Array`, index manipulation methods on deques don't trap on
@@ -258,7 +231,6 @@ extension Deque: RandomAccessCollection {
   /// - Parameter `i`: A valid index of the deque. `i` must be greater than `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func formIndex(before i: inout Int) {
     // Note: Like `Array`, index manipulation methods on deques don't trap on
@@ -281,7 +253,6 @@ extension Deque: RandomAccessCollection {
   ///    as the result of `abs(distance)` calls to `index(before:)`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(_ i: Int, offsetBy distance: Int) -> Int {
     // Note: Like `Array`, index manipulation methods on deques don't trap on
@@ -305,7 +276,6 @@ extension Deque: RandomAccessCollection {
   ///    case, the method returns `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func index(
     _ i: Int,
     offsetBy distance: Int,
@@ -333,7 +303,6 @@ extension Deque: RandomAccessCollection {
   ///    is greater than `start`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func distance(from start: Int, to end: Int) -> Int {
     // Note: Like `Array`, index manipulation method on deques
@@ -351,7 +320,6 @@ extension Deque: RandomAccessCollection {
   /// - Complexity: Reading an element from a deque is O(1). Writing is O(1)
   ///    unless the deque’s storage is shared with another deque, in which case
   ///    writing is O(`count`).
-  @inlinable
   public subscript(index: Int) -> Element {
     get {
       precondition(index >= 0 && index < count, "Index out of bounds")
@@ -375,8 +343,6 @@ extension Deque: RandomAccessCollection {
       yield &value
     }
   }
-
-  @inlinable
   internal mutating func _prepareForModify(at index: Int) -> (_Slot, Element) {
     _storage.ensureUnique()
     // We technically aren't supposed to escape storage pointers out of a
@@ -387,8 +353,6 @@ extension Deque: RandomAccessCollection {
       return (slot, handle.ptr(at: slot).move())
     }
   }
-
-  @inlinable
   internal mutating func _finalizeModify(_ slot: _Slot, _ value: Element) {
     _storage.update { handle in
       handle.ptr(at: slot).initialize(to: value)
@@ -403,7 +367,6 @@ extension Deque: RandomAccessCollection {
   ///
   /// The accessed slice uses the same indices for the same elements as the
   /// original collection.
-  @inlinable
   public subscript(bounds: Range<Int>) -> Slice<Self> {
     get {
       precondition(bounds.lowerBound >= 0 && bounds.upperBound <= count,
@@ -430,7 +393,6 @@ extension Deque: MutableCollection {
   ///
   /// - Complexity: O(1) when this instance has a unique reference to its
   ///    underlying storage; O(`count`) otherwise.
-  @inlinable
   public mutating func swapAt(_ i: Int, _ j: Int) {
     precondition(i >= 0 && i < count, "Index out of bounds")
     precondition(j >= 0 && j < count, "Index out of bounds")
@@ -462,7 +424,6 @@ extension Deque: MutableCollection {
   /// - Complexity: O(1) when this instance has a unique reference to its
   ///    underlying storage; O(`count`) otherwise. (Not counting the call to
   ///    `body`.)
-  @inlinable
   public mutating func withContiguousMutableStorageIfAvailable<R>(
     _ body: (inout UnsafeMutableBufferPointer<Element>) throws -> R
   ) rethrows -> R? {
@@ -482,8 +443,6 @@ extension Deque: MutableCollection {
       return try body(&extract)
     }
   }
-
-  @inlinable
   public mutating func _withUnsafeMutableBufferPointerIfSupported<R>(
     _ body: (inout UnsafeMutableBufferPointer<Element>) throws -> R
   ) rethrows -> R? {
@@ -504,7 +463,6 @@ extension Deque: RangeReplaceableCollection {
   ///     print(deque2.isEmpty) // true
   ///
   /// - Complexity: O(1)
-  @inlinable
   public init() {
     _storage = _Storage()
   }
@@ -520,7 +478,6 @@ extension Deque: RangeReplaceableCollection {
   ///   - minimumCapacity: The requested number of elements to store.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   public mutating func reserveCapacity(_ minimumCapacity: Int) {
     _storage.ensureUnique(minimumCapacity: minimumCapacity, linearGrowth: true)
   }
@@ -543,7 +500,6 @@ extension Deque: RangeReplaceableCollection {
   ///    to change the size of the deque, it minimizes the number of existing
   ///    items that need to be moved by shifting elements either before or after
   ///    `subrange`.
-  @inlinable
   public mutating func replaceSubrange(
     _ subrange: Range<Int>,
     with newElements: __owned some Collection<Element>
@@ -584,7 +540,6 @@ extension Deque: RangeReplaceableCollection {
   ///      or greater.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   public init(repeating repeatedValue: Element, count: Int) {
     precondition(count >= 0)
     self.init(minimumCapacity: count)
@@ -603,7 +558,6 @@ extension Deque: RangeReplaceableCollection {
   ///   - elements: The sequence of elements to turn into a deque.
   ///
   /// - Complexity: O(*n*), where *n* is the number of elements in the sequence.
-  @inlinable
   public init(_ elements: some Sequence<Element>) {
     self.init()
     self.append(contentsOf: elements)
@@ -615,7 +569,6 @@ extension Deque: RangeReplaceableCollection {
   ///   - elements: The collection of elements to turn into a deque.
   ///
   /// - Complexity: O(`elements.count`)
-  @inlinable
   public init(_ elements: some Collection<Element>) {
     let c = elements.count
     guard c > 0 else { _storage = _Storage(); return }
@@ -656,7 +609,6 @@ extension Deque: RangeReplaceableCollection {
   /// - Complexity: Amortized O(1)
   ///
   /// - SeeAlso: `prepend(_:)`
-  @inlinable
   public mutating func append(_ newElement: Element) {
     _storage.ensureUnique(minimumCapacity: count + 1)
     _storage.update {
@@ -678,7 +630,6 @@ extension Deque: RangeReplaceableCollection {
   /// - Parameter newElements: The elements to append to the deque.
   ///
   /// - Complexity: Amortized O(`newElements.count`).
-  @inlinable
   public mutating func append(contentsOf newElements: some Sequence<Element>) {
     let done: Void? = newElements.withContiguousStorageIfAvailable { source in
       _storage.ensureUnique(minimumCapacity: count + source.count)
@@ -720,7 +671,6 @@ extension Deque: RangeReplaceableCollection {
   /// - Parameter newElements: The elements to append to the deque.
   ///
   /// - Complexity: Amortized O(`newElements.count`).
-  @inlinable
   public mutating func append(
     contentsOf newElements: some Collection<Element>
   ) {
@@ -755,7 +705,6 @@ extension Deque: RangeReplaceableCollection {
   ///    towards the beginning or the end of the deque to minimize the number of
   ///    elements that need to be moved. When inserting at the start or the end,
   ///    this reduces the complexity to amortized O(1).
-  @inlinable
   public mutating func insert(_ newElement: Element, at index: Int) {
     precondition(index >= 0 && index <= count,
                  "Can't insert element at invalid index")
@@ -792,7 +741,6 @@ extension Deque: RangeReplaceableCollection {
   ///    to minimize the number of elements that need to be moved. When
   ///    inserting at the start or the end, this reduces the complexity to
   ///    amortized O(1).
-  @inlinable
   public mutating func insert(
     contentsOf newElements: __owned some Collection<Element>,
     at index: Int
@@ -821,7 +769,6 @@ extension Deque: RangeReplaceableCollection {
   ///
   /// - Complexity: O(`count`). Removing elements from the start or end of the
   ///    deque costs O(1) if the deque's storage isn't shared.
-  @inlinable
   @discardableResult
   public mutating func remove(at index: Int) -> Element {
     precondition(index >= 0 && index < self.count, "Index out of bounds")
@@ -848,22 +795,17 @@ extension Deque: RangeReplaceableCollection {
   ///
   /// - Complexity: O(`count`). Removing elements from the start or end of the
   ///    deque costs O(`bounds.count`) if the deque's storage isn't shared.
-  @inlinable
   public mutating func removeSubrange(_ bounds: Range<Int>) {
     precondition(bounds.lowerBound >= 0 && bounds.upperBound <= self.count,
                  "Index range out of bounds")
     _storage.ensureUnique()
     _storage.update { $0.uncheckedRemove(offsets: bounds) }
   }
-
-  @inlinable
   public mutating func _customRemoveLast() -> Element? {
     precondition(!isEmpty, "Cannot remove last element of an empty Deque")
     _storage.ensureUnique()
     return _storage.update { $0.uncheckedRemoveLast() }
   }
-
-  @inlinable
   public mutating func _customRemoveLast(_ n: Int) -> Bool {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the Collection")
@@ -880,7 +822,6 @@ extension Deque: RangeReplaceableCollection {
   ///
   /// - Complexity: O(1) if the underlying storage isn't shared; otherwise
   ///    O(`count`).
-  @inlinable
   @discardableResult
   public mutating func removeFirst() -> Element {
     precondition(!isEmpty, "Cannot remove first element of an empty Deque")
@@ -896,7 +837,6 @@ extension Deque: RangeReplaceableCollection {
   ///
   /// - Complexity: O(`n`) if the underlying storage isn't shared; otherwise
   ///    O(`count`).
-  @inlinable
   public mutating func removeFirst(_ n: Int) {
     precondition(n >= 0, "Can't remove a negative number of elements")
     precondition(n <= count, "Can't remove more elements than there are in the Collection")
@@ -910,7 +850,6 @@ extension Deque: RangeReplaceableCollection {
   ///    of the deque after removing its elements. The default value is false.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   public mutating func removeAll(keepingCapacity keepCapacity: Bool = false) {
     if keepCapacity {
       _storage.ensureUnique()

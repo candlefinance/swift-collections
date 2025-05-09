@@ -10,12 +10,9 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @usableFromInline
   @frozen
   internal struct Builder {
-    @usableFromInline internal typealias Element = _HashNode.Element
-
-    @usableFromInline
+    internal typealias Element = _HashNode.Element
     @frozen
     internal enum Kind {
       case empty
@@ -23,14 +20,8 @@ extension _HashNode {
       case node(_HashNode)
       case collisionNode(_HashNode)
     }
-
-    @usableFromInline
     internal var level: _HashLevel
-
-    @usableFromInline
     internal var kind: Kind
-
-    @inlinable
     internal init(_ level: _HashLevel, _ kind: Kind) {
       self.level = level
       self.kind = kind
@@ -39,7 +30,6 @@ extension _HashNode {
 }
 
 extension _HashNode.Builder {
-  @usableFromInline
   internal func dump() {
     let head = "Builder(level: \(level.depth), kind: "
     switch self.kind {
@@ -58,19 +48,19 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode.Builder {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static func empty(_ level: _HashLevel) -> Self {
     Self(level, .empty)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static func item(
     _ level: _HashLevel, _ item: __owned Element, at bucket: _Bucket
   ) -> Self {
     Self(level, .item(item, at: bucket))
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static func node(
     _ level: _HashLevel, _ node: __owned _HashNode
   ) -> Self {
@@ -78,7 +68,7 @@ extension _HashNode.Builder {
     return Self(level, .node(node))
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static func collisionNode(
     _ level: _HashLevel, _ node: __owned _HashNode
   ) -> Self {
@@ -88,7 +78,6 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode.Builder {
-  @inlinable
   internal var count: Int {
     switch kind {
     case .empty:
@@ -101,8 +90,6 @@ extension _HashNode.Builder {
       return node.count
     }
   }
-
-  @inlinable
   internal var isEmpty: Bool {
     guard case .empty = kind else { return false }
     return true
@@ -110,7 +97,6 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode.Builder {
-  @inlinable
   internal init(_ level: _HashLevel, _ node: _HashNode) {
     self.level = level
     if node.count == 0 {
@@ -124,8 +110,6 @@ extension _HashNode.Builder {
       kind = .node(node)
     }
   }
-
-  @inlinable
   internal __consuming func finalize(_ level: _HashLevel) -> _HashNode {
     assert(level.isAtRoot && self.level.isAtRoot)
     switch kind {
@@ -142,7 +126,6 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func applyReplacement(
     _ level: _HashLevel,
     _ replacement: Builder
@@ -165,7 +148,6 @@ extension _HashNode {
 }
 
 extension _HashNode.Builder {
-  @inlinable
   internal mutating func addNewCollision(
     _ level: _HashLevel, _ newItem: __owned Element, _ hash: _Hash
   ) {
@@ -187,8 +169,6 @@ extension _HashNode.Builder {
       fatalError()
     }
   }
-
-  @inlinable
   internal mutating func addNewItem(
     _ level: _HashLevel, _ newItem: __owned Element, at newBucket: _Bucket
   ) {
@@ -214,8 +194,6 @@ extension _HashNode.Builder {
       kind = .node(node)
     }
   }
-
-  @inlinable
   internal mutating func addNewChildNode(
     _ level: _HashLevel, _ newChild: __owned _HashNode, at newBucket: _Bucket
   ) {
@@ -248,8 +226,6 @@ extension _HashNode.Builder {
       self.kind = .node(node)
     }
   }
-
-  @inlinable
   internal mutating func addNewChildBranch(
     _ level: _HashLevel, _ newChild: __owned Self, at newBucket: _Bucket
   ) {
@@ -264,8 +240,6 @@ extension _HashNode.Builder {
       self.addNewChildNode(level, newNode, at: newBucket)
     }
   }
-
-  @inlinable
   internal static func childBranch(
     _ level: _HashLevel, _ child: Self, at bucket: _Bucket
   ) -> Self {
@@ -286,7 +260,6 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode.Builder {
-  @inlinable
   internal mutating func copyCollisions(
     from source: _HashNode.UnsafeHandle,
     upTo end: _HashSlot
@@ -299,8 +272,6 @@ extension _HashNode.Builder {
       self.addNewCollision(self.level, source[item: slot], h)
     }
   }
-
-  @inlinable
   internal mutating func copyItems(
     _ level: _HashLevel,
     from source: _HashNode.UnsafeHandle,
@@ -313,8 +284,6 @@ extension _HashNode.Builder {
       self.addNewItem(level, source[item: s], at: b)
     }
   }
-
-  @inlinable
   internal mutating func copyItemsAndChildren(
     _ level: _HashLevel,
     from source: _HashNode.UnsafeHandle,
@@ -333,7 +302,6 @@ extension _HashNode.Builder {
 }
 
 extension _HashNode.Builder {
-  @inlinable
   internal func mapValues<Value2>(
     _ transform: (Element) -> Value2
   ) -> _HashNode<Key, Value2>.Builder {
@@ -349,8 +317,6 @@ extension _HashNode.Builder {
       return .collisionNode(level, node.mapValues(transform))
     }
   }
-
-  @inlinable
   internal func mapValuesToVoid() -> _HashNode<Key, Void>.Builder {
     if Value.self == Void.self {
       return unsafeBitCast(self, to: _HashNode<Key, Void>.Builder.self)

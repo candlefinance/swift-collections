@@ -10,28 +10,20 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public mutating func append(_ other: __owned Self) {
     self = Rope.join(self, other)
   }
-  
-  @inlinable
   public mutating func prepend(_ other: __owned Self) {
     self = Rope.join(other, self)
   }
-  
-  @inlinable
   internal mutating func _append(_ other: __owned _Node) {
     append(Self(root: other))
   }
-  
-  @inlinable
   internal mutating func _prepend(_ other: __owned _Node) {
     prepend(Self(root: other))
   }
   
   /// Concatenate `left` and `right` by linking up the two trees.
-  @inlinable
   public static func join(_ left: __owned Self, _ right: __owned Self) -> Self {
     guard !right.isEmpty else { return left }
     guard !left.isEmpty else { return right }
@@ -56,7 +48,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func _graftFront(
     _ scion: inout Self
   ) -> (remainder: Self?, delta: Summary) {
@@ -94,8 +85,6 @@ extension Rope._Node {
     splinter._insertNode(remainder, at: 0)
     return (splinter, delta)
   }
-
-  @inlinable
   internal mutating func _graftBack(
     _ scion: inout Self
   ) -> (remainder: Self?, delta: Summary) {

@@ -60,7 +60,6 @@ extension BitArray {
   ///   `elements` must be finite.
   /// - Complexity: O(*count*) where *count* is the number of values in
   ///   `elements`.
-  @inlinable
   public init(_ elements: some Sequence<Bool>) {
     defer { _checkInvariants() }
     if let elements = _specialize(elements, for: BitArray.self) {
@@ -84,7 +83,6 @@ extension BitArray {
   ///   `elements` must be finite.
   /// - Complexity: O(*count*) where *count* is the number of values in
   ///   `elements`.
-  @inlinable
   public init(_ elements: BitArray) {
     self = elements
   }

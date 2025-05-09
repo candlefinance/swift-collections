@@ -23,12 +23,12 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension FixedWidthInteger {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var _nonzeroBitCount: Self {
     Self(truncatingIfNeeded: nonzeroBitCount)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func _rank(ofBit bit: UInt) -> Int {
     assert(bit < Self.bitWidth)
     let mask: Self = (1 &<< bit) &- 1
@@ -38,7 +38,6 @@ extension FixedWidthInteger {
 
 extension UInt {
   @_effects(releasenone)
-  @usableFromInline
   internal func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(UInt.bitWidth == 64 || UInt.bitWidth == 32,
@@ -91,7 +90,6 @@ extension UInt32 {
   // Returns the position of the `n`th set bit in `self`, i.e., the bit with
   // rank `n`.
   @_effects(releasenone)
-  @usableFromInline
   internal func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(n >= 0 && n < Self.bitWidth)
@@ -131,7 +129,6 @@ extension UInt16 {
   // Returns the position of the `n`th set bit in `self`, i.e., the bit with
   // rank `n`.
   @_effects(releasenone)
-  @usableFromInline
   internal func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(n >= 0 && n < Self.bitWidth)
@@ -163,12 +160,12 @@ extension UInt16 {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension FixedWidthInteger {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var _nonzeroBitCount: Self {
     Self(truncatingIfNeeded: nonzeroBitCount)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func _rank(ofBit bit: UInt) -> Int {
     assert(bit < Self.bitWidth)
     let mask: Self = (1 &<< bit) &- 1
@@ -178,7 +175,7 @@ extension FixedWidthInteger {
 
 extension UInt {
   @_effects(releasenone)
-  //@usableFromInline
+  //
   public func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(UInt.bitWidth == 64 || UInt.bitWidth == 32,
@@ -231,7 +228,7 @@ extension UInt32 {
   // Returns the position of the `n`th set bit in `self`, i.e., the bit with
   // rank `n`.
   @_effects(releasenone)
-  //@usableFromInline
+  //
   public func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(n >= 0 && n < Self.bitWidth)
@@ -271,7 +268,7 @@ extension UInt16 {
   // Returns the position of the `n`th set bit in `self`, i.e., the bit with
   // rank `n`.
   @_effects(releasenone)
-  //@usableFromInline
+  //
   public func _bit(ranked n: Int) -> UInt? {
     // FIXME: Use bit deposit instruction when available (PDEP on Intel).
     assert(n >= 0 && n < Self.bitWidth)

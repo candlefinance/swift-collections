@@ -12,22 +12,12 @@
 /// The storage header in a hash tree node. This includes data about the
 /// current size and capacity of the node's storage region, as well as
 /// information about the currently occupied hash table buckets.
-@usableFromInline
 @frozen
 internal struct _HashNodeHeader {
-  @usableFromInline
   internal var itemMap: _Bitmap
-
-  @usableFromInline
   internal var childMap: _Bitmap
-
-  @usableFromInline
   internal var _byteCapacity: UInt32
-
-  @usableFromInline
   internal var _bytesFree: UInt32
-
-  @inlinable
   internal init(byteCapacity: Int) {
     assert(byteCapacity >= 0 && byteCapacity <= UInt32.max)
     self.itemMap = .empty
@@ -38,12 +28,10 @@ internal struct _HashNodeHeader {
 }
 
 extension _HashNodeHeader {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var byteCapacity: Int {
     get { Int(truncatingIfNeeded: _byteCapacity) }
   }
-
-  @inlinable
   internal var bytesFree: Int {
     @inline(__always)
     get { Int(truncatingIfNeeded: _bytesFree) }
@@ -55,44 +43,36 @@ extension _HashNodeHeader {
 }
 
 extension _HashNodeHeader {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var isEmpty: Bool {
     return itemMap.isEmpty && childMap.isEmpty
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var isCollisionNode: Bool {
     !itemMap.isDisjoint(with: childMap)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var hasChildren: Bool {
     itemMap != childMap && !childMap.isEmpty
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var hasItems: Bool {
     !itemMap.isEmpty
   }
-
-  @inlinable
   internal var childCount: Int {
     itemMap == childMap ? 0 : childMap.count
   }
-
-  @inlinable
   internal var itemCount: Int {
     (itemMap == childMap
      ? Int(truncatingIfNeeded: itemMap._value)
      : itemMap.count)
   }
-
-  @inlinable
   internal var hasSingletonChild: Bool {
     itemMap.isEmpty && childMap.hasExactlyOneMember
   }
-
-  @inlinable
   internal var hasSingletonItem: Bool {
     if itemMap == childMap {
       return itemMap._value == 1
@@ -100,17 +80,15 @@ extension _HashNodeHeader {
     return childMap.isEmpty && itemMap.hasExactlyOneMember
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var childrenEndSlot: _HashSlot {
     _HashSlot(childCount)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var itemsEndSlot: _HashSlot {
     _HashSlot(itemCount)
   }
-
-  @inlinable
   internal var collisionCount: Int {
     get {
       assert(isCollisionNode)
@@ -126,7 +104,6 @@ extension _HashNodeHeader {
 }
 
 extension _HashNodeHeader {
-  @inlinable
   internal mutating func clear() {
     itemMap = .empty
     childMap = .empty

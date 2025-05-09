@@ -10,13 +10,10 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public mutating func prepend(_ item: __owned Element) {
     _invalidateIndices()
     insert(item, at: startIndex)
   }
-
-  @inlinable
   public mutating func insert(
     _ item: __owned Element,
     at index: Index
@@ -24,8 +21,6 @@ extension Rope {
     validate(index)
     insert(item, at: index._path)
   }
-
-  @inlinable
   mutating func insert(
     _ item: __owned Element,
     at path: _Path
@@ -39,8 +34,6 @@ extension Rope {
     }
     _invalidateIndices()
   }
-
-  @inlinable
   public mutating func insert(
     _ item: __owned Element,
     at position: Int,
@@ -58,12 +51,9 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func prepend(_ item: __owned _Item) -> Self? {
     insert(item, at: _startPath)
   }
-
-  @inlinable
   internal mutating func insert(
     _ item: __owned _Item,
     at path: _Path
@@ -78,8 +68,6 @@ extension Rope._Node {
     precondition(slot <= childCount, "Index out of bounds")
     return _leafInsert(item, at: slot)
   }
-
-  @inlinable
   internal mutating func insert(
     _ item: __owned _Item,
     at position: Int,
@@ -101,7 +89,6 @@ extension Rope._Node {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func _innerInsert(
     at slot: Int,
     with body: (inout Self) -> Self?
@@ -119,8 +106,6 @@ extension Rope._Node {
     guard let spawn = spawn else { return nil }
     return _applySpawn(spawn, of: slot)
   }
-
-  @inlinable
   internal mutating func _applySpawn(
     _ spawn: __owned Self, of slot: Int
   ) -> Self? {
@@ -172,7 +157,6 @@ extension Rope._Node {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func _leafInsert(
     _ item: __owned _Item, at slot: Int
   ) -> Self? {
@@ -195,8 +179,6 @@ extension Rope._Node {
     spawn._insertItem(item, at: slot - childCount)
     return spawn
   }
-
-  @inlinable
   internal mutating func _rebalanceBeforeInsert(
     _ item: inout _Item, at slot: Int
   ) -> Bool {

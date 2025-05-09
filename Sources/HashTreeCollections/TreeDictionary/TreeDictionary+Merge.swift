@@ -37,7 +37,6 @@ extension TreeDictionary {
   ///   - combine: A closure that takes the current and new values for any
   ///     duplicate keys. The closure returns the desired value for the final
   ///     dictionary.
-  @inlinable
   public mutating func merge(
     _ keysAndValues: Self,
     uniquingKeysWith combine: (Value, Value) throws -> Value
@@ -74,7 +73,6 @@ extension TreeDictionary {
   ///   - combine: A closure that takes the current and new values for any
   ///     duplicate keys. The closure returns the desired value for the final
   ///     dictionary.
-  @inlinable
   public mutating func merge(
     _ keysAndValues: __owned some Sequence<(Key, Value)>,
     uniquingKeysWith combine: (Value, Value) throws -> Value
@@ -119,7 +117,6 @@ extension TreeDictionary {
   ///     duplicate keys. The closure returns the desired value for the final
   ///     dictionary.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
   public mutating func merge(
     _ keysAndValues: __owned some Sequence<Element>,
     uniquingKeysWith combine: (Value, Value) throws -> Value
@@ -164,7 +161,6 @@ extension TreeDictionary {
   /// - Complexity: Expected to be O(`count` + *n*) on average, where *n* is the
   ///    number of elements in `keysAndValues`, if `Key` implements high-quality
   ///    hashing.
-  @inlinable
   public func merging(
     _ other: Self,
     uniquingKeysWith combine: (Value, Value) throws -> Value
@@ -209,7 +205,6 @@ extension TreeDictionary {
   /// - Complexity: Expected to be O(`count` + *n*) on average, where *n* is the
   ///    number of elements in `keysAndValues`, if `Key` implements high-quality
   ///    hashing.
-  @inlinable
   public func merging(
     _ other: __owned some Sequence<(Key, Value)>,
     uniquingKeysWith combine: (Value, Value) throws -> Value
@@ -255,7 +250,6 @@ extension TreeDictionary {
   ///    number of elements in `keysAndValues`, if `Key` implements high-quality
   ///    hashing.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
   public func merging(
     _ other: __owned some Sequence<Element>,
     uniquingKeysWith combine: (Value, Value) throws -> Value

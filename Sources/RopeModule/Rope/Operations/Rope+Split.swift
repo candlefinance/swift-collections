@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public mutating func builder(
     splittingAt position: Int,
     in metric: some RopeMetric<Element>
@@ -39,8 +38,6 @@ extension Rope {
     builder._insertBeforeTip(item)
     return builder
   }
-
-  @inlinable
   public mutating func split(at index: Index) -> (builder: Builder, item: Element) {
     validate(index)
     precondition(index < endIndex)
@@ -60,8 +57,6 @@ extension Rope {
     _invalidateIndices()
     return (builder, item.value)
   }
-
-  @inlinable
   public mutating func split(at ropeIndex: Index, _ itemIndex: Element.Index) -> Builder {
     var (builder, item) = self.split(at: ropeIndex)
     let suffix = item.split(at: itemIndex)
@@ -76,7 +71,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func _innerSplit(
     at slot: Int,
     into builder: inout Rope.Builder
@@ -110,8 +104,6 @@ extension Rope._Node {
     builder._insertBeforeTip(n)
     builder._insertAfterTip(suffix)
   }
-
-  @inlinable
   internal __consuming func _leafSplit(
     at slot: Int,
     into builder: inout Rope.Builder

@@ -34,7 +34,6 @@
 /// buffer above is identified by position of the *n*th true bit in the child
 /// map, and the *n*th item's bucket corresponds to the *n*th true bit in the
 /// items map.
-@usableFromInline
 @frozen
 internal struct _HashNode<Key: Hashable, Value> {
   // Warning: This struct must be kept layout-compatible with _RawHashNode.
@@ -47,21 +46,15 @@ internal struct _HashNode<Key: Hashable, Value> {
   // node storage, and the memory is then rebound to `_HashNode` later.
   // This will not work correctly unless `_HashNode` has the exact same alignment
   // and stride as `RawNode`.)
-
-  @usableFromInline
   internal typealias Element = (key: Key, value: Value)
-
-  @usableFromInline
   internal var raw: _RawHashNode
-
-  @inlinable
   internal init(storage: _RawHashStorage, count: Int) {
     self.raw = _RawHashNode(storage: storage, count: count)
   }
 }
 
 extension _HashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var count: Int {
     get { raw.count }
     set { raw.count = newValue }
@@ -69,26 +62,26 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var unmanaged: _UnmanagedHashNode {
     _UnmanagedHashNode(raw.storage)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func isIdentical(to other: _UnmanagedHashNode) -> Bool {
     raw.isIdentical(to: other)
   }
 }
 
 extension _HashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func read<R>(
     _ body: (UnsafeHandle) throws -> R
   ) rethrows -> R {
     try UnsafeHandle.read(raw.storage, body)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal mutating func update<R>(
     _ body: (UnsafeHandle) throws -> R
   ) rethrows -> R {
@@ -99,34 +92,24 @@ extension _HashNode {
 // MARK: Shortcuts to reading header data
 
 extension _HashNode {
-  @inlinable
   internal var isCollisionNode: Bool {
     read { $0.isCollisionNode }
   }
-
-  @inlinable
   internal var collisionHash: _Hash {
     read { $0.collisionHash }
   }
-
-  @inlinable
   internal var hasSingletonItem: Bool {
     read { $0.hasSingletonItem }
   }
-
-  @inlinable
   internal var hasSingletonChild: Bool {
     read { $0.hasSingletonChild }
   }
-
-  @inlinable
   internal var isAtrophied: Bool {
     read { $0.isAtrophiedNode }
   }
 }
 
 extension _HashNode {
-  @inlinable
   internal var initialVersionNumber: UInt {
     // Ideally we would simply just generate a true random number, but the
     // memory address of the root node is a reasonable substitute.

@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
   internal func symmetricDifference<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -21,8 +20,6 @@ extension _HashNode {
     guard other.count > 0 else { return nil }
     return _symmetricDifference(level, other)
   }
-
-  @inlinable
   internal func _symmetricDifference<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -128,7 +125,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func _symmetricDifference_slow<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -142,8 +139,6 @@ extension _HashNode {
       return other._symmetricDifference_slow_left(level, self)
     }
   }
-
-  @inlinable
   internal func _symmetricDifference_slow_both<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -181,8 +176,6 @@ extension _HashNode {
       }
     }
   }
-
-  @inlinable
   internal func _symmetricDifference_slow_left<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>

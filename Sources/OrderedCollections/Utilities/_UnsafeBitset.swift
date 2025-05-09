@@ -11,7 +11,5 @@
 
 #if !COLLECTIONS_SINGLE_MODULE
 import InternalCollectionsUtilities
-
-@usableFromInline
 internal typealias _UnsafeBitSet = InternalCollectionsUtilities._UnsafeBitSet
 #endif

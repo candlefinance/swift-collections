@@ -25,7 +25,6 @@
 extension FixedWidthInteger {
   /// Round up `self` to the nearest power of two, assuming it's representable.
   /// Returns 0 if `self` isn't positive.
-  @inlinable
   internal func _roundUpToPowerOfTwo() -> Self {
     guard self > 0 else { return 0 }
     let l = Self.bitWidth - (self &- 1).leadingZeroBitCount
@@ -36,7 +35,6 @@ extension FixedWidthInteger {
 extension FixedWidthInteger {
   /// Round up `self` to the nearest power of two, assuming it's representable.
   /// Returns 0 if `self` isn't positive.
-  @inlinable
   public func _roundUpToPowerOfTwo() -> Self {
     guard self > 0 else { return 0 }
     let l = Self.bitWidth - (self &- 1).leadingZeroBitCount

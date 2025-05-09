@@ -23,7 +23,6 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension UnsafeMutableBufferPointer {
-  @inlinable
   public func initialize(fromContentsOf source: Self) -> Index {
     guard source.count > 0 else { return 0 }
     precondition(
@@ -34,8 +33,6 @@ extension UnsafeMutableBufferPointer {
       count: source.count)
     return source.count
   }
-
-  @inlinable
   public func initialize(fromContentsOf source: Slice<Self>) -> Index {
     let sourceCount = source.count
     guard sourceCount > 0 else { return 0 }
@@ -50,7 +47,7 @@ extension UnsafeMutableBufferPointer {
 }
 
 extension Slice {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) -> Index
@@ -61,7 +58,7 @@ extension Slice {
     return self.startIndex + i
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) -> Index
@@ -74,7 +71,7 @@ extension Slice {
 }
 
 extension UnsafeMutableBufferPointer {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<C: Collection>(
     fromContentsOf source: C
   ) where C.Element == Element {
@@ -82,25 +79,25 @@ extension UnsafeMutableBufferPointer {
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll(fromContentsOf source: Self) {
     let i = self.initialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll(fromContentsOf source: Slice<Self>) {
     let i = self.initialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll(fromContentsOf source: Self) {
     let i = self.moveInitialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll(fromContentsOf source: Slice<Self>) {
     let i = self.moveInitialize(fromContentsOf: source)
     assert(i == self.endIndex)
@@ -108,7 +105,7 @@ extension UnsafeMutableBufferPointer {
 }
 
 extension Slice {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<C: Collection>(
     fromContentsOf source: C
   ) where Base == UnsafeMutableBufferPointer<C.Element> {
@@ -116,7 +113,7 @@ extension Slice {
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -124,7 +121,7 @@ extension Slice {
     target.initializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -132,7 +129,7 @@ extension Slice {
     target.initializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -140,7 +137,7 @@ extension Slice {
     target.moveInitializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -150,7 +147,6 @@ extension Slice {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension UnsafeMutableBufferPointer {
-  @inlinable
   public func initialize(fromContentsOf source: Self) -> Index {
     guard source.count > 0 else { return 0 }
     precondition(
@@ -161,8 +157,6 @@ extension UnsafeMutableBufferPointer {
       count: source.count)
     return source.count
   }
-
-  @inlinable
   public func initialize(fromContentsOf source: Slice<Self>) -> Index {
     let sourceCount = source.count
     guard sourceCount > 0 else { return 0 }
@@ -177,7 +171,7 @@ extension UnsafeMutableBufferPointer {
 }
 
 extension Slice {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) -> Index
@@ -188,7 +182,7 @@ extension Slice {
     return self.startIndex + i
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) -> Index
@@ -201,7 +195,7 @@ extension Slice {
 }
 
 extension UnsafeMutableBufferPointer {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<C: Collection>(
     fromContentsOf source: C
   ) where C.Element == Element {
@@ -209,25 +203,25 @@ extension UnsafeMutableBufferPointer {
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll(fromContentsOf source: Self) {
     let i = self.initialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll(fromContentsOf source: Slice<Self>) {
     let i = self.initialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll(fromContentsOf source: Self) {
     let i = self.moveInitialize(fromContentsOf: source)
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll(fromContentsOf source: Slice<Self>) {
     let i = self.moveInitialize(fromContentsOf: source)
     assert(i == self.endIndex)
@@ -235,7 +229,7 @@ extension UnsafeMutableBufferPointer {
 }
 
 extension Slice {
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<C: Collection>(
     fromContentsOf source: C
   ) where Base == UnsafeMutableBufferPointer<C.Element> {
@@ -243,7 +237,7 @@ extension Slice {
     assert(i == self.endIndex)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -251,7 +245,7 @@ extension Slice {
     target.initializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func initializeAll<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -259,7 +253,7 @@ extension Slice {
     target.initializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) where Base == UnsafeMutableBufferPointer<Element> {
@@ -267,7 +261,7 @@ extension Slice {
     target.moveInitializeAll(fromContentsOf: source)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func moveInitializeAll<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) where Base == UnsafeMutableBufferPointer<Element> {

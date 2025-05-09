@@ -44,7 +44,6 @@ extension _UnsafeHashTable {
 }
 
 extension _UnsafeHashTable.BucketIterator: CustomStringConvertible {
-  @usableFromInline
   var description: String {
     func pad(_ s: String, to length: Int, by padding: Character = " ") -> String {
       let c = s.count

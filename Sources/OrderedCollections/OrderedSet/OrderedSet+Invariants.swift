@@ -25,7 +25,6 @@ extension OrderedSet {
   }
 
   #if COLLECTIONS_INTERNAL_CHECKS
-  @inlinable
   @inline(never) @_effects(releasenone)
   public func _checkInvariants() {
     if _table == nil {
@@ -62,7 +61,7 @@ extension OrderedSet {
     }
   }
   #else
-  @inline(__always) @inlinable
+  @inline(__always) 
   public func _checkInvariants() {}
   #endif // COLLECTIONS_INTERNAL_CHECKS
 }

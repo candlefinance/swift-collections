@@ -17,10 +17,7 @@ extension OrderedDictionary {
   /// A view of an ordered dictionary's values as a standalone collection.
   @frozen
   public struct Values {
-    @usableFromInline
     internal var _base: OrderedDictionary
-
-    @inlinable
     @inline(__always)
     internal init(_base: OrderedDictionary) {
       self._base = _base
@@ -49,7 +46,6 @@ extension OrderedDictionary.Values {
   /// A read-only view of the contents of this collection as an array value.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var elements: Array<Value> {
     Array(_base._values)
@@ -76,7 +72,6 @@ extension OrderedDictionary.Values {
   /// - Returns: The return value, if any, of the `body` closure parameter.
   ///
   /// - Complexity: O(1) (not counting the closure call)
-  @inlinable
   @inline(__always)
   public func withUnsafeBufferPointer<R>(
     _ body: (UnsafeBufferPointer<Element>) throws -> R
@@ -104,7 +99,6 @@ extension OrderedDictionary.Values {
   /// - Returns: The return value, if any, of the `body` closure parameter.
   ///
   /// - Complexity: O(1) (not counting the closure call)
-  @inlinable
   @inline(__always)
   public mutating func withUnsafeMutableBufferPointer<R>(
     _ body: (inout UnsafeMutableBufferPointer<Element>) throws -> R
@@ -137,7 +131,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// zero. If the dictionary is empty, `startIndex` is equal to `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var startIndex: Int { 0 }
 
@@ -148,7 +141,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// elements. If the dictionary is empty, `endIndex` is equal to `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public var endIndex: Int { _base._values.count }
 
@@ -162,7 +154,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Returns: The index immediately after `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(after i: Int) -> Int { i + 1 }
 
@@ -176,7 +167,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Returns: The index immediately before `i`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(before i: Int) -> Int { i - 1 }
 
@@ -188,7 +178,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func formIndex(after i: inout Int) { i += 1 }
 
@@ -200,7 +189,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Parameter i: A valid index of the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func formIndex(before i: inout Int) { i -= 1 }
 
@@ -219,7 +207,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   ///   the result of `abs(distance)` calls to `index(before:)`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(_ i: Int, offsetBy distance: Int) -> Int {
     i + distance
@@ -245,7 +232,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   ///   case, the method returns `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func index(
     _ i: Int,
@@ -265,7 +251,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Returns: The distance between `start` and `end`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public func distance(from start: Int, to end: Int) -> Int {
     end - start
@@ -281,7 +266,6 @@ extension OrderedDictionary.Values: RandomAccessCollection {
   /// - Returns: The value returned by `body`.
   ///
   /// - Complexity: O(1) (ignoring time spent in `body`)
-  @inlinable
   @inline(__always)
   public func withContiguousStorageIfAvailable<R>(
     _ body: (UnsafeBufferPointer<Value>) throws -> R
@@ -298,7 +282,6 @@ extension OrderedDictionary.Values: MutableCollection {
   ///   greater than or equal to `startIndex` and less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   @inline(__always)
   public subscript(position: Int) -> Value {
     get {
@@ -323,7 +306,6 @@ extension OrderedDictionary.Values: MutableCollection {
   ///
   /// - Complexity: O(1) when the dictionary's storage isn't shared with another
   ///    value; O(`count`) otherwise.
-  @inlinable
   @inline(__always)
   public mutating func swapAt(_ i: Int, _ j: Int) {
     _base._values.swapAt(i, j)
@@ -349,7 +331,6 @@ extension OrderedDictionary.Values: MutableCollection {
   ///   equal to the collection's `endIndex`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   @inline(__always)
   public mutating func partition(
     by belongsInSecondPartition: (Value) throws -> Bool
@@ -375,7 +356,6 @@ extension OrderedDictionary.Values: MutableCollection {
   /// - Complexity: O(1) when this instance has a unique reference to its
   ///    underlying storage; O(`count`) otherwise. (Not counting the call to
   ///    `body`.)
-  @inlinable
   @inline(__always)
   public mutating func withContiguousMutableStorageIfAvailable<R>(
     _ body: (inout UnsafeMutableBufferPointer<Element>) throws -> R
@@ -385,14 +365,12 @@ extension OrderedDictionary.Values: MutableCollection {
 }
 
 extension OrderedDictionary.Values: Equatable where Value: Equatable {
-  @inlinable
   public static func ==(left: Self, right: Self) -> Bool {
     left._base._values == right._base._values
   }
 }
 
 extension OrderedDictionary.Values: Hashable where Value: Hashable {
-  @inlinable
   public func hash(into hasher: inout Hasher) {
     hasher.combine(count) // Discriminator
     for item in self {

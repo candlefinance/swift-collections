@@ -10,15 +10,12 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public func forEachWhile(
     _ body: (Element) -> Bool
   ) -> Bool {
     guard _root != nil else { return true }
     return root.forEachWhile(body)
   }
-
-  @inlinable
   public func forEachWhile(
     from position: Int,
     in metric: some RopeMetric<Element>,
@@ -33,7 +30,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal func forEachWhile(
     _ body: (Element) -> Bool
   ) -> Bool {
@@ -54,8 +50,6 @@ extension Rope._Node {
       return true
     }
   }
-
-  @inlinable
   internal func forEachWhile(
     from position: Int,
     in metric: some RopeMetric<Element>,

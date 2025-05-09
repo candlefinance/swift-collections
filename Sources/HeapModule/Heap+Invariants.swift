@@ -27,14 +27,11 @@ extension Heap {
   #if COLLECTIONS_INTERNAL_CHECKS
   /// Visits each item in the heap in depth-first order, verifying that the
   /// contents satisfy the min-max heap property.
-  @inlinable
   @inline(never)
   internal func _checkInvariants() {
     guard count > 1 else { return }
     _checkInvariants(node: .root, min: nil, max: nil)
   }
-
-  @inlinable
   internal func _checkInvariants(node: _HeapNode, min: Element?, max: Element?) {
     let value = _storage[node.offset]
     if let min = min {
@@ -64,7 +61,6 @@ extension Heap {
     }
   }
   #else
-  @inlinable
   @inline(__always)
   public func _checkInvariants() {}
   #endif  // COLLECTIONS_INTERNAL_CHECKS

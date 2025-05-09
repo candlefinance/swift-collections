@@ -37,7 +37,6 @@ extension UnsafeMutableBufferPointer {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @inlinable
   internal func deinitialize() -> UnsafeMutableRawBufferPointer {
     guard let start = baseAddress else { return .init(start: nil, count: 0) }
     start.deinitialize(count: count)
@@ -75,7 +74,6 @@ extension UnsafeMutableBufferPointer {
   ///     initialize the buffer's storage.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   internal func initialize<C: Collection>(
     fromContentsOf source: C
   ) -> Index
@@ -134,7 +132,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func moveInitialize(fromContentsOf source: Self) -> Index {
     guard let sourceAddress = source.baseAddress, !source.isEmpty else {
@@ -176,7 +173,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func moveInitialize(fromContentsOf source: Slice<Self>) -> Index {
     return moveInitialize(fromContentsOf: Self(rebasing: source))
@@ -191,7 +187,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @inlinable
   @_alwaysEmitIntoClient
   internal func initializeElement(at index: Index, to value: Element) {
     assert(startIndex <= index && index < endIndex)
@@ -209,7 +204,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - index: The index of the buffer element to retrieve and deinitialize.
   /// - Returns: The instance referenced by this index in this buffer.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func moveElement(from index: Index) -> Element {
     assert(startIndex <= index && index < endIndex)
@@ -224,7 +218,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - index: The index of the buffer element to deinitialize.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func deinitializeElement(at index: Index) {
     assert(startIndex <= index && index < endIndex)
@@ -263,7 +256,6 @@ extension Slice {
   ///     initialize the buffer slice's storage.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func initialize<C: Collection>(
     fromContentsOf source: C
@@ -302,7 +294,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func moveInitialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
@@ -341,7 +332,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   internal func moveInitialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
@@ -363,7 +353,6 @@ extension Slice {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @inlinable
   @_alwaysEmitIntoClient
   internal func deinitialize<Element>() -> UnsafeMutableRawBufferPointer
   where Base == UnsafeMutableBufferPointer<Element> {
@@ -379,7 +368,6 @@ extension Slice {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @inlinable
   @_alwaysEmitIntoClient
   internal func initializeElement<Element>(at index: Int, to value: Element)
   where Base == UnsafeMutableBufferPointer<Element> {
@@ -440,7 +428,6 @@ extension UnsafeMutableBufferPointer {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @inlinable
   public func deinitialize() -> UnsafeMutableRawBufferPointer {
     guard let start = baseAddress else { return .init(start: nil, count: 0) }
     start.deinitialize(count: count)
@@ -478,7 +465,6 @@ extension UnsafeMutableBufferPointer {
   ///     initialize the buffer's storage.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   public func initialize<C: Collection>(
     fromContentsOf source: C
   ) -> Index
@@ -537,7 +523,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   public func moveInitialize(fromContentsOf source: Self) -> Index {
     guard let sourceAddress = source.baseAddress, !source.isEmpty else {
@@ -579,7 +564,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   public func moveInitialize(fromContentsOf source: Slice<Self>) -> Index {
     return moveInitialize(fromContentsOf: Self(rebasing: source))
@@ -594,7 +578,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @inlinable
   @_alwaysEmitIntoClient
   public func initializeElement(at index: Index, to value: Element) {
     assert(startIndex <= index && index < endIndex)
@@ -612,7 +595,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - index: The index of the buffer element to retrieve and deinitialize.
   /// - Returns: The instance referenced by this index in this buffer.
-  @inlinable
   @_alwaysEmitIntoClient
   public func moveElement(from index: Index) -> Element {
     assert(startIndex <= index && index < endIndex)
@@ -627,7 +609,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - index: The index of the buffer element to deinitialize.
-  @inlinable
   @_alwaysEmitIntoClient
   public func deinitializeElement(at index: Index) {
     assert(startIndex <= index && index < endIndex)
@@ -666,7 +647,6 @@ extension Slice {
   ///     initialize the buffer slice's storage.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   public func initialize<C: Collection>(
     fromContentsOf source: C
@@ -705,7 +685,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   public func moveInitialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
@@ -744,7 +723,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @inlinable
   @_alwaysEmitIntoClient
   public func moveInitialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
@@ -766,7 +744,6 @@ extension Slice {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @inlinable
   @_alwaysEmitIntoClient
   public func deinitialize<Element>() -> UnsafeMutableRawBufferPointer
   where Base == UnsafeMutableBufferPointer<Element> {
@@ -782,7 +759,6 @@ extension Slice {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @inlinable
   @_alwaysEmitIntoClient
   public func initializeElement<Element>(at index: Int, to value: Element)
   where Base == UnsafeMutableBufferPointer<Element> {

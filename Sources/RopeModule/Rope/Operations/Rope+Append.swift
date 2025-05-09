@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public mutating func append(_ item: __owned Element) {
     _invalidateIndices()
     if _root == nil {
@@ -24,7 +23,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func append(_ item: __owned _Item) -> Self? {
     var item = item
     if item.isUndersized, !self.isEmpty, self.lastItem.rebalance(nextNeighbor: &item) {

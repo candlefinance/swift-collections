@@ -17,7 +17,6 @@ extension _HashNode.UnsafeHandle {
   ///
   /// `itemMap` must not yet reflect the removal at the time this
   /// function is called. This method does not update `itemMap`.
-  @inlinable
   internal func _removeItem<R>(
     at slot: _HashSlot,
     by remover: (UnsafeMutablePointer<Element>) -> R
@@ -45,7 +44,6 @@ extension _HashNode.UnsafeHandle {
   ///
   /// `childMap` must not yet reflect the removal at the time this
   /// function is called. This method does not update `childMap`.
-  @inlinable
   internal func _removeChild(at slot: _HashSlot) -> _HashNode {
     assertMutable()
     assert(!isCollisionNode)
@@ -62,15 +60,12 @@ extension _HashNode.UnsafeHandle {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func removeItem(
     at bucket: _Bucket
   ) -> Element {
     let slot = read { $0.itemMap.slot(of: bucket) }
     return removeItem(at: bucket, slot, by: { $0.move() })
   }
-
-  @inlinable
   internal mutating func removeItem(
     at bucket: _Bucket, _ slot: _HashSlot
   ) -> Element {
@@ -82,7 +77,6 @@ extension _HashNode {
   ///
   /// The closure `remove` is called to perform the deinitialization of the
   /// storage slot corresponding to the item to be removed.
-  @inlinable
   internal mutating func removeItem<R>(
     at bucket: _Bucket, _ slot: _HashSlot,
     by remover: (UnsafeMutablePointer<Element>) -> R
@@ -103,8 +97,6 @@ extension _HashNode {
       return old
     }
   }
-
-  @inlinable
   internal mutating func removeChild(
     at bucket: _Bucket, _ slot: _HashSlot
   ) -> _HashNode {
@@ -120,8 +112,6 @@ extension _HashNode {
     self.count &-= child.count
     return child
   }
-
-  @inlinable
   internal mutating func removeSingletonItem() -> Element {
     defer { _invariantCheck() }
     assert(count == 1)
@@ -133,8 +123,6 @@ extension _HashNode {
       return old
     }
   }
-
-  @inlinable
   internal mutating func removeSingletonChild() -> _HashNode {
     defer { _invariantCheck() }
     let child: _HashNode = update {

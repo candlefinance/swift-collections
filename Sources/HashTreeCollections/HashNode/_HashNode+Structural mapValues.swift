@@ -14,7 +14,6 @@ import InternalCollectionsUtilities
 #endif
 
 extension _HashNode {
-  @inlinable
   internal func mapValues<T>(
     _ transform: (Element) throws -> T
   ) rethrows -> _HashNode<Key, T> {
@@ -73,8 +72,6 @@ extension _HashNode {
       return result
     }
   }
-
-  @inlinable
   internal func mapValuesToVoid(
     copy: Bool = false, extraBytes: Int = 0
   ) -> _HashNode<Key, Void> {

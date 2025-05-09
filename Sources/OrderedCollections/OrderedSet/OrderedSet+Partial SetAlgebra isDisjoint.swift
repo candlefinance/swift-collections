@@ -37,7 +37,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(min(`self.count`, `other.count`)) on
   ///    average, if `Element` implements high-quality hashing.
-  @inlinable
   public func isDisjoint(with other: Self) -> Bool {
     guard !self.isEmpty && !other.isEmpty else { return true }
     if self.count <= other.count {
@@ -68,7 +67,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(min(`self.count`, `other.count`)) on
   ///    average, if `Element` implements high-quality hashing.
-  @inlinable
   @inline(__always)
   public func isDisjoint(with other: UnorderedView) -> Bool {
     isDisjoint(with: other._base)
@@ -88,7 +86,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(min(`self.count`, `other.count`)) on
   ///    average, if `Element` implements high-quality hashing.
-  @inlinable
   public func isDisjoint(with other: Set<Element>) -> Bool {
     guard !self.isEmpty && !other.isEmpty else { return true }
     if self.count <= other.count {
@@ -117,7 +114,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(*n*) on average, where *n* is the number of
   ///    elements in `other`, if `Element` implements high-quality hashing.
-  @inlinable
   public func isDisjoint(
     with other: some Sequence<Element>
   ) -> Bool {

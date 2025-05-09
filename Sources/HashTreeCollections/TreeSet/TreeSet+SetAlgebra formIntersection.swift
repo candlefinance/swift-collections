@@ -28,7 +28,6 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
   public mutating func formIntersection(_ other: Self) {
     // FIXME: Implement in-place reductions
     self = intersection(other)
@@ -48,7 +47,6 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
   public mutating func formIntersection<Value>(
     _ other: TreeDictionary<Element, Value>.Keys
   ) {
@@ -69,7 +67,6 @@ extension TreeSet {
   ///
   /// - Parameter other: An arbitrary finite sequence of items,
   ///    possibly containing duplicate values.
-  @inlinable
   public mutating func formIntersection(_ other: some Sequence<Element>) {
     self = intersection(other)
   }

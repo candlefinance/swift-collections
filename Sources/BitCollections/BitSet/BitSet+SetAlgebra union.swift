@@ -74,7 +74,6 @@ extension BitSet {
   /// - Complexity: O(*max*) + *k*, where *max* is the largest item in either
   ///    input, and *k* is the complexity of iterating over all elements in
   ///    `other`.
-  @inlinable
   public func union(_ other: __owned some Sequence<Int>) -> Self {
     if let other = _specialize(other, for: BitSet.self) {
       return union(other)

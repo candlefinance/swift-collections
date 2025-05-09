@@ -20,7 +20,6 @@ extension TreeDictionary {
   /// literal.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public init() {
     self.init(_new: ._emptyNode())
   }
@@ -28,7 +27,6 @@ extension TreeDictionary {
   /// Makes a copy of an existing persistent dictionary.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public init(_ other: TreeDictionary<Key, Value>) {
     self = other
   }
@@ -38,7 +36,6 @@ extension TreeDictionary {
   /// in the same order.
   ///
   /// - Complexity: O(`other.count`)
-  @inlinable
   public init(_ other: Dictionary<Key, Value>) {
     self.init(_uniqueKeysWithValues: other)
   }
@@ -47,7 +44,6 @@ extension TreeDictionary {
   /// set of keys with the values generated using the specified closure.
   ///
   /// - Complexity: O(`other.count`)
-  @inlinable
   public init(
     keys: TreeSet<Key>,
     valueGenerator valueTransform: (Key) throws -> Value
@@ -75,7 +71,6 @@ extension TreeDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` properly implements hashing.
-  @inlinable
   public init(
     uniqueKeysWithValues keysAndValues: some Sequence<(Key, Value)>
   ) {
@@ -107,7 +102,6 @@ extension TreeDictionary {
   /// - Complexity: Expected O(*n*) on average, where *n* is the count if
   ///    key-value pairs, if `Key` properly implements hashing.
   @_disfavoredOverload // https://github.com/apple/swift-collections/issues/125
-  @inlinable
   public init(
     uniqueKeysWithValues keysAndValues: some Sequence<Element>
   ) {
@@ -123,8 +117,6 @@ extension TreeDictionary {
     }
     self.init(_uniqueKeysWithValues: keysAndValues)
   }
-
-  @inlinable
   internal init(
     _uniqueKeysWithValues keysAndValues: some Sequence<Element>
   ) {
@@ -246,7 +238,7 @@ extension TreeDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    values, if `Key` properly implements hashing.
-  @inlinable @inline(__always)
+  @inline(__always)
   public init<S: Sequence>(
     grouping values: S,
     by keyForValue: (S.Element) throws -> Key
@@ -281,7 +273,7 @@ extension TreeDictionary {
   ///
   /// - Complexity: Expected O(*n*) on average, where *n* is the count of
   ///    values, if `Key` properly implements hashing.
-  @inlinable @inline(__always)
+  @inline(__always)
   public init<S: Sequence>(
     grouping values: S,
     by keyForValue: (S.Element) throws -> Key
@@ -293,8 +285,6 @@ extension TreeDictionary {
     // (https://github.com/apple/swift-collections/issues/139)
     try self.init(_grouping: values, by: keyForValue)
   }
-
-  @inlinable
   internal init<S: Sequence>(
     _grouping values: S,
     by keyForValue: (S.Element) throws -> Key

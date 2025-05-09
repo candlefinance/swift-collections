@@ -33,7 +33,6 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   /// The number of elements in the bit array.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public var count: Int {
     Int(_count)
   }
@@ -42,14 +41,14 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   /// if the array is empty.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public var startIndex: Int { 0 }
 
   /// The collection’s “past the end” position--that is, the position one step
   /// after the last valid subscript argument.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public var endIndex: Int { count }
 
   /// Returns the position immediately after the given index.
@@ -59,7 +58,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   /// - Returns: The valid index immediately after `index`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func index(after i: Int) -> Int { i + 1 }
 
   /// Returns the position immediately before the given index.
@@ -70,7 +69,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   /// - Returns: The valid index immediately before `index`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func index(before i: Int) -> Int { i - 1 }
 
   /// Replaces the given index with its successor.
@@ -79,7 +78,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   ///   `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func formIndex(after i: inout Int) {
     i += 1
   }
@@ -90,7 +89,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   ///   `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func formIndex(before i: inout Int) {
     i -= 1
   }
@@ -110,7 +109,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   ///   `index(before:)`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func index(_ i: Int, offsetBy distance: Int) -> Int {
     i + distance
   }
@@ -134,7 +133,6 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   ///   case, the method returns `nil`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func index(
     _ i: Index, offsetBy distance: Int, limitedBy limit: Index
   ) -> Index? {
@@ -154,7 +152,7 @@ extension BitArray: RandomAccessCollection, MutableCollection {
   /// - Returns: The distance between `start` and `end`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func distance(from start: Int, to end: Int) -> Int {
     end - start
   }

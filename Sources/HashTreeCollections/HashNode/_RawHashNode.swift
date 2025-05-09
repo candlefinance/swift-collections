@@ -15,16 +15,10 @@
 ///
 /// This construct is powerful enough to implement APIs such as `index(after:)`,
 /// `distance(from:to:)`, `index(_:offsetBy:)` in non-generic code.
-@usableFromInline
 @frozen
 internal struct _RawHashNode {
-  @usableFromInline
   internal var storage: _RawHashStorage
-
-  @usableFromInline
   internal var count: Int
-
-  @inlinable
   internal init(storage: _RawHashStorage, count: Int) {
     self.storage = storage
     self.count = count
@@ -41,19 +35,18 @@ extension _RawHashNode {
 }
 
 extension _RawHashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var unmanaged: _UnmanagedHashNode {
     _UnmanagedHashNode(storage)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func isIdentical(to other: _UnmanagedHashNode) -> Bool {
     other.ref.toOpaque() == Unmanaged.passUnretained(storage).toOpaque()
   }
 }
 
 extension _RawHashNode {
-  @usableFromInline
   internal func validatePath(_ path: _UnsafePath) {
     var l = _HashLevel.top
     var n = self.unmanaged

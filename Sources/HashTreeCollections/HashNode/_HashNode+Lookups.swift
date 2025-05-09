@@ -12,7 +12,6 @@
 // MARK: Node-level lookup operations
 
 extension _HashNode {
-  @inlinable
   internal func find(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (descend: Bool, slot: _HashSlot)? {
@@ -21,7 +20,6 @@ extension _HashNode {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable
   internal func find(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (descend: Bool, slot: _HashSlot)? {
@@ -43,7 +41,7 @@ extension _HashNode.UnsafeHandle {
     return nil
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func _findInCollision(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (code: Int, slot: _HashSlot) {
@@ -67,7 +65,6 @@ extension _HashNode.UnsafeHandle {
 /// equivalent: `.notFound`, .newCollision` and `expansion` all represent the
 /// same logical outcome: the key we're looking for is not present in this
 /// subtree.
-@usableFromInline
 @frozen
 internal enum _FindResult {
   /// The item we're looking for is stored directly in this node, at the
@@ -129,7 +126,6 @@ internal enum _FindResult {
 }
 
 extension _HashNode {
-  @inlinable
   internal func findForInsertion(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> _FindResult {
@@ -138,7 +134,6 @@ extension _HashNode {
 }
 
 extension _HashNode.UnsafeHandle {
-  @inlinable
   internal func findForInsertion(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> _FindResult {
@@ -173,7 +168,6 @@ extension _HashNode.UnsafeHandle {
 // MARK: Subtree-level lookup operations
 
 extension _HashNode {
-  @inlinable
   internal func get(_ level: _HashLevel, _ key: Key, _ hash: _Hash) -> Value? {
     var node = unmanaged
     var level = level
@@ -192,7 +186,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func containsKey(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> Bool {
@@ -209,7 +202,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func lookup(
     _ level: _HashLevel, _ key: Key, _ hash: _Hash
   ) -> (node: _UnmanagedHashNode, slot: _HashSlot)? {
@@ -230,7 +222,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func position(
     forKey key: Key, _ level: _HashLevel, _ hash: _Hash
   ) -> Int? {
@@ -245,8 +236,6 @@ extension _HashNode {
       return children[..<r.slot.value].reduce(into: c) { $0 &+= $1.count }
     }
   }
-
-  @inlinable
   internal func item(position: Int) -> Element {
     assert(position >= 0 && position < self.count)
     return read {

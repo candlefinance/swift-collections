@@ -29,7 +29,6 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
   public mutating func formUnion(_ other: __owned Self) {
     self = union(other)
   }
@@ -54,7 +53,6 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
   public mutating func formUnion<Value>(
     _ other: __owned TreeDictionary<Element, Value>.Keys
   ) {
@@ -85,7 +83,6 @@ extension TreeSet {
   ///     However, the implementation is careful to make the best use of
   ///     hash tree structure to minimize work when possible, e.g. by linking
   ///     parts of the input trees directly into the result.
-  @inlinable
   public mutating func formUnion(_ other: __owned some Sequence<Element>) {
     self = union(other)
   }

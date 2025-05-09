@@ -8,39 +8,29 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-
-@usableFromInline
 @frozen // Not really! This module isn't ABI stable.
 internal struct _RopeVersion {
   // FIXME: Replace this probabilistic mess with atomics when Swift gets its act together.
-  @usableFromInline internal var _value: UInt
-
-  @inlinable
+  internal var _value: UInt
   internal init() {
     var rng = SystemRandomNumberGenerator()
     _value = rng.next()
   }
-
-  @inlinable
   internal init(_ value: UInt) {
     self._value = value
   }
 }
 
 extension _RopeVersion: Equatable {
-  @inlinable
   internal static func ==(left: Self, right: Self) -> Bool {
     left._value == right._value
   }
 }
 
 extension _RopeVersion {
-  @inlinable
   internal mutating func bump() {
     _value &+= 1
   }
-
-  @inlinable
   internal mutating func reset() {
     var rng = SystemRandomNumberGenerator()
     _value = rng.next()

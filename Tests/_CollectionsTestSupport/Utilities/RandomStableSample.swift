@@ -22,7 +22,6 @@ extension Collection {
   ///   collection's count, then this method returns the full collection.
   ///
   /// - Complexity: O(*n*), where *n* is the length of the collection.
-  @inlinable
   public func randomStableSample<G: RandomNumberGenerator>(
     count k: Int, using rng: inout G
   ) -> [Element] {
@@ -61,7 +60,6 @@ extension Collection {
   ///   collection's count, then this method returns the full collection.
   ///
   /// - Complexity: O(*n*), where *n* is the length of the collection.
-  @inlinable
   public func randomStableSample(count k: Int) -> [Element] {
     var g = SystemRandomNumberGenerator()
     return randomStableSample(count: k, using: &g)

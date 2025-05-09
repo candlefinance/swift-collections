@@ -28,7 +28,6 @@
 /// This cast can be useful for dispatching to specializations of generic
 /// functions.
 @_transparent
-@inlinable
 internal func _specialize<T, U>(_ x: T, for: U.Type) -> U? {
   // Note: this was ported from recent versions of the Swift stdlib.
   guard T.self == U.self else {
@@ -43,7 +42,6 @@ internal func _specialize<T, U>(_ x: T, for: U.Type) -> U? {
 /// This cast can be useful for dispatching to specializations of generic
 /// functions.
 @_transparent
-@inlinable
 public func _specialize<T, U>(_ x: T, for: U.Type) -> U? {
   // Note: this was ported from recent versions of the Swift stdlib.
   guard T.self == U.self else {

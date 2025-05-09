@@ -59,25 +59,14 @@
 /// for this, as long as the use case can make use of them.
 @frozen // Not really -- this package is not at all ABI stable
 public struct TreeSet<Element: Hashable> {
-  @usableFromInline
   internal typealias _Node = _HashNode<Element, Void>
-
-  @usableFromInline
   internal typealias _UnsafeHandle = _Node.UnsafeHandle
-
-  @usableFromInline
   internal var _root: _Node
-
-  @usableFromInline
   internal var _version: UInt
-
-  @inlinable
   internal init(_root: _Node, version: UInt) {
     self._root = _root
     self._version = version
   }
-
-  @inlinable
   internal init(_new: _Node) {
     self.init(_root: _new, version: _new.initialVersionNumber)
   }

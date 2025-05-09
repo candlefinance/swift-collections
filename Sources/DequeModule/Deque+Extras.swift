@@ -39,7 +39,6 @@ extension Deque {
   ///       - initializedCount: The count of initialized elements in the deque,
   ///         which begins as zero. Set `initializedCount` to the number of
   ///         elements you initialize.
-  @inlinable
   public init(
     unsafeUninitializedCapacity capacity: Int,
     initializingWith initializer:
@@ -71,7 +70,6 @@ extension Deque {
   ///
   /// - Complexity: O(1) when this instance has a unique reference to its
   ///    underlying storage; O(`count`) otherwise.
-  @inlinable
   public mutating func popFirst() -> Element? {
     // FIXME: Add this to the stdlib on BidirectionalCollection
     // where Self == Self.SubSequence
@@ -109,7 +107,6 @@ extension Deque {
   /// - Complexity: Amortized O(1).
   ///
   /// - SeeAlso: `append(_:)`
-  @inlinable
   public mutating func prepend(_ newElement: Element) {
     _storage.ensureUnique(minimumCapacity: count + 1)
     return _storage.update {
@@ -133,7 +130,6 @@ extension Deque {
   /// - Complexity: Amortized O(`newElements.count`).
   ///
   /// - SeeAlso: `append(contentsOf:)`
-  @inlinable
   public mutating func prepend(
     contentsOf newElements: some Collection<Element>
   ) {
@@ -170,7 +166,6 @@ extension Deque {
   /// - Complexity: Amortized O(`newElements.count`).
   ///
   /// - SeeAlso: `append(contentsOf:)`
-  @inlinable
   public mutating func prepend(contentsOf newElements: some Sequence<Element>) {
     let done: Void? = newElements.withContiguousStorageIfAvailable { source in
       _storage.ensureUnique(minimumCapacity: count + source.count)

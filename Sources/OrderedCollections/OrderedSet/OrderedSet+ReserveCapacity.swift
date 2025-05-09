@@ -30,7 +30,6 @@ extension OrderedSet {
   ///   to shrink storage below any previously reserved capacity.
   ///
   /// - Complexity: O(`minimumCapacity`)
-  @inlinable
   public init(minimumCapacity: Int, persistent: Bool = false) {
     self.init()
     self._reserveCapacity(minimumCapacity, persistent: persistent)
@@ -54,7 +53,6 @@ extension OrderedSet {
   ///   should be able to store without reallocating its storage.
   ///
   /// - Complexity: O(`max(count, minimumCapacity)`)
-  @inlinable
   public mutating func reserveCapacity(_ minimumCapacity: Int) {
     self._reserveCapacity(minimumCapacity, persistent: false)
   }
@@ -89,7 +87,6 @@ extension OrderedSet {
   ///   to shrink storage below any previously reserved capacity.
   ///
   /// - Complexity: O(`max(count, minimumCapacity)`)
-  @inlinable
   internal mutating func _reserveCapacity(
     _ minimumCapacity: Int,
     persistent: Bool

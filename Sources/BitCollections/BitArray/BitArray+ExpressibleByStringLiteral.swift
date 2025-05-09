@@ -11,7 +11,6 @@
 
 extension BitArray: ExpressibleByStringLiteral {
   /// Creates an instance initialized with the given elements.
-  @inlinable
   public init(stringLiteral value: String) {
     guard let bits = Self(value) else {
       fatalError("Invalid bit array literal")

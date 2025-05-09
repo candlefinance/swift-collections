@@ -11,7 +11,6 @@
 
 extension _HashNode {
   /// - Returns: The number of new items added to `self`.
-  @inlinable
   internal mutating func merge(
   _ level: _HashLevel,
   _ other: _HashNode,
@@ -49,8 +48,6 @@ extension _HashNode {
 
     return try _merge(level, other, combine)
   }
-
-  @inlinable
   internal mutating func _merge(
     _ level: _HashLevel,
     _ other: _HashNode,
@@ -193,7 +190,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal mutating func _merge_slow(
     _ level: _HashLevel,
     _ other: _HashNode,

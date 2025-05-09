@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable @inline(__always)
+  @inline(__always)
   @discardableResult
   public mutating func mutatingForEach<R>(
     _ body: (inout Element) -> R?
@@ -19,7 +19,7 @@ extension Rope {
     return mutatingForEach(from: &i, body)
   }
   
-  @inlinable @inline(__always)
+  @inline(__always)
   @discardableResult
   public mutating func mutatingForEach<R>(
     from index: inout Index,
@@ -33,8 +33,6 @@ extension Rope {
     assert(completed == (r == nil))
     return r
   }
-
-  @inlinable
   internal mutating func _mutatingForEach(
     from index: inout Index,
     _ body: (inout Element) -> Bool
@@ -51,7 +49,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func mutatingForEach(
     from index: inout Index,
     body: (inout Element) -> Bool

@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   @discardableResult
   public mutating func remove(at index: Index) -> Element {
     _remove(at: index).removed
@@ -18,15 +17,12 @@ extension Rope {
 
   /// Remove the element at the specified index, and update `index` to address the subsequent
   /// element in the new collection. (Or the `endIndex` if it originally addressed the last item.)
-  @inlinable
   @discardableResult
   public mutating func remove(at index: inout Index) -> Element {
     let (old, path) = _remove(at: index)
     index = Index(version: _version, path: path, leaf: _unmanagedLeaf(at: path))
     return old
   }
-
-  @inlinable
   @discardableResult
   internal mutating func _remove(at index: Index) -> (removed: Element, path: _Path) {
     validate(index)
@@ -45,7 +41,6 @@ extension Rope {
 }
 
 extension Rope._Node {
-  @inlinable
   internal mutating func remove(
     at path: inout _Path
   ) -> (removed: _Item, delta: Summary, needsFixing: Bool, pathIsAtEnd: Bool) {
@@ -74,7 +69,6 @@ extension Rope._Node {
 }
 
 extension Rope {
-  @inlinable
   @discardableResult
   public mutating func remove(
     at position: Int,
@@ -106,7 +100,6 @@ extension Rope._Node {
   ///     `delta` is its summary,
   ///     `needsFixing` indicates whether the node was left undersized, and
   ///     `pathIsAtEnd` indicates if `path` now addresses the end of the node's subtree.
-  @inlinable
   internal mutating func remove(
     at position: Int,
     in metric: some RopeMetric<Element>,
@@ -146,7 +139,6 @@ extension Rope._Node {
 extension Rope._Node {
   /// Returns: `true` if new items got prepended to the child addressed by `path`.
   ///   `false` if new items got appended.
-  @inlinable
   @discardableResult
   internal mutating func fixDeficiency(on path: inout _Path) -> Bool {
     assert(isUnique())

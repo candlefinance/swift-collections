@@ -21,7 +21,6 @@ extension _HashNode.UnsafeHandle {
   /// - Returns: an unsafe mutable pointer to uninitialized memory that is
   ///    ready to store the new item. It is the caller's responsibility to
   ///    initialize this memory.
-  @inlinable
   internal func _makeRoomForNewItem(
     at slot: _HashSlot, _ bucket: _Bucket
   ) -> UnsafeMutablePointer<Element> {
@@ -58,7 +57,6 @@ extension _HashNode.UnsafeHandle {
   ///
   /// `childMap` must not yet reflect the insertion at the time this
   /// function is called. This method does not update `childMap`.
-  @inlinable
   internal func _insertChild(_ child: __owned _HashNode, at slot: _HashSlot) {
     assertMutable()
     assert(!isCollisionNode)
@@ -78,7 +76,7 @@ extension _HashNode.UnsafeHandle {
 }
 
 extension _HashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal mutating func insertItem(
     _ item: __owned Element, at bucket: _Bucket
   ) {
@@ -86,7 +84,7 @@ extension _HashNode {
     self.insertItem(item, at: slot, bucket)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal mutating func insertItem(
     _ item: __owned Element, at slot: _HashSlot, _ bucket: _Bucket
   ) {
@@ -99,7 +97,6 @@ extension _HashNode {
 
   /// Insert `child` in `bucket`. There must be enough free space in the
   /// node to fit the new child.
-  @inlinable
   internal mutating func insertChild(
     _ child: __owned _HashNode, _ bucket: _Bucket
   ) {

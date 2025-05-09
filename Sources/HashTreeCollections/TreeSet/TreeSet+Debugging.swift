@@ -23,8 +23,6 @@ extension TreeSet {
   public static var _isConsistencyCheckingEnabled: Bool {
     _isCollectionsInternalCheckingEnabled
   }
-
-  @inlinable
   public func _invariantCheck() {
     _root._fullInvariantCheck()
   }

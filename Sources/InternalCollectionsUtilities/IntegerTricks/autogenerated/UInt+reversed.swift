@@ -23,7 +23,6 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension UInt {
-  @inlinable
   internal var _reversed: UInt {
     // https://graphics.stanford.edu/~seander/bithacks.html#ReverseParallel
     var shift: UInt = UInt(UInt.bitWidth)
@@ -40,7 +39,6 @@ extension UInt {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension UInt {
-  @inlinable
   public var _reversed: UInt {
     // https://graphics.stanford.edu/~seander/bithacks.html#ReverseParallel
     var shift: UInt = UInt(UInt.bitWidth)

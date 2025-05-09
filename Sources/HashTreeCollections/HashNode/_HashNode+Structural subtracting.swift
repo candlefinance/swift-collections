@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
   internal func subtracting<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -22,8 +21,6 @@ extension _HashNode {
     root._fullInvariantCheck()
     return root
   }
-
-  @inlinable
   internal func _subtracting<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -107,7 +104,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func _subtracting_slow<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>

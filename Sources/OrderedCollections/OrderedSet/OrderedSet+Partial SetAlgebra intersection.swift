@@ -40,7 +40,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count`) on average, if `Element`
   ///    implements high-quality hashing.
-  @inlinable
   public __consuming func intersection(_ other: Self) -> Self {
     var result = Self()
     for item in self {
@@ -71,7 +70,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count`) on average, if `Element`
   ///    implements high-quality hashing.
-  @inlinable
   @inline(__always)
   public __consuming func intersection(_ other: UnorderedView) -> Self {
     intersection(other._base)
@@ -93,7 +91,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(*n*) on average where *n* is the number of
   ///    elements in `other`, if `Element` implements high-quality hashing.
-  @inlinable
   public __consuming func intersection(
     _ other: some Sequence<Element>
   ) -> Self {

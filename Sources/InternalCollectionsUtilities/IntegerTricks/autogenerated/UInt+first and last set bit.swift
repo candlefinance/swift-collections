@@ -23,14 +23,14 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension UInt {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var _firstSetBit: UInt? {
     guard self != 0 else { return nil }
     let v = UInt.bitWidth &- 1 &- self.leadingZeroBitCount
     return UInt(truncatingIfNeeded: v)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var _lastSetBit: UInt? {
     guard self != 0 else { return nil }
     return UInt(truncatingIfNeeded: self.trailingZeroBitCount)
@@ -38,14 +38,14 @@ extension UInt {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension UInt {
-  @inlinable @inline(__always)
+  @inline(__always)
   public var _firstSetBit: UInt? {
     guard self != 0 else { return nil }
     let v = UInt.bitWidth &- 1 &- self.leadingZeroBitCount
     return UInt(truncatingIfNeeded: v)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public var _lastSetBit: UInt? {
     guard self != 0 else { return nil }
     return UInt(truncatingIfNeeded: self.trailingZeroBitCount)

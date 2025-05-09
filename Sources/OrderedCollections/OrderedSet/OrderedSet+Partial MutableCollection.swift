@@ -27,7 +27,6 @@ extension OrderedSet {
   ///
   /// - Complexity: O(1) when the set's storage isn't shared with another
   ///    value; O(`count`) otherwise.
-  @inlinable
   public mutating func swapAt(_ i: Int, _ j: Int) {
     guard i != j else { return }
     _elements.swapAt(i, j)
@@ -75,7 +74,6 @@ extension OrderedSet {
   ///   equal to the collection's `endIndex`.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   public mutating func partition(
     by belongsInSecondPartition: (Element) throws -> Bool
   ) rethrows -> Int {
@@ -84,7 +82,6 @@ extension OrderedSet {
 }
 
 extension OrderedSet {
-  @inlinable
   public mutating func _partition(
     by belongsInSecondPartition: (Element) throws -> Bool,
     callback: (Int, Int) -> Void
@@ -115,7 +112,6 @@ extension OrderedSet {
 }
 
 extension MutableCollection where Self: RandomAccessCollection, Element: Hashable {
-  @inlinable
   internal mutating func _partition(
     with hashTable: _UnsafeHashTable,
     by belongsInSecondPartition: (Element) throws -> Bool,
@@ -158,7 +154,6 @@ extension MutableCollection where Self: RandomAccessCollection, Element: Hashabl
 }
 
 extension _UnsafeHashTable {
-  @inlinable
   @inline(__always)
   func swapBucketValues<Element: Hashable>(
     for left: Element, withCurrentValue leftValue: Int,
@@ -169,8 +164,6 @@ extension _UnsafeHashTable {
     swapBucketValues(for: left, withCurrentValue: leftValue,
                      and: right, withCurrentValue: rightValue)
   }
-
-  @usableFromInline
   @_effects(releasenone)
   func swapBucketValues(
     for left: Bucket, withCurrentValue leftValue: Int,
@@ -231,7 +224,6 @@ extension OrderedSet {
   ///   lost.
   ///
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
-  @inlinable
   public mutating func sort(
     by areInIncreasingOrder: (Element, Element) throws -> Bool
   ) rethrows {
@@ -274,7 +266,6 @@ extension OrderedSet where Element: Comparable {
   /// preserves the relative order of elements that compare as equal.
   ///
   /// - Complexity: O(*n* log *n*), where *n* is the length of the collection.
-  @inlinable
   public mutating func sort() {
     defer {
       // Note: This assumes that `sort(by:)` won't leave duplicate/missing
@@ -303,7 +294,6 @@ extension OrderedSet {
   /// system's default random generator.
   ///
   /// - Complexity: O(*n*), where *n* is the length of the collection.
-  @inlinable
   public mutating func shuffle() {
     var generator = SystemRandomNumberGenerator()
     shuffle(using: &generator)
@@ -331,7 +321,6 @@ extension OrderedSet {
   ///   same shuffled order each time you run your program, that sequence may
   ///   change when your program is compiled using a different version of
   ///   Swift.
-  @inlinable
   public mutating func shuffle(
     using generator: inout some RandomNumberGenerator
   ) {
@@ -345,7 +334,6 @@ extension OrderedSet {
   /// Reverses the elements of the ordered set in place.
   ///
   /// - Complexity: O(`count`)
-  @inlinable
   public mutating func reverse() {
     _elements.reverse()
     // FIXME: Update hash table contents in place.
@@ -362,7 +350,6 @@ extension OrderedSet {
   /// originally appeared in the collection.
   ///
   /// - Complexity: O(*n*) where n is the length of the collection.
-  @inlinable
   internal mutating func _halfStablePartition<Value>(
     values: UnsafeMutableBufferPointer<Value>,
     by belongsInSecondPartition: ((key: Element, value: Value)) throws -> Bool
@@ -397,8 +384,6 @@ extension OrderedSet {
       return i
     }
   }
-
-  @inlinable
   internal mutating func _partition<Value>(
     values: UnsafeMutableBufferPointer<Value>,
     by belongsInSecondPartition: ((key: Element, value: Value)) throws -> Bool

@@ -13,13 +13,8 @@ extension TreeSet: Sequence {
   /// An iterator over the members of a `TreeSet`.
   @frozen
   public struct Iterator: IteratorProtocol {
-    @usableFromInline
     internal typealias _UnsafeHandle = _Node.UnsafeHandle
-
-    @usableFromInline
     internal var _it: _HashTreeIterator
-
-    @inlinable
     internal init(_root: _RawHashNode) {
       _it = _HashTreeIterator(root: _root)
     }
@@ -30,7 +25,6 @@ extension TreeSet: Sequence {
     /// Once `nil` has been returned, all subsequent calls return `nil`.
     ///
     /// - Complexity: O(1)
-    @inlinable
     public mutating func next() -> Element? {
       guard let (node, slot) = _it.next() else { return nil }
       return _UnsafeHandle.read(node) { $0[item: slot].key }
@@ -38,12 +32,9 @@ extension TreeSet: Sequence {
   }
 
   /// Returns an iterator over the members of the set.
-  @inlinable
   public func makeIterator() -> Iterator {
     Iterator(_root: _root.raw)
   }
-
-  @inlinable
   public func _customContainsEquatableElement(_ element: Element) -> Bool? {
     _root.containsKey(.top, element, _Hash(element))
   }

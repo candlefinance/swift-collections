@@ -20,7 +20,6 @@ extension BitSet: ExpressibleByArrayLiteral {
   ///
   /// - Parameter elements: A variadic list of elements of the new set.
   /// - Complexity: O(`elements.count`)
-  @inlinable
   public init(arrayLiteral elements: Int...) {
     self.init(elements)
   }

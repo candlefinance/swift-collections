@@ -11,7 +11,6 @@
 
 extension _HashTable {
   /// The minimum hash table scale.
-  @usableFromInline
   @inline(__always)
   internal static var minimumScale: Int {
     @_effects(readnone)
@@ -21,7 +20,6 @@ extension _HashTable {
   }
 
   /// The maximum hash table scale.
-  @usableFromInline
   @inline(__always)
   internal static var maximumScale: Int {
     @_effects(readnone)
@@ -31,7 +29,6 @@ extension _HashTable {
   }
 
   /// The maximum number of items for which we do not create a hash table.
-  @usableFromInline
   @inline(__always)
   internal static var maximumUnhashedCount: Int {
     @_effects(readnone)
@@ -49,7 +46,6 @@ extension _HashTable {
   internal static var minimumLoadFactor: Double { 1 / 4 }
 
   /// The maximum number of items that can be held in a hash table of the given scale.
-  @usableFromInline
   @_effects(readnone)
   internal static func minimumCapacity(forScale scale: Int) -> Int {
     guard scale >= minimumScale else { return 0 }
@@ -58,7 +54,6 @@ extension _HashTable {
   }
 
   /// The maximum number of items that can be held in a hash table of the given scale.
-  @usableFromInline
   @_effects(readnone)
   internal static func maximumCapacity(forScale scale: Int) -> Int {
     guard scale >= minimumScale else { return maximumUnhashedCount }
@@ -67,7 +62,6 @@ extension _HashTable {
   }
 
   /// The minimum hash table scale that can hold the specified number of elements.
-  @usableFromInline
   @_effects(readnone)
   internal static func scale(forCapacity capacity: Int) -> Int {
     guard capacity > maximumUnhashedCount else { return 0 }

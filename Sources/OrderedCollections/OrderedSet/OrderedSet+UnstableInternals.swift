@@ -18,19 +18,12 @@ extension OrderedSet {
   /// may disappear in any new release.
   @frozen
   public struct _UnstableInternals {
-    @usableFromInline
     internal typealias _Bucket = _HashTable.Bucket
-
-    @usableFromInline
     internal var base: OrderedSet
-
-    @inlinable
     init(_ base: OrderedSet) {
       self.base = base
     }
   }
-
-  @inlinable
   public var __unstable: _UnstableInternals {
     @inline(__always)
     get {

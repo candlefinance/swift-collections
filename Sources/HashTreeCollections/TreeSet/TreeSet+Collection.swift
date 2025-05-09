@@ -18,16 +18,11 @@ extension TreeSet {
   /// gets mutated.
   @frozen
   public struct Index {
-    @usableFromInline
     internal let _root: _UnmanagedHashNode
-
-    @usableFromInline
     internal var _version: UInt
-
-    @usableFromInline
     internal var _path: _UnsafePath
 
-    @inlinable @inline(__always)
+    @inline(__always)
     internal init(
       _root: _UnmanagedHashNode, version: UInt, path: _UnsafePath
     ) {
@@ -48,7 +43,6 @@ extension TreeSet.Index: Equatable {
   /// leads to a runtime error.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public static func ==(left: Self, right: Self) -> Bool {
     precondition(
       left._root == right._root && left._version == right._version,
@@ -65,7 +59,6 @@ extension TreeSet.Index: Comparable {
   /// leads to a runtime error.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public static func <(left: Self, right: Self) -> Bool {
     precondition(
       left._root == right._root && left._version == right._version,
@@ -79,7 +72,6 @@ extension TreeSet.Index: Hashable {
   /// given hasher.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func hash(into hasher: inout Hasher) {
     hasher.combine(_path)
   }
@@ -103,7 +95,6 @@ extension TreeSet: Collection {
   /// A Boolean value indicating whether the collection is empty.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public var isEmpty: Bool {
     _root.count == 0
   }
@@ -111,7 +102,6 @@ extension TreeSet: Collection {
   /// The number of elements in the collection.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public var count: Int {
     _root.count
   }
@@ -130,19 +120,18 @@ extension TreeSet: Collection {
   /// than the last valid subscript argument.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public var endIndex: Index {
     var path = _UnsafePath(root: _root.raw)
     path.selectEnd()
     return Index(_root: _root.unmanaged, version: _version, path: path)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func _isValid(_ i: Index) -> Bool {
     _root.isIdentical(to: i._root) && i._version == self._version
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal mutating func _invalidateIndices() {
     _version &+= 1
   }
@@ -154,7 +143,6 @@ extension TreeSet: Collection {
   ///    `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public subscript(position: Index) -> Element {
     precondition(_isValid(position), "Invalid index")
     precondition(position._path.isOnItem, "Can't get element at endIndex")
@@ -169,7 +157,6 @@ extension TreeSet: Collection {
   ///     `i` must be less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func formIndex(after i: inout Index) {
     precondition(_isValid(i), "Invalid index")
     guard i._path.findSuccessorItem(under: _root.raw) else {
@@ -183,7 +170,7 @@ extension TreeSet: Collection {
   ///    `i` must be less than `endIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func index(after i: Index) -> Index {
     var i = i
     formIndex(after: &i)
@@ -199,7 +186,6 @@ extension TreeSet: Collection {
   ///    (The result can be negative, even though `TreeSet` is not a
   ///    bidirectional collection.)
   /// - Complexity: O(log(`count`))
-  @inlinable
   public func distance(from start: Index, to end: Index) -> Int {
     precondition(_isValid(start) && _isValid(end), "Invalid index")
     return _root.raw.distance(.top, from: start._path, to: end._path)
@@ -222,7 +208,6 @@ extension TreeSet: Collection {
   ///   same as `start`.
   ///
   /// - Complexity: O(log(`distance`))
-  @inlinable
   public func index(_ i: Index, offsetBy distance: Int) -> Index {
     precondition(_isValid(i), "Invalid index")
     var i = i
@@ -252,7 +237,6 @@ extension TreeSet: Collection {
   ///   case, the method returns `nil`.
   ///
   /// - Complexity: O(log(`distance`))
-  @inlinable
   public func index(
     _ i: Index, offsetBy distance: Int, limitedBy limit: Index
   ) -> Index? {
@@ -267,14 +251,14 @@ extension TreeSet: Collection {
     return nil
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func _customIndexOfEquatableElement(
     _ element: Element
   ) -> Index?? {
     _index(of: element)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public func _customLastIndexOfEquatableElement(
     _ element: Element
   ) -> Index?? {
@@ -290,7 +274,6 @@ extension TreeSet: Collection {
   ///
   /// - Complexity: The expected complexity is O(1) hashing/comparison
   ///    operations, as long as `Element` properly implements `Hashable`.
-  @inlinable
   public func firstIndex(of element: Element) -> Index? {
     _index(of: element)
   }
@@ -304,12 +287,9 @@ extension TreeSet: Collection {
   ///
   /// - Complexity: The expected complexity is O(1) hashing/comparison
   ///    operations, as long as `Element` properly implements `Hashable`.
-  @inlinable
   public func lastIndex(of element: Element) -> Index? {
     _index(of: element)
   }
-
-  @inlinable
   internal func _index(of element: Element) -> Index? {
     let hash = _Hash(element)
     guard let path = _root.path(to: element, hash) else { return nil }
@@ -346,7 +326,6 @@ extension TreeSet: BidirectionalCollection {
   ///     `i` must be greater than `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable
   public func formIndex(before i: inout Index) {
     precondition(_isValid(i), "Invalid index")
     guard i._path.findPredecessorItem(under: _root.raw) else {
@@ -360,7 +339,7 @@ extension TreeSet: BidirectionalCollection {
   ///    `i` must be greater than `startIndex`.
   ///
   /// - Complexity: O(1)
-  @inlinable @inline(__always)
+  @inline(__always)
   public func index(before i: Index) -> Index {
     var i = i
     formIndex(before: &i)

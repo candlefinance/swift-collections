@@ -36,24 +36,21 @@ public protocol RopeSummary: Equatable, Sendable {
 }
 
 extension RopeSummary {
-  @inlinable @inline(__always)
+  @inline(__always)
   public static var nodeSizeBitWidth: Int {
     Int.bitWidth - maxNodeSize.leadingZeroBitCount
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   public static var minNodeSize: Int { (maxNodeSize + 1) / 2 }
 }
 
 extension RopeSummary {
-  @inlinable
   public func adding(_ other: Self) -> Self {
     var c = self
     c.add(other)
     return c
   }
-
-  @inlinable
   public func subtracting(_ other: Self) -> Self {
     var c = self
     c.subtract(other)

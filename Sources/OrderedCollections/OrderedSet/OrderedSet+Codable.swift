@@ -13,7 +13,6 @@ extension OrderedSet: Encodable where Element: Encodable {
   /// Encodes the elements of this ordered set into the given encoder.
   ///
   /// - Parameter encoder: The encoder to write data to.
-  @inlinable
   public func encode(to encoder: Encoder) throws {
     var container = encoder.singleValueContainer()
     try container.encode(_elements)
@@ -27,7 +26,6 @@ extension OrderedSet: Decodable where Element: Decodable {
   /// if the decoded contents contain duplicate values.
   ///
   /// - Parameter decoder: The decoder to read data from.
-  @inlinable
   public init(from decoder: Decoder) throws {
     let container = try decoder.singleValueContainer()
     let elements = try container.decode(ContiguousArray<Element>.self)

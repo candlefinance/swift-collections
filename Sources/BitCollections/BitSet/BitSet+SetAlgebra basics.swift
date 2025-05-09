@@ -18,7 +18,6 @@ extension BitSet {
   /// - Returns: `true` if `member` exists in the set; otherwise, `false`.
   ///
   /// - Complexity: O(1)
-  @usableFromInline
   internal func _contains(_ member: UInt) -> Bool {
     _read { $0.contains(member) }
   }
@@ -55,7 +54,6 @@ extension BitSet {
   ///     contained in the set (named *max*). Otherwise the complexity is
   ///     O(max(`newMember`, *max*)).
   @discardableResult
-  @usableFromInline
   internal mutating func _insert(_ newMember: UInt) -> Bool {
     _ensureCapacity(forValue: newMember)
     return _update { $0.insert(newMember) }
@@ -106,7 +104,6 @@ extension BitSet {
 
 extension BitSet {
   @discardableResult
-  @usableFromInline
   internal mutating func _remove(_ member: UInt) -> Bool {
     _updateThenShrink { handle, shrink in
       shrink = handle.remove(member)

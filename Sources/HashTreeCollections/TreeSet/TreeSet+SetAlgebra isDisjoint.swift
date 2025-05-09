@@ -28,7 +28,6 @@ extension TreeSet {
   ///
   /// - Complexity: Expected to be O(min(`self.count`, `other.count`)) on
   ///    average, if `Element` implements high-quality hashing.
-  @inlinable
   public func isDisjoint(with other: Self) -> Bool {
     self._root.isDisjoint(.top, with: other._root)
   }
@@ -47,7 +46,6 @@ extension TreeSet {
   ///
   /// - Complexity: Expected to be O(min(`self.count`, `other.count`)) on
   ///    average, if `Element` implements high-quality hashing.
- @inlinable
   public func isDisjoint<Value>(
     with other: TreeDictionary<Element, Value>.Keys
   ) -> Bool {
@@ -69,7 +67,6 @@ extension TreeSet {
   ///
   /// - Complexity: In the worst case, this makes O(*n*) calls to
   ///    `self.contains`, where *n* is the length of the sequence.
-  @inlinable
   public func isDisjoint(with other: some Sequence<Element>) -> Bool {
     guard !self.isEmpty else { return true }
     if let other = _specialize(other, for: Self.self) {

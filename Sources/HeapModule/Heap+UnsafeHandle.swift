@@ -10,18 +10,17 @@
 //===----------------------------------------------------------------------===//
 
 extension Heap {
-  @usableFromInline @frozen
+  @frozen
   struct _UnsafeHandle {
-    @usableFromInline
     var buffer: UnsafeMutableBufferPointer<Element>
 
-    @inlinable @inline(__always)
+    @inline(__always)
     init(_ buffer: UnsafeMutableBufferPointer<Element>) {
       self.buffer = buffer
     }
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   mutating func _update<R>(_ body: (_UnsafeHandle) -> R) -> R {
     _storage.withUnsafeMutableBufferPointer { buffer in
       body(_UnsafeHandle(buffer))
@@ -30,12 +29,10 @@ extension Heap {
 }
 
 extension Heap._UnsafeHandle {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal var count: Int {
     buffer.count
   }
-
-  @inlinable
   subscript(node: _HeapNode) -> Element {
     @inline(__always)
     get {
@@ -47,7 +44,7 @@ extension Heap._UnsafeHandle {
     }
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func ptr(to node: _HeapNode) -> UnsafeMutablePointer<Element> {
     assert(node.offset < count)
     return buffer.baseAddress! + node.offset
@@ -55,43 +52,42 @@ extension Heap._UnsafeHandle {
 
   /// Move the value at the specified node out of the buffer, leaving it
   /// uninitialized.
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func extract(_ node: _HeapNode) -> Element {
     ptr(to: node).move()
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func initialize(_ node: _HeapNode, to value: __owned Element) {
     ptr(to: node).initialize(to: value)
   }
 
   /// Swaps the elements in the heap at the given indices.
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func swapAt(_ i: _HeapNode, _ j: _HeapNode) {
     buffer.swapAt(i.offset, j.offset)
   }
 
   /// Swaps the element at the given node with the supplied value.
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func swapAt(_ i: _HeapNode, with value: inout Element) {
     let p = buffer.baseAddress.unsafelyUnwrapped + i.offset
     swap(&p.pointee, &value)
   }
 
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func minValue(_ a: _HeapNode, _ b: _HeapNode) -> _HeapNode {
     self[a] < self[b] ? a : b
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func maxValue(_ a: _HeapNode, _ b: _HeapNode) -> _HeapNode {
     self[a] < self[b] ? b : a
   }
 }
 
 extension Heap._UnsafeHandle {
-  @inlinable
   internal func bubbleUp(_ node: _HeapNode) {
     guard !node.isRoot else { return }
 
@@ -123,7 +119,6 @@ extension Heap._UnsafeHandle {
 extension Heap._UnsafeHandle {
   /// Sink the item at `node` to its correct position in the heap.
   /// The given node must be minimum-ordered.
-  @inlinable
   internal func trickleDownMin(_ node: _HeapNode) {
     assert(node.isMinLevel)
     var node = node
@@ -132,7 +127,7 @@ extension Heap._UnsafeHandle {
     initialize(node, to: value)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func _trickleDownMin(node: inout _HeapNode, value: inout Element) {
     // Note: `_HeapNode` is quite the useless abstraction here, as we don't need
     // to look at its `level` property, and we need to move sideways amongst
@@ -204,7 +199,6 @@ extension Heap._UnsafeHandle {
   ///
   /// This method is an implementation detail of `trickleDownMin`. Do not call
   /// it directly.
-  @inlinable
   internal func _minDescendant(c0: _HeapNode, gc0: _HeapNode) -> _HeapNode {
     assert(c0.offset < count)
     assert(gc0.offset + 3 >= count)
@@ -239,7 +233,6 @@ extension Heap._UnsafeHandle {
 
   /// Sink the item at `node` to its correct position in the heap.
   /// The given node must be maximum-ordered.
-  @inlinable
   internal func trickleDownMax(_ node: _HeapNode) {
     assert(!node.isMinLevel)
     var node = node
@@ -249,7 +242,7 @@ extension Heap._UnsafeHandle {
     initialize(node, to: value)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func _trickleDownMax(node: inout _HeapNode, value: inout Element) {
     // See note on `_HeapNode` in `_trickleDownMin` above.
 
@@ -315,7 +308,6 @@ extension Heap._UnsafeHandle {
   ///
   /// This method is an implementation detail of `trickleDownMax`. Do not call
   /// it directly.
-  @inlinable
   internal func _maxDescendant(c0: _HeapNode, gc0: _HeapNode) -> _HeapNode {
     assert(c0.offset < count)
     assert(gc0.offset + 3 >= count)
@@ -350,7 +342,6 @@ extension Heap._UnsafeHandle {
 }
 
 extension Heap._UnsafeHandle {
-  @inlinable
   internal func heapify() {
     // This is Floyd's linear-time heap construction algorithm.
     // (https://en.wikipedia.org/wiki/Heapsort#Floyd's_heap_construction).
@@ -365,8 +356,6 @@ extension Heap._UnsafeHandle {
       level &-= 1
     }
   }
-
-  @inlinable
   internal func _heapify(_ level: Int, _ nodes: ClosedRange<_HeapNode>?) {
     guard let nodes = nodes else { return }
     if _HeapNode.isMinLevel(level) {

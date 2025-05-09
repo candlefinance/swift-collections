@@ -38,7 +38,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`other.count`) on average, if `Element`
   ///    implements high-quality hashing.
-  @inlinable
   public mutating func formUnion(_ other: __owned Self) {
     append(contentsOf: other)
   }
@@ -64,7 +63,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count` + `other.count`) on average,
   ///    if `Element` implements high-quality hashing.
-  @inlinable
   @inline(__always)
   public mutating func formUnion(_ other: __owned UnorderedView) {
     formUnion(other._base)
@@ -93,7 +91,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count` + `other.count`) on average,
   ///    if `Element` implements high-quality hashing.
-  @inlinable
   public mutating func formUnion(
     _ other: __owned some Sequence<Element>
   ) {

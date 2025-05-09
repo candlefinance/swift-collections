@@ -23,25 +23,16 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension _UnsafeBitSet {
-  @frozen @usableFromInline
+  @frozen 
   internal struct Index: Comparable, Hashable {
-    @usableFromInline
     internal typealias _Word = _UnsafeBitSet._Word
-
-    @usableFromInline
     internal var value: UInt
-
-    @inlinable
     internal init(_ value: UInt) {
       self.value = value
     }
-
-    @inlinable
     internal init(_ value: Int) {
       self.value = UInt(value)
     }
-
-    @inlinable
     internal init(word: Int, bit: UInt) {
       assert(word >= 0 && word <= Int.max / _Word.capacity)
       assert(bit < _Word.capacity)
@@ -51,52 +42,35 @@ extension _UnsafeBitSet {
 }
 
 extension _UnsafeBitSet.Index {
-  @inlinable
   internal var word: Int {
     // Note: We perform on UInts to get faster unsigned math (shifts).
     Int(truncatingIfNeeded: value / UInt(bitPattern: _Word.capacity))
   }
-
-  @inlinable
   internal var bit: UInt {
     // Note: We perform on UInts to get faster unsigned math (masking).
     value % UInt(bitPattern: _Word.capacity)
   }
-
-  @inlinable
   internal var split: (word: Int, bit: UInt) {
     (word, bit)
   }
-
-  @inlinable
   internal var endSplit: (word: Int, bit: UInt) {
     let w = word
     let b = bit
     if w > 0, b == 0 { return (w &- 1, UInt(_Word.capacity)) }
     return (w, b)
   }
-
-  @inlinable
   internal static func ==(left: Self, right: Self) -> Bool {
     left.value == right.value
   }
-
-  @inlinable
   internal static func <(left: Self, right: Self) -> Bool {
     left.value < right.value
   }
-
-  @inlinable
   internal func hash(into hasher: inout Hasher) {
     hasher.combine(value)
   }
-
-  @inlinable
   internal func _successor() -> Self {
     Self(value + 1)
   }
-
-  @inlinable
   internal func _predecessor() -> Self {
     Self(value - 1)
   }
@@ -105,23 +79,16 @@ extension _UnsafeBitSet.Index {
 extension _UnsafeBitSet {
   @frozen
   public struct Index: Comparable, Hashable {
-    @usableFromInline
     internal typealias _Word = _UnsafeBitSet._Word
 
     
     public var value: UInt
-
-    @inlinable
     public init(_ value: UInt) {
       self.value = value
     }
-
-    @inlinable
     public init(_ value: Int) {
       self.value = UInt(value)
     }
-
-    @inlinable
     public init(word: Int, bit: UInt) {
       assert(word >= 0 && word <= Int.max / _Word.capacity)
       assert(bit < _Word.capacity)
@@ -131,52 +98,35 @@ extension _UnsafeBitSet {
 }
 
 extension _UnsafeBitSet.Index {
-  @inlinable
   public var word: Int {
     // Note: We perform on UInts to get faster unsigned math (shifts).
     Int(truncatingIfNeeded: value / UInt(bitPattern: _Word.capacity))
   }
-
-  @inlinable
   public var bit: UInt {
     // Note: We perform on UInts to get faster unsigned math (masking).
     value % UInt(bitPattern: _Word.capacity)
   }
-
-  @inlinable
   public var split: (word: Int, bit: UInt) {
     (word, bit)
   }
-
-  @inlinable
   public var endSplit: (word: Int, bit: UInt) {
     let w = word
     let b = bit
     if w > 0, b == 0 { return (w &- 1, UInt(_Word.capacity)) }
     return (w, b)
   }
-
-  @inlinable
   public static func ==(left: Self, right: Self) -> Bool {
     left.value == right.value
   }
-
-  @inlinable
   public static func <(left: Self, right: Self) -> Bool {
     left.value < right.value
   }
-
-  @inlinable
   public func hash(into hasher: inout Hasher) {
     hasher.combine(value)
   }
-
-  @inlinable
   internal func _successor() -> Self {
     Self(value + 1)
   }
-
-  @inlinable
   internal func _predecessor() -> Self {
     Self(value - 1)
   }

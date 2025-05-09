@@ -14,7 +14,6 @@ import InternalCollectionsUtilities
 #endif
 
 extension _HashNode {
-  @inlinable
   internal mutating func insert(
     _ level: _HashLevel,
     _ item: Element,
@@ -22,8 +21,6 @@ extension _HashNode {
   ) -> (inserted: Bool, leaf: _UnmanagedHashNode, slot: _HashSlot) {
     insert(level, item.key, hash) { $0.initialize(to: item) }
   }
-
-  @inlinable
   internal mutating func insert(
     _ level: _HashLevel,
     _ key: Key,
@@ -72,8 +69,6 @@ extension _HashNode {
       return r
     }
   }
-
-  @inlinable
   internal func inserting(
     _ level: _HashLevel,
     _ item: __owned Element,
@@ -83,8 +78,6 @@ extension _HashNode {
   ) {
     inserting(level, item.key, hash, { $0.initialize(to: item) })
   }
-
-  @inlinable
   internal func inserting(
     _ level: _HashLevel,
     _ key: Key,
@@ -133,8 +126,6 @@ extension _HashNode {
       return (true, copy, r.leaf, r.slot)
     }
   }
-
-  @inlinable
   internal mutating func updateValue(
     _ level: _HashLevel,
     forKey key: Key,
@@ -184,7 +175,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func ensureUniqueAndInsertItem(
     isUnique: Bool,
     _ item: Element,
@@ -199,8 +189,6 @@ extension _HashNode {
       $0.initialize(to: item)
     }
   }
-
-  @inlinable
   internal mutating func ensureUniqueAndInsertItem(
     isUnique: Bool,
     at bucket: _Bucket,
@@ -225,7 +213,7 @@ extension _HashNode {
     self.count &+= 1
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func copyNodeAndInsertItem(
     at bucket: _Bucket,
     itemSlot slot: _HashSlot,
@@ -256,7 +244,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal mutating func resizeNodeAndInsertItem(
     at bucket: _Bucket,
     itemSlot slot: _HashSlot,
@@ -291,7 +279,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func ensureUniqueAndAppendCollision(
     isUnique: Bool,
     _ item: Element
@@ -300,8 +287,6 @@ extension _HashNode {
       $0.initialize(to: item)
     }
   }
-
-  @inlinable
   internal mutating func ensureUniqueAndAppendCollision(
     isUnique: Bool,
     _ inserter: (UnsafeMutablePointer<Element>) -> Void
@@ -324,7 +309,7 @@ extension _HashNode {
     return _HashSlot(self.count &- 1)
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func copyNodeAndAppendCollision(
     _ inserter: (UnsafeMutablePointer<Element>) -> Void
   ) -> (node: _HashNode, slot: _HashSlot) {
@@ -342,7 +327,7 @@ extension _HashNode {
     return (node, _HashSlot(c))
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal mutating func resizeNodeAndAppendCollision(
     _ inserter: (UnsafeMutablePointer<Element>) -> Void
   ) -> _HashSlot {
@@ -364,7 +349,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal func _copyNodeAndReplaceItemWithNewChild(
     level: _HashLevel,
     _ newChild: __owned _HashNode,
@@ -413,7 +397,6 @@ extension _HashNode {
 
   /// The item at `itemSlot` must have already been deinitialized by the time
   /// this function is called.
-  @inlinable
   internal mutating func _resizeNodeAndReplaceItemWithNewChild(
     level: _HashLevel,
     _ newChild: __owned _HashNode,
@@ -460,7 +443,7 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable @inline(never)
+  @inline(never)
   internal func copyNodeAndPushItemIntoNewChild(
     level: _HashLevel,
     _ newChild: __owned _HashNode,
@@ -480,7 +463,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @inlinable
   internal mutating func ensureUniqueAndSpawnChild(
     isUnique: Bool,
     level: _HashLevel,
@@ -527,7 +509,7 @@ extension _HashNode {
     return (r.leaf, r.slot2)
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func copyNodeAndSpawnChild(
     level: _HashLevel,
     replacing bucket: _Bucket,
@@ -551,7 +533,7 @@ extension _HashNode {
     return (node, r.leaf, r.slot2)
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal mutating func resizeNodeAndSpawnChild(
     level: _HashLevel,
     replacing bucket: _Bucket,

@@ -19,13 +19,11 @@ import InternalCollectionsUtilities
 /// Because such a reference may outlive the underlying object, use sites must
 /// be extraordinarily careful to never dereference an invalid
 /// `_UnmanagedHashNode`. Doing so results in undefined behavior.
-@usableFromInline
 @frozen
 internal struct _UnmanagedHashNode {
-  @usableFromInline
   internal var ref: Unmanaged<_RawHashStorage>
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal init(_ storage: _RawHashStorage) {
     self.ref = .passUnretained(storage)
   }
@@ -38,21 +36,19 @@ extension _UnmanagedHashNode: Equatable {
   /// invalid -- however, it may incorrectly return true in this case.
   /// (This can happen when a destroyed node's memory region is later reused for
   /// a newly created node.)
-  @inlinable
   internal static func ==(left: Self, right: Self) -> Bool {
     left.ref.toOpaque() == right.ref.toOpaque()
   }
 }
 
 extension _UnmanagedHashNode: CustomStringConvertible {
-  @usableFromInline
   internal var description: String {
     _addressString(for: ref.toOpaque())
   }
 }
 
 extension _UnmanagedHashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal func withRaw<R>(_ body: (_RawHashStorage) -> R) -> R {
     ref._withUnsafeGuaranteedRef(body)
   }
@@ -65,38 +61,24 @@ extension _UnmanagedHashNode {
       }
     }
   }
-
-  @inlinable
   internal var hasItems: Bool {
     withRaw { $0.header.hasItems }
   }
-
-  @inlinable
   internal var hasChildren: Bool {
     withRaw { $0.header.hasChildren }
   }
-
-  @inlinable
   internal var itemCount: Int {
     withRaw { $0.header.itemCount }
   }
-
-  @inlinable
   internal var childCount: Int {
     withRaw { $0.header.childCount }
   }
-
-  @inlinable
   internal var itemsEndSlot: _HashSlot {
     withRaw { _HashSlot($0.header.itemCount) }
   }
-
-  @inlinable
   internal var childrenEndSlot: _HashSlot {
     withRaw { _HashSlot($0.header.childCount) }
   }
-
-  @inlinable
   internal func unmanagedChild(at slot: _HashSlot) -> Self {
     withRaw { raw in
       assert(slot.value < raw.header.childCount)

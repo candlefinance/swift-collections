@@ -34,7 +34,6 @@ extension TreeSet {
   ///    implements high-quality hashing. The implementation is careful to make
   ///    the best use of hash tree structure to minimize work when possible,
   ///    e.g. by skipping over parts of the input trees.
-  @inlinable
   public func isStrictSubset(of other: Self) -> Bool {
     guard self.count < other.count else { return false }
     return isSubset(of: other)
@@ -60,7 +59,6 @@ extension TreeSet {
   ///    implements high-quality hashing. The implementation is careful to make
   ///    the best use of hash tree structure to minimize work when possible,
   ///    e.g. by skipping over parts of the input trees.
-  @inlinable
   public func isStrictSubset<Value>(
     of other: TreeDictionary<Element, Value>.Keys
   ) -> Bool {
@@ -89,7 +87,6 @@ extension TreeSet {
   ///    `self.contains` (where *n* is the number of elements in `other`),
   ///    and it constructs a temporary persistent set containing every
   ///    element of the sequence.
-  @inlinable
   public func isStrictSubset(of other: some Sequence<Element>) -> Bool {
     if let other = _specialize(other, for: Self.self) {
       return isStrictSubset(of: other)

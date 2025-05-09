@@ -12,7 +12,6 @@
 // MARK: Subtree-level in-place mutation operations
 
 extension _HashNode {
-  @inlinable
   internal mutating func ensureUnique(
     level: _HashLevel, at path: _UnsafePath
   ) -> (leaf: _UnmanagedHashNode, slot: _HashSlot) {
@@ -26,25 +25,13 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @usableFromInline
   @frozen
   internal struct ValueUpdateState {
-    @usableFromInline
     internal var key: Key
-
-    @usableFromInline
     internal var value: Value?
-
-    @usableFromInline
     internal let hash: _Hash
-
-    @usableFromInline
     internal var path: _UnsafePath
-
-    @usableFromInline
     internal var found: Bool
-
-    @inlinable
     internal init(
       _ key: Key,
       _ hash: _Hash,
@@ -57,8 +44,6 @@ extension _HashNode {
       self.found = false
     }
   }
-
-  @inlinable
   internal mutating func prepareValueUpdate(
     _ key: Key,
     _ hash: _Hash
@@ -67,8 +52,6 @@ extension _HashNode {
     _prepareValueUpdate(&state)
     return state
   }
-
-  @inlinable
   internal mutating func _prepareValueUpdate(
     _ state: inout ValueUpdateState
   ) {
@@ -110,8 +93,6 @@ extension _HashNode {
       }
     }
   }
-
-  @inlinable
   internal mutating func finalizeValueUpdate(
     _ state: __owned ValueUpdateState
   ) {
@@ -137,8 +118,6 @@ extension _HashNode {
       break
     }
   }
-
-  @inlinable
   internal mutating func _finalizeRemoval(
     _ level: _HashLevel, _ hash: _Hash, at path: _UnsafePath
   ) -> Element? {
@@ -158,22 +137,12 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @usableFromInline
   @frozen
   internal struct DefaultedValueUpdateState {
-    @usableFromInline
     internal var item: Element
-
-    @usableFromInline
     internal var node: _UnmanagedHashNode
-
-    @usableFromInline
     internal var slot: _HashSlot
-
-    @usableFromInline
     internal var inserted: Bool
-
-    @inlinable
     internal init(
       _ item: Element,
       in node: _UnmanagedHashNode,
@@ -186,8 +155,6 @@ extension _HashNode {
       self.inserted = inserted
     }
   }
-
-  @inlinable
   internal mutating func prepareDefaultedValueUpdate(
     _ level: _HashLevel,
     _ key: Key,
@@ -259,8 +226,6 @@ extension _HashNode {
       return res
     }
   }
-
-  @inlinable
   internal mutating func finalizeDefaultedValueUpdate(
     _ state: __owned DefaultedValueUpdateState
   ) {

@@ -8,18 +8,13 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-
-@usableFromInline
 @frozen
 internal struct _HashTreeIterator {
-  @usableFromInline
   internal struct _Opaque {
     internal var ancestorSlots: _AncestorHashSlots
     internal var ancestorNodes: _HashStack<_UnmanagedHashNode>
     internal var level: _HashLevel
     internal var isAtEnd: Bool
-
-    @usableFromInline
     @_effects(releasenone)
     internal init(_ root: _UnmanagedHashNode) {
       self.ancestorSlots = .empty
@@ -28,23 +23,11 @@ internal struct _HashTreeIterator {
       self.isAtEnd = false
     }
   }
-
-  @usableFromInline
   internal let root: _RawHashStorage
-
-  @usableFromInline
   internal var node: _UnmanagedHashNode
-
-  @usableFromInline
   internal var slot: _HashSlot
-
-  @usableFromInline
   internal var endSlot: _HashSlot
-
-  @usableFromInline
   internal var _o: _Opaque
-
-  @usableFromInline
   @_effects(releasenone)
   internal init(root: __shared _RawHashNode) {
     self.root = root.storage
@@ -63,7 +46,6 @@ internal struct _HashTreeIterator {
 }
 
 extension _HashTreeIterator: IteratorProtocol {
-  @inlinable
   internal mutating func next(
   ) -> (node: _UnmanagedHashNode, slot: _HashSlot)? {
     guard slot < endSlot else {
@@ -72,8 +54,6 @@ extension _HashTreeIterator: IteratorProtocol {
     defer { slot = slot.next() }
     return (node, slot)
   }
-
-  @usableFromInline
   @_effects(releasenone)
   internal mutating func _next(
   ) -> (node: _UnmanagedHashNode, slot: _HashSlot)? {

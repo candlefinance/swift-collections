@@ -81,13 +81,8 @@
 /// `reserveCapacity` method.)
 @frozen
 public struct Deque<Element> {
-  @usableFromInline
   internal typealias _Slot = _DequeSlot
-
-  @usableFromInline
   internal var _storage: _Storage
-
-  @inlinable
   internal init(_storage: _Storage) {
     self._storage = _storage
   }
@@ -98,7 +93,6 @@ public struct Deque<Element> {
   /// - Parameter minimumCapacity: The minimum number of elements that the
   ///   newly created deque should be able to store without reallocating its
   ///   storage buffer.
-  @inlinable
   public init(minimumCapacity: Int) {
     self._storage = _Storage(minimumCapacity: minimumCapacity)
   }

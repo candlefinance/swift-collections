@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @inlinable
   internal func intersection<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -22,8 +21,6 @@ extension _HashNode {
     root._fullInvariantCheck()
     return root
   }
-
-  @inlinable
   internal func _intersection<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>
@@ -104,7 +101,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func _intersection_slow<Value2>(
     _ level: _HashLevel,
     _ other: _HashNode<Key, Value2>

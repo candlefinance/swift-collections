@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @inlinable
   public func find(
     at position: Int,
     in metric: some RopeMetric<Element>,
@@ -40,7 +39,6 @@ extension Rope {
 }
 
 extension Rope._UnsafeHandle {
-  @inlinable
   internal func findSlot(
     at position: Int,
     in metric: some RopeMetric<Element>,
@@ -60,8 +58,6 @@ extension Rope._UnsafeHandle {
     precondition(remaining == 0, "Position out of bounds")
     return preferEnd ? (childCount - 1, remaining + size) : (childCount, 0)
   }
-
-  @inlinable
   internal func findSlot(
     from p: (slot: Int, remaining: Int),
     offsetBy distance: Int,

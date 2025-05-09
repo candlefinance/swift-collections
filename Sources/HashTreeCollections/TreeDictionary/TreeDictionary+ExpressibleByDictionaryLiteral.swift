@@ -27,7 +27,6 @@ extension TreeDictionary: ExpressibleByDictionaryLiteral {
   ///
   /// - Complexity: O(`elements.count`) if `Element` properly implements
   ///    hashing.
-  @inlinable
   @inline(__always)
   public init(dictionaryLiteral elements: (Key, Value)...) {
     self.init(uniqueKeysWithValues: elements)

@@ -10,33 +10,26 @@
 //===----------------------------------------------------------------------===//
 
 /// An abstract representation of a hash value.
-@usableFromInline
 @frozen
 internal struct _Hash {
-  @usableFromInline
   internal var value: UInt
-
-  @inlinable
   internal init(_ key: some Hashable) {
     let hashValue = key._rawHashValue(seed: 0)
     self.value = UInt(bitPattern: hashValue)
   }
-
-  @inlinable
   internal init(_value: UInt) {
     self.value = _value
   }
 }
 
 extension _Hash: Equatable {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static func ==(left: Self, right: Self) -> Bool {
     left.value == right.value
   }
 }
 
 extension _Hash: CustomStringConvertible {
-  @usableFromInline
   internal var description: String {
     // Print hash values in radix 32 & reversed, so that the path in the hash
     // tree is readily visible.
@@ -49,12 +42,11 @@ extension _Hash: CustomStringConvertible {
 
 
 extension _Hash {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static var bitWidth: Int { UInt.bitWidth }
 }
 
 extension _Hash {
-  @inlinable
   internal subscript(_ level: _HashLevel) -> _Bucket {
     get {
       assert(!level.isAtBottom)
@@ -69,20 +61,15 @@ extension _Hash {
 }
 
 extension _Hash {
-  @inlinable
   internal static var emptyPath: _Hash {
     _Hash(_value: 0)
   }
-
-  @inlinable
   internal func appending(_ bucket: _Bucket, at level: _HashLevel) -> Self {
     assert(value >> level.shift == 0)
     var copy = self
     copy[level] = bucket
     return copy
   }
-
-  @inlinable
   internal func isEqual(to other: _Hash, upTo level: _HashLevel) -> Bool {
     if level.isAtRoot { return true }
     if level.isAtBottom { return self == other }

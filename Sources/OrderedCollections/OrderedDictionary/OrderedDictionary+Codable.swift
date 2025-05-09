@@ -26,7 +26,6 @@ extension OrderedDictionary: Encodable where Key: Encodable, Value: Encodable {
   ///    JSON's "object" construct is explicitly unordered.)
   ///
   /// - Parameter encoder: The encoder to write data to.
-  @inlinable
   public func encode(to encoder: Encoder) throws {
     // Encode contents as an array of alternating key-value pairs.
     var container = encoder.unkeyedContainer()
@@ -54,7 +53,6 @@ extension OrderedDictionary: Decodable where Key: Decodable, Value: Decodable {
   ///    JSON's "object" construct is explicitly unordered.)
   ///
   /// - Parameter decoder: The decoder to read data from.
-  @inlinable
   public init(from decoder: Decoder) throws {
     // We expect to be encoded as an array of alternating key-value pairs.
     var container = try decoder.unkeyedContainer()

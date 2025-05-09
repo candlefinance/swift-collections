@@ -12,7 +12,7 @@
 extension _HashNode {
   /// Returns true if `self` contains a subset of the keys in `other`.
   /// Otherwise, returns false.
-  @inlinable @inline(never)
+  @inline(never)
   internal func isSubset<Value2>(
     _ level: _HashLevel,
     of other: _HashNode<Key, Value2>

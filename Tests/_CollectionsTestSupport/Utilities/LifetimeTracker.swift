@@ -47,8 +47,6 @@ public class LifetimeTracker {
     items.map { instance(for: transform($0)) }
   }
 }
-
-@inlinable
 public func withLifetimeTracking<R>(
   file: StaticString = #file,
   line: UInt = #line,

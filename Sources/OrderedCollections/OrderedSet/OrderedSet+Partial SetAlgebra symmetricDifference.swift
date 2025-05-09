@@ -39,7 +39,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
   public __consuming func symmetricDifference(_ other: __owned Self) -> Self {
     _UnsafeBitSet.withTemporaryBitSet(capacity: self.count) { bitset1 in
       _UnsafeBitSet.withTemporaryBitSet(capacity: other.count) { bitset2 in
@@ -84,7 +83,6 @@ extension OrderedSet {
   ///
   /// - Complexity: Expected to be O(`self.count + other.count`) on average, if
   ///    `Element` implements high-quality hashing.
-  @inlinable
   @inline(__always)
   public __consuming func symmetricDifference(
     _ other: __owned UnorderedView
@@ -112,7 +110,6 @@ extension OrderedSet {
   /// - Complexity: Expected to be O(`self.count` + *n*) on average where *n* is
   ///    the number of elements in `other`, if `Element` implements high-quality
   ///    hashing.
-  @inlinable
   public __consuming func symmetricDifference(
     _ other: __owned some Sequence<Element>
   ) -> Self {

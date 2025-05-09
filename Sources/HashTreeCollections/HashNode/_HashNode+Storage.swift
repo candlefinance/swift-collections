@@ -15,7 +15,6 @@ import InternalCollectionsUtilities
 
 /// A base representation of a hash tree node, capturing functionality
 /// independent of the `Key` and `Value` types.
-@usableFromInline
 internal typealias _RawHashStorage = ManagedBuffer<_HashNodeHeader, _RawHashNode>
 
 /// Type-punned storage for the singleton root node used in empty hash trees
@@ -25,7 +24,6 @@ internal typealias _RawHashStorage = ManagedBuffer<_HashNodeHeader, _RawHashNode
 /// storage variable, so that this can work. (The only reason we need the
 /// `_HashNode.Storage` subclass is to allow storage instances to properly
 /// clean up after themselves in their `deinit` method.)
-@usableFromInline
 internal let _emptySingleton: _RawHashStorage = _RawHashStorage.create(
   minimumCapacity: 0,
   makingHeaderWith: { _ in _HashNodeHeader(byteCapacity: 0) })
@@ -33,12 +31,8 @@ internal let _emptySingleton: _RawHashStorage = _RawHashStorage.create(
 extension _HashNode {
   /// Instances of this class hold (tail-allocated) storage for individual
   /// nodes in a hash tree.
-  @usableFromInline
   internal final class Storage: _RawHashStorage {
-    @usableFromInline
     internal typealias Element = (key: Key, value: Value)
-
-    @usableFromInline
     internal typealias UnsafeHandle = _HashNode<Key, Value>.UnsafeHandle
 
     deinit {
@@ -51,7 +45,6 @@ extension _HashNode {
 }
 
 extension _HashNode.Storage {
-  @inlinable
   internal static func allocate(byteCapacity: Int) -> _HashNode.Storage {
     assert(byteCapacity >= 0)
 
@@ -97,44 +90,36 @@ extension _HashNode.Storage {
 }
 
 extension _HashNode {
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static var spaceForNewItem: Int {
     MemoryLayout<Element>.stride
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static var spaceForNewChild: Int {
     MemoryLayout<_HashNode>.stride
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static var spaceForSpawningChild: Int {
     Swift.max(0, spaceForNewChild - spaceForNewItem)
   }
 
-  @inlinable @inline(__always)
+  @inline(__always)
   internal static var spaceForInlinedChild: Int {
     Swift.max(0, spaceForNewItem - spaceForNewChild)
   }
-
-  @inlinable
   internal mutating func isUnique() -> Bool {
     isKnownUniquelyReferenced(&self.raw.storage)
   }
-
-  @inlinable
   internal func hasFreeSpace(_ bytes: Int) -> Bool {
     bytes <= self.raw.storage.header.bytesFree
   }
-
-  @inlinable
   internal mutating func ensureUnique(isUnique: Bool) {
     if !isUnique {
       self = copy()
     }
   }
-
-  @inlinable
   internal mutating func ensureUnique(
     isUnique: Bool,
     withFreeSpace minimumFreeBytes: Int = 0
@@ -145,9 +130,6 @@ extension _HashNode {
       move(withFreeSpace: minimumFreeBytes)
     }
   }
-
-
-  @inlinable
   internal static func allocate<R>(
     itemMap: _Bitmap, childMap: _Bitmap,
     count: Int,
@@ -188,8 +170,6 @@ extension _HashNode {
     }
     return (node, result)
   }
-
-  @inlinable
   internal static func allocateCollision<R>(
     count: Int,
     _ hash: _Hash,
@@ -222,7 +202,7 @@ extension _HashNode {
   }
 
 
-  @inlinable @inline(never)
+  @inline(never)
   internal func copy(withFreeSpace space: Int = 0) -> _HashNode {
     assert(space >= 0)
 
@@ -248,7 +228,7 @@ extension _HashNode {
     }
   }
 
-  @inlinable @inline(never)
+  @inline(never)
   internal mutating func move(withFreeSpace space: Int = 0) {
     assert(space >= 0)
     let c = self.count
