@@ -8,7 +8,7 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-@frozen // Not really! This module isn't ABI stable.
+// Not really! This module isn't ABI stable.
 internal struct _RopeVersion {
   // FIXME: Replace this probabilistic mess with atomics when Swift gets its act together.
   internal var _value: UInt

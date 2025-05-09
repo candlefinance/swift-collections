@@ -20,7 +20,6 @@ extension Deque: Sequence {
   // conversions from indices to storage slots.
 
   /// An iterator over the members of a deque.
-  @frozen
   public struct Iterator: IteratorProtocol {
     internal var _storage: Deque._Storage
     internal var _nextSlot: _Slot

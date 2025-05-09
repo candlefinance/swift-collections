@@ -15,7 +15,6 @@ import InternalCollectionsUtilities
 
 extension TreeDictionary {
   /// A view of a dictionary’s values.
-  @frozen
   public struct Values {
     internal typealias _Node = TreeDictionary._Node
     internal typealias _UnsafeHandle = _Node.UnsafeHandle
@@ -54,8 +53,6 @@ extension TreeDictionary.Values: CustomDebugStringConvertible {
 
 extension TreeDictionary.Values: Sequence {
   public typealias Element = Value
-
-  @frozen
   public struct Iterator: IteratorProtocol {
     public typealias Element = Value
     internal var _base: TreeDictionary.Iterator

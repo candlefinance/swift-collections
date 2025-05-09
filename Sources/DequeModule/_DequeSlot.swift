@@ -8,7 +8,6 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-@frozen
 internal struct _DequeSlot {
   internal var position: Int
   @inline(__always)

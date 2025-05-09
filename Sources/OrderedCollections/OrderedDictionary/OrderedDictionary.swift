@@ -199,7 +199,6 @@
 ///
 /// See ``OrderedSet`` for a more detailed discussion of these performance
 /// characteristics.
-@frozen
 public struct OrderedDictionary<Key: Hashable, Value> {
   internal var _keys: OrderedSet<Key>
   internal var _values: ContiguousArray<Value>

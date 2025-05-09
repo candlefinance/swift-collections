@@ -14,7 +14,6 @@ import InternalCollectionsUtilities
 #endif
 
 /// A set of `_Bucket` values, represented by a 32-bit wide bitset.
-@frozen
 internal struct _Bitmap {
   internal typealias Value = UInt32
   internal var _value: Value
@@ -177,7 +176,6 @@ extension _Bitmap {
 
 extension _Bitmap: Sequence {
   internal typealias Element = (bucket: _Bucket, slot: _HashSlot)
-  @frozen
   internal struct Iterator: IteratorProtocol {
     internal var bitmap: _Bitmap
     internal var slot: _HashSlot

@@ -65,7 +65,6 @@ extension _HashNode.UnsafeHandle {
 /// equivalent: `.notFound`, .newCollision` and `expansion` all represent the
 /// same logical outcome: the key we're looking for is not present in this
 /// subtree.
-@frozen
 internal enum _FindResult {
   /// The item we're looking for is stored directly in this node, at the
   /// bucket / item slot identified in the payload.

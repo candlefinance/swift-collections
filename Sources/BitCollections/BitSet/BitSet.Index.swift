@@ -21,7 +21,6 @@ extension BitSet {
   /// However, `BitSet` uses an opaque wrapper instead, to prevent confusion:
   /// it would otherwise be all too easy to accidentally use `i + 1` instead of
   /// calling `index(after: i)`, and ending up with an invalid index.
-  @frozen
   public struct Index {
     var _value: UInt
     internal init(_value: UInt) {

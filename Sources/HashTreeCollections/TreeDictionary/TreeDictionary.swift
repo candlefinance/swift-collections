@@ -62,7 +62,7 @@
 /// accessing a flat hash table. However the algorithmic improvements above
 /// usually more than make up for this, as long as the use case can make use of
 /// them.
-@frozen // Not really -- this package is not at all ABI stable
+// Not really -- this package is not at all ABI stable
 public struct TreeDictionary<Key: Hashable, Value> {
   internal typealias _Node = _HashNode<Key, Value>
   internal typealias _UnsafeHandle = _Node.UnsafeHandle

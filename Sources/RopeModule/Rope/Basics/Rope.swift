@@ -12,7 +12,7 @@
 /// An ordered data structure of `Element` values that organizes itself into a tree.
 /// The rope is augmented by the commutative group specified by `Element.Summary`, enabling
 /// quick lookup operations.
-@frozen // Not really! This module isn't ABI stable.
+// Not really! This module isn't ABI stable.
 public struct Rope<Element: RopeElement> {
   internal var _root: _Node?
   internal var _version: _RopeVersion

@@ -17,7 +17,6 @@
 /// This construct can only be used to identify a particular node in the tree;
 /// it does not necessarily have room to include an item offset in the addressed
 /// node. (See `_Path` if you need to address a particular item.)
-@frozen
 struct _AncestorHashSlots {
   internal var path: UInt
 

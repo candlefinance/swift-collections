@@ -132,7 +132,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @_alwaysEmitIntoClient
   internal func moveInitialize(fromContentsOf source: Self) -> Index {
     guard let sourceAddress = source.baseAddress, !source.isEmpty else {
       return startIndex
@@ -173,7 +172,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @_alwaysEmitIntoClient
   internal func moveInitialize(fromContentsOf source: Slice<Self>) -> Index {
     return moveInitialize(fromContentsOf: Self(rebasing: source))
   }
@@ -187,7 +185,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @_alwaysEmitIntoClient
   internal func initializeElement(at index: Index, to value: Element) {
     assert(startIndex <= index && index < endIndex)
     let p = baseAddress.unsafelyUnwrapped.advanced(by: index)
@@ -204,7 +201,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - index: The index of the buffer element to retrieve and deinitialize.
   /// - Returns: The instance referenced by this index in this buffer.
-  @_alwaysEmitIntoClient
   internal func moveElement(from index: Index) -> Element {
     assert(startIndex <= index && index < endIndex)
     return baseAddress.unsafelyUnwrapped.advanced(by: index).move()
@@ -218,7 +214,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - index: The index of the buffer element to deinitialize.
-  @_alwaysEmitIntoClient
   internal func deinitializeElement(at index: Index) {
     assert(startIndex <= index && index < endIndex)
     let p = baseAddress.unsafelyUnwrapped.advanced(by: index)
@@ -256,7 +251,6 @@ extension Slice {
   ///     initialize the buffer slice's storage.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   internal func initialize<C: Collection>(
     fromContentsOf source: C
   ) -> Index where Base == UnsafeMutableBufferPointer<C.Element> {
@@ -294,7 +288,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   internal func moveInitialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) -> Index where Base == UnsafeMutableBufferPointer<Element> {
@@ -332,7 +325,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   internal func moveInitialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) -> Index where Base == UnsafeMutableBufferPointer<Element> {
@@ -353,7 +345,6 @@ extension Slice {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @_alwaysEmitIntoClient
   internal func deinitialize<Element>() -> UnsafeMutableRawBufferPointer
   where Base == UnsafeMutableBufferPointer<Element> {
     Base(rebasing: self).deinitialize()
@@ -368,7 +359,6 @@ extension Slice {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @_alwaysEmitIntoClient
   internal func initializeElement<Element>(at index: Int, to value: Element)
   where Base == UnsafeMutableBufferPointer<Element> {
     assert(startIndex <= index && index < endIndex)
@@ -388,7 +378,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - repeatedValue: The value used when updating this pointer's memory.
-  @_alwaysEmitIntoClient
   internal func update(repeating repeatedValue: Element) {
     guard let dstBase = baseAddress else { return }
     dstBase.update(repeating: repeatedValue, count: count)
@@ -407,7 +396,6 @@ extension Slice {
   ///
   /// - Parameters:
   ///   - repeatedValue: The value used when updating this pointer's memory.
-  @_alwaysEmitIntoClient
   internal func update<Element>(repeating repeatedValue: Element)
   where Base == UnsafeMutableBufferPointer<Element> {
     Base(rebasing: self).update(repeating: repeatedValue)
@@ -523,7 +511,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @_alwaysEmitIntoClient
   public func moveInitialize(fromContentsOf source: Self) -> Index {
     guard let sourceAddress = source.baseAddress, !source.isEmpty else {
       return startIndex
@@ -564,7 +551,6 @@ extension UnsafeMutableBufferPointer {
   ///     region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer initialized
   ///     by this function.
-  @_alwaysEmitIntoClient
   public func moveInitialize(fromContentsOf source: Slice<Self>) -> Index {
     return moveInitialize(fromContentsOf: Self(rebasing: source))
   }
@@ -578,7 +564,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @_alwaysEmitIntoClient
   public func initializeElement(at index: Index, to value: Element) {
     assert(startIndex <= index && index < endIndex)
     let p = baseAddress.unsafelyUnwrapped.advanced(by: index)
@@ -595,7 +580,6 @@ extension UnsafeMutableBufferPointer {
   /// - Parameters:
   ///   - index: The index of the buffer element to retrieve and deinitialize.
   /// - Returns: The instance referenced by this index in this buffer.
-  @_alwaysEmitIntoClient
   public func moveElement(from index: Index) -> Element {
     assert(startIndex <= index && index < endIndex)
     return baseAddress.unsafelyUnwrapped.advanced(by: index).move()
@@ -609,7 +593,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - index: The index of the buffer element to deinitialize.
-  @_alwaysEmitIntoClient
   public func deinitializeElement(at index: Index) {
     assert(startIndex <= index && index < endIndex)
     let p = baseAddress.unsafelyUnwrapped.advanced(by: index)
@@ -647,7 +630,6 @@ extension Slice {
   ///     initialize the buffer slice's storage.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   public func initialize<C: Collection>(
     fromContentsOf source: C
   ) -> Index where Base == UnsafeMutableBufferPointer<C.Element> {
@@ -685,7 +667,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   public func moveInitialize<Element>(
     fromContentsOf source: UnsafeMutableBufferPointer<Element>
   ) -> Index where Base == UnsafeMutableBufferPointer<Element> {
@@ -723,7 +704,6 @@ extension Slice {
   ///     The memory region underlying `source` must be initialized.
   /// - Returns: The index one past the last element of the buffer slice
   ///    initialized by this function.
-  @_alwaysEmitIntoClient
   public func moveInitialize<Element>(
     fromContentsOf source: Slice<UnsafeMutableBufferPointer<Element>>
   ) -> Index where Base == UnsafeMutableBufferPointer<Element> {
@@ -744,7 +724,6 @@ extension Slice {
   /// - Returns: A raw buffer to the same range of memory as this buffer.
   ///   The range of memory is still bound to `Element`.
   @discardableResult
-  @_alwaysEmitIntoClient
   public func deinitialize<Element>() -> UnsafeMutableRawBufferPointer
   where Base == UnsafeMutableBufferPointer<Element> {
     Base(rebasing: self).deinitialize()
@@ -759,7 +738,6 @@ extension Slice {
   /// - Parameters:
   ///   - value: The value used to initialize the buffer element's memory.
   ///   - index: The index of the element to initialize
-  @_alwaysEmitIntoClient
   public func initializeElement<Element>(at index: Int, to value: Element)
   where Base == UnsafeMutableBufferPointer<Element> {
     assert(startIndex <= index && index < endIndex)
@@ -779,7 +757,6 @@ extension UnsafeMutableBufferPointer {
   ///
   /// - Parameters:
   ///   - repeatedValue: The value used when updating this pointer's memory.
-  @_alwaysEmitIntoClient
   public func update(repeating repeatedValue: Element) {
     guard let dstBase = baseAddress else { return }
     dstBase.update(repeating: repeatedValue, count: count)
@@ -798,7 +775,6 @@ extension Slice {
   ///
   /// - Parameters:
   ///   - repeatedValue: The value used when updating this pointer's memory.
-  @_alwaysEmitIntoClient
   public func update<Element>(repeating repeatedValue: Element)
   where Base == UnsafeMutableBufferPointer<Element> {
     Base(rebasing: self).update(repeating: repeatedValue)

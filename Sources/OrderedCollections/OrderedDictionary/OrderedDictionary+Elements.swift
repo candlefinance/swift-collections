@@ -16,7 +16,6 @@ import InternalCollectionsUtilities
 extension OrderedDictionary {
   /// A view of the contents of an ordered dictionary as a random-access
   /// collection.
-  @frozen
   public struct Elements {
     internal var _base: OrderedDictionary
     @inline(__always)

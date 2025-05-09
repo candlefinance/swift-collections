@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   internal struct _UnmanagedLeaf {
     internal typealias _Item = Rope._Item
     internal typealias _Leaf = _Storage<_Item>

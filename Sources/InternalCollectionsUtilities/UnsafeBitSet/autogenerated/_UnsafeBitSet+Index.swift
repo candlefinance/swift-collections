@@ -23,7 +23,6 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension _UnsafeBitSet {
-  @frozen 
   internal struct Index: Comparable, Hashable {
     internal typealias _Word = _UnsafeBitSet._Word
     internal var value: UInt
@@ -77,7 +76,6 @@ extension _UnsafeBitSet.Index {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension _UnsafeBitSet {
-  @frozen
   public struct Index: Comparable, Hashable {
     internal typealias _Word = _UnsafeBitSet._Word
 

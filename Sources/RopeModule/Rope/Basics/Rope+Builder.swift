@@ -28,7 +28,7 @@ extension Rope {
 }
 
 extension Rope {
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   public struct Builder {
     //       ║                    ║
     //       ║ ║                ║ ║

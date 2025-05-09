@@ -79,7 +79,6 @@
 /// storage buffer at any given point is an unstable implementation detail that
 /// should not affect application logic. (However, deques do provide a
 /// `reserveCapacity` method.)
-@frozen
 public struct Deque<Element> {
   internal typealias _Slot = _DequeSlot
   internal var _storage: _Storage

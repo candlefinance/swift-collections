@@ -8,7 +8,6 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-@frozen
 internal struct _HashTable {
   internal var _storage: Storage
   @inline(__always)

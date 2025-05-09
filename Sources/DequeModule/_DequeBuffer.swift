@@ -8,8 +8,6 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-
-@_fixed_layout
 internal final class _DequeBuffer<Element>: ManagedBuffer<_DequeBufferHeader, Element> {
   deinit {
     self.withUnsafeMutablePointers { header, elements in

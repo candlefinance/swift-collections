@@ -34,7 +34,6 @@
 /// buffer above is identified by position of the *n*th true bit in the child
 /// map, and the *n*th item's bucket corresponds to the *n*th true bit in the
 /// items map.
-@frozen
 internal struct _HashNode<Key: Hashable, Value> {
   // Warning: This struct must be kept layout-compatible with _RawHashNode.
   // Do not add any new stored properties to this type.

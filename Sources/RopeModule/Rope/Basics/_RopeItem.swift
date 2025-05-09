@@ -37,7 +37,7 @@ extension Rope: _RopeItem {
 extension Rope {
   /// A trivial wrapper around a rope's Element type, giving it `_RopeItem` conformance without
   /// having to make the protocol public.
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   internal struct _Item {
     internal var value: Element
     internal init(_ value: Element) { self.value = value }

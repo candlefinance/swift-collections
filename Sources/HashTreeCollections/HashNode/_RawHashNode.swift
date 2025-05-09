@@ -15,7 +15,6 @@
 ///
 /// This construct is powerful enough to implement APIs such as `index(after:)`,
 /// `distance(from:to:)`, `index(_:offsetBy:)` in non-generic code.
-@frozen
 internal struct _RawHashNode {
   internal var storage: _RawHashStorage
   internal var count: Int

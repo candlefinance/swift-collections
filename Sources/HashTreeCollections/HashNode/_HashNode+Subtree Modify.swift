@@ -25,7 +25,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @frozen
   internal struct ValueUpdateState {
     internal var key: Key
     internal var value: Value?
@@ -137,7 +136,6 @@ extension _HashNode {
 }
 
 extension _HashNode {
-  @frozen
   internal struct DefaultedValueUpdateState {
     internal var item: Element
     internal var node: _UnmanagedHashNode

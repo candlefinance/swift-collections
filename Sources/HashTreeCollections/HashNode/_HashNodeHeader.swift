@@ -12,7 +12,6 @@
 /// The storage header in a hash tree node. This includes data about the
 /// current size and capacity of the node's storage region, as well as
 /// information about the currently occupied hash table buckets.
-@frozen
 internal struct _HashNodeHeader {
   internal var itemMap: _Bitmap
   internal var childMap: _Bitmap

@@ -27,31 +27,26 @@ extension OrderedSet._UnstableInternals {
 
 extension OrderedSet {
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public static var _minimumScale: Int {
     _HashTable.minimumScale
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public static func _minimumCapacity(forScale scale: Int) -> Int {
     _HashTable.minimumCapacity(forScale: scale)
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public static func _maximumCapacity(forScale scale: Int) -> Int {
     _HashTable.maximumCapacity(forScale: scale)
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public static func _scale(forCapacity capacity: Int) -> Int {
     _HashTable.scale(forCapacity: capacity)
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public static func _biasRange(scale: Int) -> Range<Int> {
     guard scale != 0 else { return Range(uncheckedBounds: (0, 1)) }
     return Range(uncheckedBounds: (0, (1 &<< scale) - 1))
@@ -60,11 +55,9 @@ extension OrderedSet {
 
 extension OrderedSet._UnstableInternals {
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public var hasHashTable: Bool { base._table != nil }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public var hashTableIdentity: ObjectIdentifier? {
     guard let storage = base.__storage else { return nil }
     return ObjectIdentifier(storage)
@@ -79,7 +72,6 @@ extension OrderedSet._UnstableInternals {
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   mutating public func _regenerateHashTable(bias: Int) {
     base._ensureUnique()
     let new = base._table!.copy()
@@ -98,7 +90,6 @@ extension OrderedSet._UnstableInternals {
   }
 
   @_spi(Testing)
-  @_alwaysEmitIntoClient
   public mutating func reserveCapacity(
     _ minimumCapacity: Int,
     persistent: Bool

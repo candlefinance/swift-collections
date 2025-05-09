@@ -11,7 +11,6 @@
 
 /// Identifies an entry in the hash table inside a node.
 /// (Internally, a number between 0 and 31.)
-@frozen
 internal struct _Bucket {
   internal var _value: UInt8
 

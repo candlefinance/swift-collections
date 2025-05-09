@@ -16,7 +16,6 @@ import InternalCollectionsUtilities
 extension OrderedSet {
   /// An unordered view into an ordered set, providing `SetAlgebra`
   /// conformance.
-  @frozen
   public struct UnorderedView {
     internal var _base: OrderedSet
     @inline(__always)

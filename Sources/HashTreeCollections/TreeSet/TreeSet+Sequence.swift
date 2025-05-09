@@ -11,7 +11,6 @@
 
 extension TreeSet: Sequence {
   /// An iterator over the members of a `TreeSet`.
-  @frozen
   public struct Iterator: IteratorProtocol {
     internal typealias _UnsafeHandle = _Node.UnsafeHandle
     internal var _it: _HashTreeIterator

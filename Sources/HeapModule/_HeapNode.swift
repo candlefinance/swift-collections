@@ -8,8 +8,6 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-
-@frozen
 internal struct _HeapNode {
   internal var offset: Int
   internal var level: Int

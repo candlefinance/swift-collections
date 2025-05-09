@@ -8,7 +8,6 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-@frozen
 internal struct _HashTreeIterator {
   internal struct _Opaque {
     internal var ancestorSlots: _AncestorHashSlots

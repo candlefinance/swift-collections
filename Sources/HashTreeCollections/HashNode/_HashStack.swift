@@ -11,7 +11,6 @@
 
 /// A fixed-size array of just enough size to hold an ancestor path in a
 /// `TreeDictionary`.
-@frozen
 internal struct _HashStack<Element> {
 #if arch(x86_64) || arch(arm64)
   @inline(__always)

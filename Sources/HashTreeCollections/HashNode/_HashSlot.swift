@@ -16,7 +16,6 @@
 /// We use the term "slot" to refer to internal storage entries, to avoid
 /// confusion with terms that sometimes appear in public API, such as
 /// "index", "position" or "offset".
-@frozen
 internal struct _HashSlot {
   internal var _value: UInt32
 

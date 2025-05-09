@@ -21,7 +21,6 @@ extension _HashTable {
   /// - Warning: `_UnsafeHashTable` values do not have ownership of their
   ///    underlying storage buffer. You must not escape these handles outside
   ///    the closure call that produced them.
-  @frozen
   internal struct UnsafeHandle {
     internal typealias Bucket = _HashTable.Bucket
 

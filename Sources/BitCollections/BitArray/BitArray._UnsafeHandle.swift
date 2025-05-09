@@ -16,7 +16,6 @@ import InternalCollectionsUtilities
 extension BitArray {
   /// An unsafe-unowned bitarray view over `UInt` storage, providing bit array
   /// primitives.
-  @frozen
   internal struct _UnsafeHandle {
     internal typealias _BitPosition = _UnsafeBitSet.Index
     internal let _words: UnsafeBufferPointer<_Word>

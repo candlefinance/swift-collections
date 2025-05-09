@@ -15,7 +15,6 @@ import InternalCollectionsUtilities
 
 extension TreeDictionary {
   /// A view of a persistent dictionary’s keys, as a standalone collection.
-  @frozen
   public struct Keys {
     internal typealias _Node = _HashNode<Key, Value>
     internal var _base: TreeDictionary
@@ -57,7 +56,6 @@ extension TreeDictionary.Keys: Sequence {
 
   /// The type that allows iteration over the elements of the keys view
   /// of a persistent dictionary.
-  @frozen
   public struct Iterator: IteratorProtocol {
     public typealias Element = Key
     internal var _base: TreeDictionary.Iterator

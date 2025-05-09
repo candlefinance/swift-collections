@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Deque {
-  @frozen
   internal struct _UnsafeHandle {
     let _header: UnsafeMutablePointer<_DequeBufferHeader>
     let _elements: UnsafeMutablePointer<Element>

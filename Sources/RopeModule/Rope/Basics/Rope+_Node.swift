@@ -14,7 +14,7 @@ import InternalCollectionsUtilities // for 5.8 polyfills
 #endif
 
 extension Rope {
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   internal struct _Node: _RopeItem {
     internal typealias Summary = Rope.Summary
     internal typealias Index = Rope.Index
@@ -482,7 +482,7 @@ extension Rope._Node {
     }
   }
 
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   internal struct _ModifyState {
     internal var path: _Path
     internal var item: _Item

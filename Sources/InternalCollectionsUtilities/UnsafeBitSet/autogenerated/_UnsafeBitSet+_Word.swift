@@ -24,7 +24,6 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension _UnsafeBitSet {
-  @frozen 
   internal struct _Word {
     internal var value: UInt
     @inline(__always)
@@ -291,7 +290,6 @@ extension _UnsafeBitSet._Word {
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension _UnsafeBitSet {
-  @frozen
   public struct _Word {
     
     public var value: UInt

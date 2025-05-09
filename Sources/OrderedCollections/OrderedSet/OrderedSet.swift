@@ -274,7 +274,6 @@ import InternalCollectionsUtilities
 /// the hash table can regress into a particularly slow implementation of an
 /// unsorted array, with even basic lookup operations taking complexity
 /// proportional to the size of the set.
-@frozen
 public struct OrderedSet<Element> where Element: Hashable
 {
   internal typealias _Bucket = _HashTable.Bucket

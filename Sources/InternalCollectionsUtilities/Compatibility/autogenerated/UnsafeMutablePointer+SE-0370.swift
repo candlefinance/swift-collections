@@ -36,7 +36,6 @@ extension UnsafeMutablePointer {
   ///   - repeatedValue: The value used when updating this pointer's memory.
   ///   - count: The number of consecutive elements to update.
   ///     `count` must not be negative.
-  @_alwaysEmitIntoClient
   internal func update(repeating repeatedValue: Pointee, count: Int) {
     assert(count >= 0, "UnsafeMutablePointer.update(repeating:count:) with negative count")
     for i in 0 ..< count {
@@ -60,7 +59,6 @@ extension UnsafeMutablePointer {
   ///   - repeatedValue: The value used when updating this pointer's memory.
   ///   - count: The number of consecutive elements to update.
   ///     `count` must not be negative.
-  @_alwaysEmitIntoClient
   public func update(repeating repeatedValue: Pointee, count: Int) {
     assert(count >= 0, "UnsafeMutablePointer.update(repeating:count:) with negative count")
     for i in 0 ..< count {

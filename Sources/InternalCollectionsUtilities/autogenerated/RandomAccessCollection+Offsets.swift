@@ -23,34 +23,34 @@
 // the current best way to do this is to duplicate all definitions.
 #if COLLECTIONS_SINGLE_MODULE
 extension RandomAccessCollection {
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   internal func _index(at offset: Int) -> Index {
     index(startIndex, offsetBy: offset)
   }
 
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   internal func _offset(of index: Index) -> Int {
     distance(from: startIndex, to: index)
   }
 
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   internal subscript(_offset offset: Int) -> Element {
     self[_index(at: offset)]
   }
 }
 #else // !COLLECTIONS_SINGLE_MODULE
 extension RandomAccessCollection {
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   public func _index(at offset: Int) -> Index {
     index(startIndex, offsetBy: offset)
   }
 
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   public func _offset(of index: Index) -> Int {
     distance(from: startIndex, to: index)
   }
 
-  @_alwaysEmitIntoClient @inline(__always)
+  @inline(__always)
   public subscript(_offset offset: Int) -> Element {
     self[_index(at: offset)]
   }

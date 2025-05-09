@@ -57,7 +57,6 @@
 ///
 /// The name `unordered` highlights the lack of ordering guarantees on the
 /// contents, and it helps avoid relying on any particular order.
-@frozen
 public struct Heap<Element: Comparable> {
   internal var _storage: ContiguousArray<Element>
 

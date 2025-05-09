@@ -15,7 +15,6 @@ import InternalCollectionsUtilities
 
 extension OrderedDictionary {
   /// A view of an ordered dictionary's values as a standalone collection.
-  @frozen
   public struct Values {
     internal var _base: OrderedDictionary
     @inline(__always)

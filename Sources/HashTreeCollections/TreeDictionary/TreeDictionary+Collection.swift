@@ -16,7 +16,6 @@ extension TreeDictionary {
   /// the underlying prefix tree. Such indices are valid until the tree
   /// structure is changed; hence, indices are usually invalidated every time
   /// the dictionary gets mutated.
-  @frozen
   public struct Index {
     internal let _root: _UnmanagedHashNode
     internal var _version: UInt

@@ -32,7 +32,6 @@ extension UnsafeRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   internal func alignedUp<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = (UInt(bitPattern: self) &+ mask) & ~mask
@@ -47,7 +46,6 @@ extension UnsafeRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   internal func alignedDown<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = UInt(bitPattern: self) & ~mask
@@ -64,7 +62,6 @@ extension UnsafeMutableRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   internal func alignedUp<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = (UInt(bitPattern: self) &+ mask) & ~mask
@@ -79,7 +76,6 @@ extension UnsafeMutableRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   internal func alignedDown<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = UInt(bitPattern: self) & ~mask
@@ -98,7 +94,6 @@ extension UnsafeRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   public func alignedUp<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = (UInt(bitPattern: self) &+ mask) & ~mask
@@ -113,7 +108,6 @@ extension UnsafeRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   public func alignedDown<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = UInt(bitPattern: self) & ~mask
@@ -130,7 +124,6 @@ extension UnsafeMutableRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   public func alignedUp<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = (UInt(bitPattern: self) &+ mask) & ~mask
@@ -145,7 +138,6 @@ extension UnsafeMutableRawPointer {
   /// - Parameters:
   ///   - type: the type to be stored at the returned address.
   /// - Returns: a pointer properly aligned to store a value of type `T`.
-  @_alwaysEmitIntoClient
   public func alignedDown<T>(for type: T.Type) -> Self {
     let mask = UInt(MemoryLayout<T>.alignment) &- 1
     let bits = UInt(bitPattern: self) & ~mask

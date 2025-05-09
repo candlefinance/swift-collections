@@ -19,7 +19,6 @@ import InternalCollectionsUtilities
 /// Because such a reference may outlive the underlying object, use sites must
 /// be extraordinarily careful to never dereference an invalid
 /// `_UnmanagedHashNode`. Doing so results in undefined behavior.
-@frozen
 internal struct _UnmanagedHashNode {
   internal var ref: Unmanaged<_RawHashStorage>
 

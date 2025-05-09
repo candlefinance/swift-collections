@@ -15,7 +15,6 @@ extension TreeDictionary: Sequence {
   public typealias Element = (key: Key, value: Value)
 
   /// The type that allows iteration over a persistent dictionary's elements.
-  @frozen
   public struct Iterator {
     // Fixed-stack iterator for traversing a hash tree.
     // The iterator performs a pre-order traversal, with items at a node visited

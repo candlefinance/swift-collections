@@ -13,7 +13,6 @@
 ///
 /// Hash trees have a maximum depth of ⎡`UInt.bitWidth / _Bucket.bitWidth`⎤, so
 /// the level always fits in an `UInt8` value.
-@frozen
 internal struct _HashLevel {
   /// The bit position within a hash value that begins the hash slice that is
   /// associated with this level. For collision nodes, this can be larger than

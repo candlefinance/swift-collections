@@ -22,7 +22,6 @@ extension _RawHashNode {
   /// Handles do not own the storage they access -- it is the client's
   /// responsibility to ensure that handles (and any pointer values generated
   /// by them) do not escape the closure call that received them.
-  @frozen
   internal struct UnsafeHandle {
     internal let _header: UnsafePointer<_HashNodeHeader>
     internal let _memory: UnsafeRawPointer

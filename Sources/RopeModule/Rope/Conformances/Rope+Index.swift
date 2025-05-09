@@ -10,7 +10,7 @@
 //===----------------------------------------------------------------------===//
 
 extension Rope {
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   public struct Index: @unchecked Sendable {
     internal typealias Summary = Rope.Summary
     internal typealias _Path = Rope._Path

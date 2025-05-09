@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Deque {
-  @frozen
   struct _Storage {
     internal typealias _Buffer = ManagedBufferPointer<_DequeBufferHeader, Element>
     internal var _buffer: _Buffer

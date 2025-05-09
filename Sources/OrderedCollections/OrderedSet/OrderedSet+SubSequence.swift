@@ -20,7 +20,6 @@ extension OrderedSet {
   /// membership testing. `contains(_:)` and `firstIndex(of:)`/`lastIndex(of:)`
   /// are expected to have a complexity of O(1), as long as `Element` has
   /// high-quality hashing.
-  @frozen
   public struct SubSequence {
     internal var _base: OrderedSet
     internal var _bounds: Range<Int>

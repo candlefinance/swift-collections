@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 /// An abstract representation of a hash value.
-@frozen
 internal struct _Hash {
   internal var value: UInt
   internal init(_ key: some Hashable) {

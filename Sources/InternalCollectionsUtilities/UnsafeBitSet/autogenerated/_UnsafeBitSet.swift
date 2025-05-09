@@ -24,7 +24,6 @@
 #if COLLECTIONS_SINGLE_MODULE
 /// An unsafe-unowned bitset view over `UInt` storage, providing bit set
 /// primitives.
-@frozen 
 internal struct _UnsafeBitSet {
   /// An unsafe-unowned storage view.
   internal let _words: UnsafeBufferPointer<_Word>
@@ -199,24 +198,18 @@ extension _UnsafeBitSet {
       _mutableWords[w].insertAll(upTo: b)
     }
   }
-
-  @_alwaysEmitIntoClient
   @inline(__always)
   @discardableResult
   internal mutating func insert(_ element: Int) -> Bool {
     precondition(element >= 0)
     return insert(UInt(bitPattern: element))
   }
-
-  @_alwaysEmitIntoClient
   @inline(__always)
   @discardableResult
   internal mutating func remove(_ element: Int) -> Bool {
     guard element >= 0 else { return false }
     return remove(UInt(bitPattern: element))
   }
-
-  @_alwaysEmitIntoClient
   @inline(__always)
   internal mutating func insertAll(upTo max: Int) {
     precondition(max >= 0)
@@ -234,8 +227,6 @@ extension _UnsafeBitSet: Sequence {
   internal func makeIterator() -> Iterator {
     return Iterator(self)
   }
-
-  @frozen
   internal struct Iterator: IteratorProtocol {
     internal let _bitset: _UnsafeBitSet
     internal var _index: Int
@@ -446,7 +437,6 @@ extension _UnsafeBitSet: BidirectionalCollection {
 #else // !COLLECTIONS_SINGLE_MODULE
 /// An unsafe-unowned bitset view over `UInt` storage, providing bit set
 /// primitives.
-@frozen
 public struct _UnsafeBitSet {
   /// An unsafe-unowned storage view.
   
@@ -627,8 +617,6 @@ extension _UnsafeBitSet {
       _mutableWords[w].insertAll(upTo: b)
     }
   }
-
-  @_alwaysEmitIntoClient
   //
   @inline(__always)
   @discardableResult
@@ -636,8 +624,6 @@ extension _UnsafeBitSet {
     precondition(element >= 0)
     return insert(UInt(bitPattern: element))
   }
-
-  @_alwaysEmitIntoClient
   //
   @inline(__always)
   @discardableResult
@@ -645,8 +631,6 @@ extension _UnsafeBitSet {
     guard element >= 0 else { return false }
     return remove(UInt(bitPattern: element))
   }
-
-  @_alwaysEmitIntoClient
   //
   @inline(__always)
   public mutating func insertAll(upTo max: Int) {
@@ -666,8 +650,6 @@ extension _UnsafeBitSet: Sequence {
   public func makeIterator() -> Iterator {
     return Iterator(self)
   }
-
-  @frozen
   public struct Iterator: IteratorProtocol {
     internal let _bitset: _UnsafeBitSet
     internal var _index: Int

@@ -17,7 +17,7 @@ extension Rope: Sequence {
     Iterator(self, from: start)
   }
 
-  @frozen // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   public struct Iterator: IteratorProtocol {
     internal let _rope: Rope
     internal var _index: Index

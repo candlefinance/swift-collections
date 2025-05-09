@@ -10,7 +10,6 @@
 //===----------------------------------------------------------------------===//
 
 extension Heap {
-  @frozen
   struct _UnsafeHandle {
     var buffer: UnsafeMutableBufferPointer<Element>
 

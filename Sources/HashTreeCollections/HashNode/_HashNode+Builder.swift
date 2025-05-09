@@ -10,10 +10,8 @@
 //===----------------------------------------------------------------------===//
 
 extension _HashNode {
-  @frozen
   internal struct Builder {
     internal typealias Element = _HashNode.Element
-    @frozen
     internal enum Kind {
       case empty
       case item(Element, at: _Bucket)

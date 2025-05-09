@@ -57,7 +57,7 @@
 /// structure requires more pointer dereferences than accessing a flat hash
 /// table. However the algorithmic improvements above usually more than make up
 /// for this, as long as the use case can make use of them.
-@frozen // Not really -- this package is not at all ABI stable
+// Not really -- this package is not at all ABI stable
 public struct TreeSet<Element: Hashable> {
   internal typealias _Node = _HashNode<Element, Void>
   internal typealias _UnsafeHandle = _Node.UnsafeHandle

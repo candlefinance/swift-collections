@@ -20,7 +20,6 @@ extension _HashNode {
   /// A handle can be either read-only or mutable, depending on the method used
   /// to access it. In debug builds, methods that modify data trap at runtime if
   /// they're called on a read-only view.
-  @frozen
   internal struct UnsafeHandle {
     internal typealias Element = (key: Key, value: Value)
     internal let _header: UnsafeMutablePointer<_HashNodeHeader>

@@ -15,7 +15,6 @@ extension OrderedDictionary: Sequence {
   public typealias Element = (key: Key, value: Value)
 
   /// The type that allows iteration over an ordered dictionary's elements.
-  @frozen
   public struct Iterator: IteratorProtocol {
     internal let _base: OrderedDictionary
     internal var _position: Int

@@ -18,7 +18,6 @@ extension OrderedDictionary.Elements {
   ///
   /// Ordered dictionary slices are random access collections that
   /// support efficient key-based lookups.
-  @frozen
   public struct SubSequence {
     internal var _base: OrderedDictionary
     internal var _bounds: Range<Int>
@@ -98,7 +97,6 @@ extension OrderedDictionary.Elements.SubSequence: Sequence {
   public typealias Element = OrderedDictionary.Element
 
   /// The type that allows iteration over the collection's elements.
-  @frozen
   public struct Iterator: IteratorProtocol {
     internal var _base: OrderedDictionary
     internal var _end: Int

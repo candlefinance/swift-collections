@@ -12,8 +12,6 @@
 #if !COLLECTIONS_SINGLE_MODULE
 import InternalCollectionsUtilities
 #endif
-
-@frozen
 internal struct _UnsafeWrappedBuffer<Element> {
   internal let first: UnsafeBufferPointer<Element>
   internal let second: UnsafeBufferPointer<Element>?
@@ -43,8 +41,6 @@ internal struct _UnsafeWrappedBuffer<Element> {
   }
   internal var count: Int { first.count + (second?.count ?? 0) }
 }
-
-@frozen
 internal struct _UnsafeMutableWrappedBuffer<Element> {
   internal let first: UnsafeMutableBufferPointer<Element>
   internal let second: UnsafeMutableBufferPointer<Element>?

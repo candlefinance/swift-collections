@@ -33,7 +33,6 @@
 /// node down. (Paths could also store references to every node alongside them
 /// in a fixed-size array; this would speed up walking over the tree, but it
 /// would considerably embiggen the size of the path construct.)
-@frozen
 internal struct _UnsafePath {
   internal var ancestors: _AncestorHashSlots
   internal var node: _UnmanagedHashNode

@@ -8,7 +8,7 @@
 // See https://swift.org/LICENSE.txt for license information
 //
 //===----------------------------------------------------------------------===//
-@frozen // Not really! This module isn't ABI stable.
+// Not really! This module isn't ABI stable.
 internal struct _RopeStorageHeader {
   var _childCount: UInt16
   let height: UInt8
@@ -27,7 +27,7 @@ internal struct _RopeStorageHeader {
 }
 
 extension Rope {
-  @_fixed_layout // Not really! This module isn't ABI stable.
+  // Not really! This module isn't ABI stable.
   internal final class _Storage<Child: _RopeItem<Summary>>:
     ManagedBuffer<_RopeStorageHeader, Child>
   {

@@ -16,7 +16,6 @@ extension OrderedSet {
   /// This struct is a private implementation detail, therefore it and its
   /// members are not covered by any source compatibility promises -- they
   /// may disappear in any new release.
-  @frozen
   public struct _UnstableInternals {
     internal typealias _Bucket = _HashTable.Bucket
     internal var base: OrderedSet
